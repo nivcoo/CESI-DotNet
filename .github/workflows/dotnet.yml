@@ -24,4 +24,4 @@ jobs:
     - name: Test
       run: dotnet test ConsoleApplication --no-build --verbosity normal
     - name: Run app
-      run: dotnet run ConsoleApplication
+      run: dotnet run --project ConsoleApplication
