@@ -33,16 +33,16 @@ jobs:
       uses: actions/upload-artifact@v2
       with: 
         name: ConsoleApplication-win-x64-b${{ github.run_number }}
-        path : ${{ github.workspace }}\ConsoleApplication\bin\Debug\net6.0\win-x64\publish\ConsoleApplication.exe
+        path : D:\a\CESI-DotNet\CESI-DotNet\ConsoleApplication\bin\Debug\net6.0\win-x64\publish\ConsoleApplication.exe
         
     - name: Upload linux-x64 artifacts
       uses: actions/upload-artifact@v2
       with: 
         name: ConsoleApplication-linux-x64-b${{ github.run_number }}
-        path : ${{ github.workspace }}\ConsoleApplication\bin\Debug\net6.0\linux-x64\publish\ConsoleApplication
+        path : D:\a\CESI-DotNet\CESI-DotNet\ConsoleApplication\bin\Debug\net6.0\linux-x64\publish\ConsoleApplication
         
     - name: Upload osx-x64 artifacts
       uses: actions/upload-artifact@v2
       with: 
         name: ConsoleApplication-osx-x64-b${{ github.run_number }}
-        path : ${{ github.workspace }}\ConsoleApplication\bin\Debug\net6.0\osx-x64\publish\ConsoleApplication
+        path : D:\a\CESI-DotNet\CESI-DotNet\ConsoleApplication\bin\Debug\net6.0\osx-x64\publish\ConsoleApplication
