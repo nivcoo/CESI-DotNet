@@ -19,13 +19,13 @@ jobs:
         dotnet-version: 6.0.x
 
     - name: Publish win-x64
-      run: dotnet publish ConsoleApplication -r win-x64 -p:PublishSingleFile=true --configuration Release --self-contained true
+      run: dotnet publish ConsoleApplication -r win-x64 -p:PublishSingleFile=true --configuration Release --self-contained true --no-restore
 
     - name: Publish linux-x64
-      run: dotnet publish ConsoleApplication -r linux-x64 -p:PublishSingleFile=true --configuration Release --self-contained true
+      run: dotnet publish ConsoleApplication -r linux-x64 -p:PublishSingleFile=true --configuration Release --self-contained true --no-restore
 
     - name: Publish osx-x64
-      run: dotnet publish ConsoleApplication -r osx-x64 -p:PublishSingleFile=true --configuration Release --self-contained true
+      run: dotnet publish ConsoleApplication -r osx-x64 -p:PublishSingleFile=true --configuration Release --self-contained true --no-restore
         
     - name: Upload win-x64 artifacts
       uses: actions/upload-artifact@v2
