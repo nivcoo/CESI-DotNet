@@ -29,7 +29,7 @@ jobs:
         dotnet-version: 6.0.x
         
     - name: Publish
-      run: dotnet publish DesktopApplication -r win-x64 -p:PublishSingleFile=true --self-contained true
+      run: dotnet publish DesktopApplication -r win-x64 -p:PublishSingleFile=true --configuration Release --self-contained true
         
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
