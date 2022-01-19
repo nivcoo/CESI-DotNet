@@ -20,9 +20,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore ConsoleApplication
   
-    - name: Build
-      run: dotnet build ConsoleApplication --configuration Release
-
     - name: Publish win-x64
       run: dotnet publish ConsoleApplication -r win-x64 -p:PublishSingleFile=true --configuration Release --self-contained true --no-restore
 
