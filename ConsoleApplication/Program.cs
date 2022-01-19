@@ -1,3 +1,7 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿// The client code.
 
-Console.WriteLine("Hello, World!");
+using ConsoleApplication;
+using ConsoleApplication.Manager;
+
+var s1 = SaveManager.GetInstance();
+s1.SetName("Testtt");
