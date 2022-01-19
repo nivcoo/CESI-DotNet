@@ -35,5 +35,5 @@ jobs:
       uses: actions/upload-artifact@v2
       with: 
         name: DesktopApplication-win-x64-b${{ github.run_number }}
-        path : D:\a\CESI-DotNet\CESI-DotNet\DesktopApplication\bin\Debug\net6.0-windows\win-x64\publish\
+        path : D:\a\CESI-DotNet\CESI-DotNet\DesktopApplication\bin\Release\net6.0-windows\win-x64\publish\
       
