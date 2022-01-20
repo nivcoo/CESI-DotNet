@@ -19,7 +19,7 @@ jobs:
         dotnet-version: 6.0.x
         
     - name: Restore
-      run: dotnet restore DesktopApplication
+      run: dotnet restore ConsoleApplication
       
     - name: Publish win-x64
       run: dotnet publish ConsoleApplication -r win-x64 -p:PublishSingleFile=true --configuration Release --self-contained true --no-restore
