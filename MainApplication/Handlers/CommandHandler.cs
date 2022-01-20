@@ -1,4 +1,5 @@
 ﻿using System.Windows.Input;
+
 namespace MainApplication.Handlers;
 
 public class CommandHandler : ICommand
@@ -18,11 +19,21 @@ public class CommandHandler : ICommand
     }
 
     /// <summary>
+    /// Creates instance of the command handler
+    /// </summary>
+    /// <param name="action">Action to be executed by the command</param>
+    public CommandHandler(Action action)
+    {
+        _action = action;
+        _canExecute = () => true;
+    }
+
+    /// <summary>
     /// Wires CanExecuteChanged event 
     /// </summary>
     public event EventHandler? CanExecuteChanged
     {
-        add {  }
+        add { }
         remove { }
     }
 

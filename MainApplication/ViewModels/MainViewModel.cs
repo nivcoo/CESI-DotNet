@@ -12,7 +12,7 @@ public class MainViewModel : BaseViewModel
     {
         get
         {
-            return _clickCommand ??= _clickCommand = new CommandHandler(() => ConvertToInt(), ()=> true);
+            return _clickCommand ??= _clickCommand = new CommandHandler(() => ConvertToInt());
         }
     }
 
