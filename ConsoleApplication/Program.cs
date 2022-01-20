@@ -1,8 +1,3 @@
-﻿// The client code.
+﻿using ConsoleApplication.Views;
 
-using ConsoleApplication;
-using ConsoleApplication.Manager;
-
-var s1 = SaveManager.GetInstance();
-s1.SetName("Testtt");
-
+var main = new Main();

@@ -8,4 +8,8 @@
         <RuntimeIdentifiers>win10-x64</RuntimeIdentifiers>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\MainApplication\MainApplication.csproj" />
+    </ItemGroup>
+
 </Project>
