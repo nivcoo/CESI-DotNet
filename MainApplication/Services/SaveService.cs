@@ -9,8 +9,8 @@ public sealed class SaveService
 
     private SaveService()
     {
-        var save = new Save("test1", "test2");
-        Console.WriteLine(save.Name);
+        /*var save = new Save("test1", "test2");
+        Console.WriteLine(save.Name);*/
     }
 
     public static SaveService GetInstance()
