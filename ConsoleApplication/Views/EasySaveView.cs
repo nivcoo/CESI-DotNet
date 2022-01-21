@@ -2,10 +2,10 @@
 
 namespace ConsoleApplication.Views;
 
-public class Main
+public class EasySaveView
 {
     private readonly MainViewModel _mainViewModel;
-    public Main()
+    public EasySaveView()
     {
         _mainViewModel = new MainViewModel();
         InitView();

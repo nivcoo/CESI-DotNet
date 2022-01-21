@@ -4,13 +4,13 @@ using MainApplication.ViewModels;
 namespace DesktopApplication.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for EasySaveView.xaml
     /// </summary>
-    public partial class MainWindow
+    public partial class EasySaveView
     {
         
         private readonly MainViewModel _mainViewModel = new ();
-        public MainWindow()
+        public EasySaveView()
         {
             InitializeComponent();
             DataContext = _mainViewModel;
