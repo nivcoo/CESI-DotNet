@@ -1,6 +1,4 @@
-﻿using MainApplication.Objects;
-
-namespace MainApplication.Services;
+﻿namespace MainApplication.Services;
 
 public sealed class LogService
 {

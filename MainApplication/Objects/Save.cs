@@ -1,22 +1,27 @@
-﻿namespace MainApplication.Objects;
+﻿using MainApplication.Objects.Enums;
+
+namespace MainApplication.Objects;
 
 public class Save
 {
     public string? Name { get; set; }
-    public string? SourceFilePath { get; set; }
-    public string? TargetFilePath { get; set; }
-    public string? State { get; set; }
+    public string? SourcePath { get; set; }
+    public string? TargetPath { get; set; }
+    
+    public TypeSave? Type { get; set; }
+    public State? State { get; set; }
     public int? TotalFilesToCopy { get; set; }
     public int? TotalFilesSize { get; set; }
     public int? NbFilesLeftToDo { get; set; }
     public int? Progression { get; set; }
 
-    public Save(string name, string sourceFilePath, string targetFilePath, string state, int totalFilesToCopy,
+    public Save(string name, string sourcePath, string targetPath, TypeSave type, State state, int totalFilesToCopy,
         int totalFilesSize, int nbFilesLeftToDo, int progression)
     {
         Name = name;
-        SourceFilePath = sourceFilePath;
-        TargetFilePath = targetFilePath;
+        SourcePath = sourcePath;
+        TargetPath = targetPath;
+        Type = type;
         State = state;
         TotalFilesToCopy = totalFilesToCopy;
         TotalFilesSize = totalFilesSize;
