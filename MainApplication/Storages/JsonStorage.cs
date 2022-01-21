@@ -2,7 +2,7 @@
 
 public class JsonStorage : IStorage
 {
-    public IDictionary<string, object> GetAllElements()
+    public List<IDictionary<string, object>> GetAllElements()
     {
         throw new NotImplementedException();
     }

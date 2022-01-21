@@ -2,7 +2,7 @@
 
 public interface IStorage
 {
-    IDictionary<string, object> GetAllElements();
+    List<IDictionary<string, object>> GetAllElements();
 
     void AddNewElement(IDictionary<string, object> objects);
 
