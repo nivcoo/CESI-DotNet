@@ -1,4 +1,4 @@
-﻿namespace MainApplication.Storage;
+﻿namespace MainApplication.Storages;
 
 public interface IStorage
 {
