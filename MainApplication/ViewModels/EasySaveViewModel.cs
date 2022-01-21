@@ -4,7 +4,7 @@ using MainApplication.Handlers;
 
 namespace MainApplication.ViewModels;
 
-public class MainViewModel : BaseViewModel
+public class EasySaveViewModel : BaseViewModel
 {
     
     private ICommand? _clickCommand;

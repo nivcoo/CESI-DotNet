@@ -4,10 +4,10 @@ namespace ConsoleApplication.Views;
 
 public class EasySaveView
 {
-    private readonly MainViewModel _mainViewModel;
+    private readonly EasySaveViewModel _easySaveViewModel;
     public EasySaveView()
     {
-        _mainViewModel = new MainViewModel();
+        _easySaveViewModel = new EasySaveViewModel();
         InitView();
     }
 
@@ -19,12 +19,12 @@ public class EasySaveView
         while (!success)
         {
             Console.WriteLine("Please Select type : 1,2,3");
-            _mainViewModel.Input = Console.ReadLine();
-            success = !_mainViewModel.ConvertToInt();
+            _easySaveViewModel.Input = Console.ReadLine();
+            success = !_easySaveViewModel.ConvertToInt();
         }
 
         
         
-        Console.WriteLine(_mainViewModel.Output);
+        Console.WriteLine(_easySaveViewModel.Output);
     }
 }

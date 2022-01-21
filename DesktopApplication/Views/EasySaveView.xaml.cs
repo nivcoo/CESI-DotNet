@@ -9,11 +9,11 @@ namespace DesktopApplication.Views
     public partial class EasySaveView
     {
         
-        private readonly MainViewModel _mainViewModel = new ();
+        private readonly EasySaveViewModel _easySaveViewModel = new ();
         public EasySaveView()
         {
             InitializeComponent();
-            DataContext = _mainViewModel;
+            DataContext = _easySaveViewModel;
         }
     }
 }
