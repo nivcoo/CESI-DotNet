@@ -2,6 +2,13 @@
 
 public class JsonStorage : IStorage
 {
+    public string FileName { get; set; }
+
+    public JsonStorage(string fileName)
+    {
+        FileName = fileName;
+    }
+
     public List<IDictionary<string, object>> GetAllElements()
     {
         throw new NotImplementedException();
