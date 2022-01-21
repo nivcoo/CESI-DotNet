@@ -1,6 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System.Globalization;
 using System.Windows.Input;
 using MainApplication.Handlers;
+using MainApplication.Localization;
 
 namespace MainApplication.ViewModels;
 
@@ -35,6 +36,14 @@ public class EasySaveViewModel : BaseViewModel
 
     public bool ConvertToInt()
     {
+        
+        
+        var cultures = new[] {"en", "es", "fr"};
+        
+
+        /*Language.Culture = CultureInfo.GetCultureInfo("fr-FR");
+        Console.WriteLine(Language.Culture.EnglishName + " - " + Language.Hello);*/
+
         try
         {
             var number = Convert.ToInt32(Input);
