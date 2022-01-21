@@ -6,6 +6,11 @@ on:
     paths:
     - 'ConsoleApplication/**'
     - 'MainApplication/**'
+  pull_request:
+    branches: [ master ]
+    paths:
+    - 'ConsoleApplication/**'
+    - 'MainApplication/**'
 
 jobs:
   build:
