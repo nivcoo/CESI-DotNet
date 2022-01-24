@@ -44,6 +44,16 @@ public class EasySaveViewModel : BaseViewModel
 
     public bool UpdateLanguage()
     {
+        /*IStorage isStorage = new JsonStorage("saves.json");
+
+        isStorage.AddNewElement(new Save
+        {
+            Name = "trt9",
+            Type = TypeSave.Complete
+        });
+
+        Console.WriteLine(isStorage.GetAllElements<Save>()[2].Name);*/
+
         if (LanguageString == null)
             return false;
         if (!LanguageCheck.CorrectLanguage(LanguageString))

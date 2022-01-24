@@ -4,7 +4,7 @@ namespace MainApplication.Services;
 
 public sealed class SaveService
 {
-    private static readonly SaveService Instance = new ();
+    private static readonly SaveService Instance = new();
     public string? Name { get; set; }
 
     private SaveService()
@@ -14,8 +14,7 @@ public sealed class SaveService
 
     private static void LoadSavesFile()
     {
-        const string path = "logs.json";
-
+        const string path = "saves.json";
         if (File.Exists(path)) return;
         using var sw = File.CreateText(path);
         sw.Close();

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Xml;
+using MainApplication.Storages.NamingPolicies;
 
 namespace MainApplication.Storages;
 
@@ -17,7 +17,7 @@ public class JsonStorage : IStorage
     {
         Converters =
         {
-            new JsonStringEnumConverter(JsonNamingPolicy.CamelCase),
+            new JsonStringEnumConverter(new ToUpperNamingPolicy()),
         },
         WriteIndented = true
     };
@@ -27,6 +27,7 @@ public class JsonStorage : IStorage
         try
         {
             var text = File.ReadAllText(FileName);
+            Console.WriteLine(text);
             var elementsList = JsonSerializer.Deserialize<List<T>>(text, _serializerOptions);
             return elementsList ?? new List<T>();
         }

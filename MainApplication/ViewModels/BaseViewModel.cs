@@ -7,7 +7,7 @@ namespace MainApplication.ViewModels;
 
 public class BaseViewModel : INotifyPropertyChanged
 {
-    protected static readonly SaveService SaveService = SaveService.GetInstance();
+    protected readonly SaveService SaveService = SaveService.GetInstance();
     public event PropertyChangedEventHandler? PropertyChanged;
 
     [NotifyPropertyChangedInvocator]

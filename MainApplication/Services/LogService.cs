@@ -9,10 +9,10 @@ public sealed class LogService
     {
         LoadLogsFile();
     }
-    
+
     private static void LoadLogsFile()
     {
-        const string path = "saves.json";
+        const string path = "logs.json";
 
         if (File.Exists(path)) return;
         using var sw = File.CreateText(path);
