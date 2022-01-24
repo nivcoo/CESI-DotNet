@@ -22,7 +22,7 @@ namespace MainApplication.Localization {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Language {
+    public class Language {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -60,12 +60,9 @@ namespace MainApplication.Localization {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Anglais.
-        /// </summary>
-        internal static string Hello {
+        public static string GLOBAL_SELECTED_LANGUAGE {
             get {
-                return ResourceManager.GetString("Hello", resourceCulture);
+                return ResourceManager.GetString("GLOBAL_SELECTED_LANGUAGE", resourceCulture);
             }
         }
     }

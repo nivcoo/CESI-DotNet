@@ -59,14 +59,5 @@ namespace MainApplication.Localization {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to FR.
-        /// </summary>
-        internal static string Hello {
-            get {
-                return ResourceManager.GetString("Hello", resourceCulture);
-            }
-        }
     }
 }

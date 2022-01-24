@@ -33,17 +33,28 @@ public class EasySaveViewModel : BaseViewModel
         get => _output;
         set => SetField(ref _output, value, nameof(Output));
     }
+    
+    private string? _languageString;
+    public string? LanguageString
+    {
+        get => _languageString;
+        set => SetField(ref _languageString, value, nameof(LanguageString));
+    }
+
+    public bool UpdateLanguage()
+    {
+        if (LanguageString == null)
+            return false;
+        if (!LanguageCheck.CorrectLanguage(LanguageString))
+            return false;
+        Language.Culture = CultureInfo.GetCultureInfo(LanguageString);
+        return true;
+    }
 
     public bool ConvertToInt()
     {
-        
-        
         var cultures = new[] {"en", "es", "fr"};
         
-
-        /*Language.Culture = CultureInfo.GetCultureInfo("fr-FR");
-        Console.WriteLine(Language.Culture.EnglishName + " - " + Language.Hello);*/
-
         try
         {
             var number = Convert.ToInt32(Input);

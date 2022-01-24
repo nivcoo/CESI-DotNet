@@ -1,5 +1,5 @@
-﻿using MainApplication.ViewModels;
-
+﻿using MainApplication.Localization;
+using MainApplication.ViewModels;
 namespace ConsoleApplication.Views;
 
 public class EasySaveView
@@ -18,10 +18,12 @@ public class EasySaveView
         var success = false;
         while (!success)
         {
-            Console.WriteLine("Please Select type : 1,2,3");
-            _easySaveViewModel.Input = Console.ReadLine();
-            success = !_easySaveViewModel.ConvertToInt();
+            Console.WriteLine("Please Select Language : en-US, fr-FR");
+            _easySaveViewModel.LanguageString = Console.ReadLine();
+            success = _easySaveViewModel.UpdateLanguage();
         }
+        
+        Console.WriteLine(Language.GLOBAL_SELECTED_LANGUAGE);
 
         
         
