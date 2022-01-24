@@ -8,7 +8,7 @@ public abstract class LanguageCheck
         {
             "en-US" => true,
             "fr-FR" => true,
-            _ => false,
+            _ => false
         };
     }
 }

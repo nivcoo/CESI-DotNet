@@ -4,9 +4,10 @@ public interface IStorage
 {
     string FileName { get; set; }
 
-    List<IDictionary<string, object>> GetAllElements();
+    public List<T> GetAllElements<T>();
 
-    void AddNewElement(IDictionary<string, object> objects);
+    void AddNewElement<T>(T objects);
 
-    void EditElementByName(string name, IDictionary<string, object> objects);
+    T? GetElementBy<T>(Predicate<T> match);
+    bool EditElementBy<T>(Predicate<T> match, T obj);
 }

@@ -9,8 +9,16 @@ public sealed class SaveService
 
     private SaveService()
     {
-        /*var save = new Save("test1", "test2");
-        Console.WriteLine(save.Name);*/
+        LoadSavesFile();
+    }
+
+    private static void LoadSavesFile()
+    {
+        const string path = "logs.json";
+
+        if (File.Exists(path)) return;
+        using var sw = File.CreateText(path);
+        sw.Close();
     }
 
     public static SaveService GetInstance()

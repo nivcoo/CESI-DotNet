@@ -1,4 +1,8 @@
-﻿namespace MainApplication.Storages;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Xml;
+
+namespace MainApplication.Storages;
 
 public class JsonStorage : IStorage
 {
@@ -9,18 +13,58 @@ public class JsonStorage : IStorage
         FileName = fileName;
     }
 
-    public List<IDictionary<string, object>> GetAllElements()
+    private readonly JsonSerializerOptions _serializerOptions = new()
     {
-        throw new NotImplementedException();
+        Converters =
+        {
+            new JsonStringEnumConverter(JsonNamingPolicy.CamelCase),
+        },
+        WriteIndented = true
+    };
+
+    public List<T> GetAllElements<T>()
+    {
+        try
+        {
+            var text = File.ReadAllText(FileName);
+            var elementsList = JsonSerializer.Deserialize<List<T>>(text, _serializerOptions);
+            return elementsList ?? new List<T>();
+        }
+        catch (Exception)
+        {
+            return new List<T>();
+        }
     }
 
-    public void AddNewElement(IDictionary<string, object> objects)
+
+    public void AddNewElement<T>(T objects)
     {
-        throw new NotImplementedException();
+        var elementsList = GetAllElements<T>();
+        elementsList.Add(objects);
+        SaveIntoFiles(elementsList);
     }
 
-    public void EditElementByName(string name, IDictionary<string, object> objects)
+    public T? GetElementBy<T>(Predicate<T> match)
     {
-        throw new NotImplementedException();
+        var elementsList = GetAllElements<T>();
+        return elementsList.Find(match);
+    }
+
+    public bool EditElementBy<T>(Predicate<T> match, T obj)
+    {
+        var elementsList = GetAllElements<T>();
+        var selected = elementsList.Find(match);
+        if (selected == null)
+            return false;
+        elementsList.Remove(selected);
+        elementsList.Add(obj);
+        SaveIntoFiles(elementsList);
+        return true;
+    }
+
+    private void SaveIntoFiles<T>(List<T> objects)
+    {
+        var jsonToOutput = JsonSerializer.Serialize(objects, _serializerOptions);
+        File.WriteAllText(FileName, jsonToOutput);
     }
 }

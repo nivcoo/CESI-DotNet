@@ -7,8 +7,16 @@ public sealed class LogService
 
     private LogService()
     {
-        /*var log = new Log("test1", "test2");
-        Console.WriteLine(log.Name);*/
+        LoadLogsFile();
+    }
+    
+    private static void LoadLogsFile()
+    {
+        const string path = "saves.json";
+
+        if (File.Exists(path)) return;
+        using var sw = File.CreateText(path);
+        sw.Close();
     }
 
     public static LogService GetInstance()

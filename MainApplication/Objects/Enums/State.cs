@@ -2,5 +2,6 @@
 
 public enum State
 {
-    Active, End
+    Active,
+    End
 }

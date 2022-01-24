@@ -2,22 +2,22 @@
 using System.Windows.Input;
 using MainApplication.Handlers;
 using MainApplication.Localization;
+using MainApplication.Objects;
+using MainApplication.Objects.Enums;
+using MainApplication.Storages;
 
 namespace MainApplication.ViewModels;
 
 public class EasySaveViewModel : BaseViewModel
 {
-    
     private ICommand? _clickCommand;
+
     public ICommand ClickCommand
     {
-        get
-        {
-            return _clickCommand ??= _clickCommand = new CommandHandler(() => ConvertToInt());
-        }
+        get { return _clickCommand ??= _clickCommand = new CommandHandler(() => ConvertToInt()); }
     }
 
-    
+
     private string? _input;
 
     public string? Input
@@ -33,8 +33,9 @@ public class EasySaveViewModel : BaseViewModel
         get => _output;
         set => SetField(ref _output, value, nameof(Output));
     }
-    
+
     private string? _languageString;
+
     public string? LanguageString
     {
         get => _languageString;
@@ -53,8 +54,6 @@ public class EasySaveViewModel : BaseViewModel
 
     public bool ConvertToInt()
     {
-        var cultures = new[] {"en", "es", "fr"};
-        
         try
         {
             var number = Convert.ToInt32(Input);
