@@ -8,11 +8,11 @@ namespace MainApplication.Storages;
 
 public class JsonStorage<T> : IStorage<T>
 {
-    public string FileName { get; set; }
+    public string FilePath { get; set; }
 
-    public JsonStorage(string fileName)
+    public JsonStorage(string filePath)
     {
-        FileName = fileName;
+        FilePath = filePath;
     }
 
     private readonly JsonSerializerOptions _serializerOptions = new()
@@ -28,7 +28,7 @@ public class JsonStorage<T> : IStorage<T>
     {
         try
         {
-            var text = File.ReadAllText(FileName);
+            var text = File.ReadAllText(FilePath);
             if (text == "")
                 return new List<T>();
             Console.WriteLine(text.Trim());
@@ -53,7 +53,7 @@ public class JsonStorage<T> : IStorage<T>
     public void AddNewElementWithoutRewrite(T obj)
     {
         var objects = new List<T> {obj};
-        using var fs = new FileStream(FileName, FileMode.Open);
+        using var fs = new FileStream(FilePath, FileMode.Open);
         var serializeObject = SerializeObject(objects);
         using var sw = new StreamWriter(fs);
         if (fs.Length > 1)
@@ -71,6 +71,16 @@ public class JsonStorage<T> : IStorage<T>
         sw.Write(serializeObject);
         sw.Close();
         fs.Close();
+    }
+
+    public void RemoveElement(Predicate<T> match)
+    {
+        var elementsList = GetAllElements();
+        var element = elementsList.Find(match);
+        if (element == null)
+            return;
+        elementsList.Remove(element);
+        SerializeAndSaveIntoFiles(elementsList);
     }
 
     public T? GetElementBy(Predicate<T> match)
@@ -93,12 +103,12 @@ public class JsonStorage<T> : IStorage<T>
 
     public void ClearFile()
     {
-        File.WriteAllText(FileName, string.Empty);
+        File.WriteAllText(FilePath, string.Empty);
     }
 
     private void SerializeAndSaveIntoFiles(List<T> objects)
     {
-        File.WriteAllText(FileName, SerializeObject(objects));
+        File.WriteAllText(FilePath, SerializeObject(objects));
     }
 
     private string SerializeObject(object obj)
