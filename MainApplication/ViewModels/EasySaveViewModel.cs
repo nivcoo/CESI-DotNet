@@ -52,27 +52,22 @@ public class EasySaveViewModel : BaseViewModel
             Type = TypeSave.Complete
         });
 
-        Console.WriteLine(isStorage.GetAllElements<Save>()[2].Name);*/
+        Console.WriteLine(isStorage.GetAllElements<Save>()[2].Name);
 
 
-        /*IStorage isStorage = new JsonStorage("saves.json");
+        IStorage<Log> isStorage = new JsonStorage<Log>("logs.json");
         isStorage.ClearFile();
-        isStorage.AddNewElement(new Save
+        isStorage.AddNewElementWithoutRewrite(new Log
         {
             Name = "IOUIVUGYG",
-            Type = TypeSave.Complete
+            Date = DateTime.Now
         });
-        isStorage.AddNewElement(new Save
+        isStorage.AddNewElementWithoutRewrite(new Log
         {
-            Name = "rthrth5",
-            Type = TypeSave.Complete
+            Name = "IOUIVUGYG222",
+            Date = DateTime.Now
         });
-        isStorage.AddNewElementWithoutRewrite(new Save
-        {
-            Name = "IOUIVUGYG",
-            Type = TypeSave.Complete
-        });
-        Console.WriteLine(isStorage.GetAllElements<Save>()[0].Name);
+        Console.WriteLine(isStorage.GetAllElements()[0].Date);
         */
             
             

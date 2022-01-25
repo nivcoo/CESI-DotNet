@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-using MainApplication.Objects.Enums;
+﻿using MainApplication.Objects.Enums;
 
 namespace MainApplication.Objects;
 

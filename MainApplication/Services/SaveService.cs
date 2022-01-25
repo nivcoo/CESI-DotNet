@@ -10,11 +10,11 @@ public sealed class SaveService
     
     private const string SavesPath = "saves.json";
 
-    private readonly IStorage _storage;
+    private readonly IStorage<Save> _storage;
     
     private SaveService()
     {
-        _storage = new JsonStorage(SavesPath);
+        _storage = new JsonStorage<Save>(SavesPath);
         LoadSavesFile();
     }
 

@@ -10,11 +10,11 @@ public sealed class LogService
     
     private const string LogsPath = "logs.json";
 
-    private readonly IStorage _storage;
+    private readonly IStorage<Log> _storage;
 
     private LogService()
     {
-        _storage = new JsonStorage(LogsPath);
+        _storage = new JsonStorage<Log>(LogsPath);
         LoadLogsFile();
     }
 

@@ -1,11 +1,12 @@
-﻿using System.Text.Json;
+﻿using System.Text;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using MainApplication.Storages.NamingPolicies;
 
 namespace MainApplication.Storages;
 
-public class JsonStorage : IStorage
+public class JsonStorage<T> : IStorage<T>
 {
     public string FileName { get; set; }
 
@@ -23,30 +24,33 @@ public class JsonStorage : IStorage
         WriteIndented = true
     };
 
-    public List<T> GetAllElements<T>()
+    public List<T> GetAllElements()
     {
         try
         {
             var text = File.ReadAllText(FileName);
-            Console.WriteLine(text);
-            var elementsList = JsonSerializer.Deserialize<List<T>>(text, _serializerOptions);
+            if (text == "")
+                return new List<T>();
+            Console.WriteLine(text.Trim());
+            var elementsList = JsonSerializer.Deserialize<List<T>>(text.Trim(), _serializerOptions);
             return elementsList ?? new List<T>();
         }
-        catch (Exception)
+        catch (Exception e)
         {
+            Console.WriteLine(e);
             return new List<T>();
         }
     }
 
 
-    public void AddNewElement<T>(T obj)
+    public void AddNewElement(T obj)
     {
-        var elementsList = GetAllElements<T>();
+        var elementsList = GetAllElements();
         elementsList.Add(obj);
         SerializeAndSaveIntoFiles(elementsList);
     }
 
-    public void AddNewElementWithoutRewrite<T>(T obj)
+    public void AddNewElementWithoutRewrite(T obj)
     {
         var objects = new List<T> {obj};
         using var fs = new FileStream(FileName, FileMode.Open);
@@ -58,27 +62,26 @@ public class JsonStorage : IStorage
 
             if (fs.ReadByte() == ']')
             {
-                fs.SetLength(fs.Length - 2);
+                fs.SetLength(fs.Length - 4 - Environment.NewLine.Length);
                 var serializeObjectWithoutFirst = Regex.Split(serializeObject, Environment.NewLine).Skip(1);
                 serializeObject = string.Join(Environment.NewLine, serializeObjectWithoutFirst.ToArray());
                 sw.Write("  }," + Environment.NewLine);
             }
         }
-
         sw.Write(serializeObject);
         sw.Close();
         fs.Close();
     }
 
-    public T? GetElementBy<T>(Predicate<T> match)
+    public T? GetElementBy(Predicate<T> match)
     {
-        var elementsList = GetAllElements<T>();
+        var elementsList = GetAllElements();
         return elementsList.Find(match);
     }
 
-    public bool EditElementBy<T>(Predicate<T> match, T obj)
+    public bool EditElementBy(Predicate<T> match, T obj)
     {
-        var elementsList = GetAllElements<T>();
+        var elementsList = GetAllElements();
         var selected = elementsList.Find(match);
         if (selected == null)
             return false;
@@ -93,7 +96,7 @@ public class JsonStorage : IStorage
         File.WriteAllText(FileName, string.Empty);
     }
 
-    private void SerializeAndSaveIntoFiles<T>(List<T> objects)
+    private void SerializeAndSaveIntoFiles(List<T> objects)
     {
         File.WriteAllText(FileName, SerializeObject(objects));
     }

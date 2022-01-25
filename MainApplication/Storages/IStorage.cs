@@ -1,18 +1,18 @@
 ﻿namespace MainApplication.Storages;
 
-public interface IStorage
+public interface IStorage<T>
 {
     string FileName { get; set; }
 
-    public List<T> GetAllElements<T>();
+    public List<T> GetAllElements();
 
-    void AddNewElement<T>(T obj);
+    void AddNewElement(T obj);
 
-    void AddNewElementWithoutRewrite<T>(T obj);
+    void AddNewElementWithoutRewrite(T obj);
 
-    T? GetElementBy<T>(Predicate<T> match);
+    T? GetElementBy(Predicate<T> match);
 
-    bool EditElementBy<T>(Predicate<T> match, T obj);
+    bool EditElementBy(Predicate<T> match, T obj);
 
     void ClearFile();
 }

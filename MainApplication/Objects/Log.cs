@@ -1,4 +1,5 @@
-﻿using MainApplication.Objects.Enums;
+﻿using System.Text.Json.Serialization;
+using MainApplication.Storages.Converter;
 
 namespace MainApplication.Objects;
 
@@ -10,5 +11,6 @@ public class Log
 
     public int? FileSize { get; set; }
     public double? FileTransferTime { get; set; }
+    [JsonConverter(typeof(DateTimeConverter))]
     public DateTime? Date { get; set; }
 }
