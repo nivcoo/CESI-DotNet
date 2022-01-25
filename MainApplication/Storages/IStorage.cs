@@ -6,8 +6,13 @@ public interface IStorage
 
     public List<T> GetAllElements<T>();
 
-    void AddNewElement<T>(T objects);
+    void AddNewElement<T>(T obj);
+
+    void AddNewElementWithoutRewrite<T>(T obj);
 
     T? GetElementBy<T>(Predicate<T> match);
+
     bool EditElementBy<T>(Predicate<T> match, T obj);
+
+    void ClearFile();
 }

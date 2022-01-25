@@ -54,6 +54,28 @@ public class EasySaveViewModel : BaseViewModel
 
         Console.WriteLine(isStorage.GetAllElements<Save>()[2].Name);*/
 
+
+        /*IStorage isStorage = new JsonStorage("saves.json");
+        isStorage.ClearFile();
+        isStorage.AddNewElement(new Save
+        {
+            Name = "IOUIVUGYG",
+            Type = TypeSave.Complete
+        });
+        isStorage.AddNewElement(new Save
+        {
+            Name = "rthrth5",
+            Type = TypeSave.Complete
+        });
+        isStorage.AddNewElementWithoutRewrite(new Save
+        {
+            Name = "IOUIVUGYG",
+            Type = TypeSave.Complete
+        });
+        Console.WriteLine(isStorage.GetAllElements<Save>()[0].Name);
+        */
+            
+            
         if (LanguageString == null)
             return false;
         if (!LanguageCheck.CorrectLanguage(LanguageString))

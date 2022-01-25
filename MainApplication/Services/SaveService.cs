@@ -1,4 +1,5 @@
 ﻿using MainApplication.Objects;
+using MainApplication.Storages;
 
 namespace MainApplication.Services;
 
@@ -6,17 +7,21 @@ public sealed class SaveService
 {
     private static readonly SaveService Instance = new();
     public string? Name { get; set; }
+    
+    private const string SavesPath = "saves.json";
 
+    private readonly IStorage _storage;
+    
     private SaveService()
     {
+        _storage = new JsonStorage(SavesPath);
         LoadSavesFile();
     }
 
     private static void LoadSavesFile()
     {
-        const string path = "saves.json";
-        if (File.Exists(path)) return;
-        using var sw = File.CreateText(path);
+        if (File.Exists(SavesPath)) return;
+        using var sw = File.CreateText(SavesPath);
         sw.Close();
     }
 
