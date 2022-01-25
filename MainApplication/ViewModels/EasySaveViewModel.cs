@@ -54,12 +54,12 @@ public class EasySaveViewModel : BaseViewModel
 
         Console.WriteLine(isStorage.GetAllElements<Save>()[2].Name);
 
-
-        IStorage<Log> isStorage = new JsonStorage<Log>("logs.json");
+        IStorage<Log> isStorage = new JsonStorage<Log>(@"datas\logs.json");
         isStorage.ClearFile();
         isStorage.AddNewElementWithoutRewrite(new Log
         {
             Name = "IOUIVUGYG",
+            SourcePath = new Uri(Directory.GetCurrentDirectory() + @"\datas\logs.json"),
             Date = DateTime.Now
         });
         isStorage.AddNewElementWithoutRewrite(new Log
@@ -67,10 +67,9 @@ public class EasySaveViewModel : BaseViewModel
             Name = "IOUIVUGYG222",
             Date = DateTime.Now
         });
-        Console.WriteLine(isStorage.GetAllElements()[0].Date);
+        Console.WriteLine(isStorage.GetAllElements()[0].SourcePath);
+
         */
-            
-            
         if (LanguageString == null)
             return false;
         if (!LanguageCheck.CorrectLanguage(LanguageString))

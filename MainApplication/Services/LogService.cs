@@ -7,22 +7,23 @@ public sealed class LogService
 {
     private static readonly LogService Instance = new();
     public string? Name { get; set; }
-    
-    private const string LogsPath = "logs.json";
+
+    private readonly string _logsPath;
 
     private readonly IStorage<Log> _storage;
 
     private LogService()
     {
-        _storage = new JsonStorage<Log>(LogsPath);
+        _logsPath = @"datas\logs.json";
+        _storage = new JsonStorage<Log>(_logsPath);
         LoadLogsFile();
     }
 
-    private static void LoadLogsFile()
+    private void LoadLogsFile()
     {
-        if (File.Exists(LogsPath)) return;
-        using var sw = File.CreateText(LogsPath);
-        sw.Close();
+        Directory.CreateDirectory(Path.GetDirectoryName(_logsPath) ?? string.Empty);
+        if (!File.Exists(_logsPath))
+            File.CreateText(_logsPath).Close();
     }
 
     private void InsertLog(Log log)
