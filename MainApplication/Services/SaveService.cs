@@ -38,7 +38,7 @@ public sealed class SaveService
     public void StartSave(Save save)
     {
     }
-    
+
     public void StopSave(Save save)
     {
     }

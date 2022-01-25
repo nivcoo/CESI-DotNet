@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using MainApplication.ViewModels;
+﻿using MainApplication.ViewModels;
 
 namespace DesktopApplication.Views
 {

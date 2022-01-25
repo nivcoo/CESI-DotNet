@@ -11,28 +11,11 @@ namespace MainApplication.ViewModels;
 public class EasySaveViewModel : BaseViewModel
 {
     private ICommand? _clickCommand;
+    // public ICommand ClickCommand
+    // {
+    //     get { return _clickCommand ??= _clickCommand = new CommandHandler(() => ConvertToInt()); }
+    // }
 
-    public ICommand ClickCommand
-    {
-        get { return _clickCommand ??= _clickCommand = new CommandHandler(() => ConvertToInt()); }
-    }
-
-
-    private string? _input;
-
-    public string? Input
-    {
-        get => _input;
-        set => SetField(ref _input, value, nameof(Input));
-    }
-
-    private int _output;
-
-    public int Output
-    {
-        get => _output;
-        set => SetField(ref _output, value, nameof(Output));
-    }
 
     private string? _languageString;
 
@@ -41,6 +24,22 @@ public class EasySaveViewModel : BaseViewModel
         get => _languageString;
         set => SetField(ref _languageString, value, nameof(LanguageString));
     }
+
+
+    private List<Save>? _saves;
+
+    public List<Save>? Saves
+    {
+        get => _saves;
+        set => SetField(ref _saves, value, nameof(Saves));
+    }
+
+    public void UpdateSaves()
+    {
+        _saves = SaveService.GetSaves();
+    }
+    
+    
 
     public bool UpdateLanguage()
     {
@@ -78,22 +77,5 @@ public class EasySaveViewModel : BaseViewModel
         return true;
     }
 
-    public bool ConvertToInt()
-    {
-        try
-        {
-            var number = Convert.ToInt32(Input);
-            int[] correctNumber = {1, 2, 3};
-            var pos = Array.IndexOf(correctNumber, number);
-            if (pos <= -1)
-                return true;
-            Output = number;
-        }
-        catch (FormatException)
-        {
-            return true;
-        }
-
-        return false;
-    }
+   
 }
