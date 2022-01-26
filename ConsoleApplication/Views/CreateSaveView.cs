@@ -46,8 +46,7 @@ public class CreateSaveView
     private void AskSaveSourceUri()
     {
         Console.Write("\nDonner le chemin d'accès à la sauvegarde : ");
-        Uri? uri = null;
-        uri = CreateSaveViewModel.IsValidUri(Console.ReadLine());
+        var uri = CreateSaveViewModel.IsValidUri(Console.ReadLine());
         while (uri == null)
         {
             Console.Write("\nLe chemin d'accès est incorrect. Donner un chemin d'accès : ");
@@ -60,8 +59,7 @@ public class CreateSaveView
     private void AskSaveTargetUri()
     {
         Console.Write("\nDonner le chemin d'écriture de la sauvegarde : ");
-        Uri? uri = null;
-        uri = CreateSaveViewModel.IsValidUri(Console.ReadLine());
+        var uri = CreateSaveViewModel.IsValidUri(Console.ReadLine());
         while (uri == null)
         {
             Console.Write("\nLe chemin est incorrect. Donner un chemin d'écriture : ");
