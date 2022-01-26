@@ -1,12 +1,10 @@
-﻿using MainApplication.Objects.Enums;
+﻿namespace MainApplication.Services;
 
-namespace MainApplication.Services;
-
-internal class ToolsService
+internal class ToolService
 {
-    private static readonly ToolsService Instance = new();
+    private static readonly ToolService Instance = new();
 
-    public static ToolsService GetInstance()
+    public static ToolService GetInstance()
     {
         return Instance;
     }

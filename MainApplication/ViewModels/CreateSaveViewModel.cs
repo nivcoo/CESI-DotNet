@@ -18,6 +18,6 @@ public class CreateSaveViewModel : BaseViewModel
 
     public static Uri? IsValidUri(string? uri)
     {
-        return ToolsService.IsValidUri(uri);
+        return ToolService.IsValidUri(uri);
     }
 }

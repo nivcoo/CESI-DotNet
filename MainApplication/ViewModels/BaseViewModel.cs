@@ -9,7 +9,7 @@ public class BaseViewModel : INotifyPropertyChanged
 {
     internal readonly SaveService SaveService = SaveService.GetInstance();
     internal readonly LogService LogService = LogService.GetInstance();
-    internal readonly ToolsService ToolsService = ToolsService.GetInstance();
+    internal readonly ToolService ToolService = ToolService.GetInstance();
     public event PropertyChangedEventHandler? PropertyChanged;
 
     [NotifyPropertyChangedInvocator]
@@ -27,6 +27,6 @@ public class BaseViewModel : INotifyPropertyChanged
     
     public static T? ConvertStringIntegerToEnum<T>(string? choiceString)
     {
-        return ToolsService.ConvertStringIntegerToEnum<T>(choiceString);
+        return ToolService.ConvertStringIntegerToEnum<T>(choiceString);
     }
 }
