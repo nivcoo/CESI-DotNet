@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Xml.Schema;
+using ConsoleApplication.Libs;
 using MainApplication.Localization;
 using MainApplication.Objects.Enums;
 using MainApplication.ViewModels;
@@ -25,17 +26,27 @@ public class EasySaveView
 
     private void ClientManager()
     {
-        var motd = new StringBuilder();
-        motd.AppendLine("Sélectionnez votre choix : ");
-        motd.AppendLine("");
-        motd.AppendLine((int) Choice.ShowList + " : Afficher la liste des sauvegardes ");
-        motd.AppendLine((int) Choice.Create + " : Ajouter une sauvegarde ");
-        motd.AppendLine((int) Choice.Remove + " : Supprimer une sauvegarde");
-        motd.AppendLine((int) Choice.Start + " : Lancer une ou plusieurs sauvegardes");
-        motd.AppendLine((int) Choice.Stop + " : Arrêter une ou plusieurs sauvegardes");
-        Console.Write(motd);
+        bool stopAppli = false;
 
+        while (!stopAppli)
+        {
+            var motd = new StringBuilder();
+            motd.AppendLine("Sélectionnez votre choix : ");
+            motd.AppendLine("");
+            motd.AppendLine((int) Choice.ShowList + " : Afficher la liste des sauvegardes ");
+            motd.AppendLine((int) Choice.Create + " : Ajouter une sauvegarde ");
+            motd.AppendLine((int) Choice.Remove + " : Supprimer une sauvegarde");
+            motd.AppendLine((int) Choice.Start + " : Lancer une ou plusieurs sauvegardes");
+            motd.AppendLine((int) Choice.Stop + " : Arrêter une ou plusieurs sauvegardes");
+            Console.Write(motd);
+            ChoiceSelector();
+            ShowSaves();
+        }
+        
+    }
 
+    private void ChoiceSelector()
+    {
         Choice? choice = null;
         while (choice == null)
         {
@@ -55,12 +66,11 @@ public class EasySaveView
             {
             }
         }
-
-        ShowSaves();
     }
 
     private void SelectSave()
     {
+        
     }
 
 

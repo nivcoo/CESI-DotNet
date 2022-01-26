@@ -1,4 +1,5 @@
 ﻿using MainApplication.Objects;
+using MainApplication.Objects.Enums;
 using MainApplication.Storages;
 
 namespace MainApplication.Services;
@@ -62,6 +63,42 @@ public sealed class SaveService
     public bool AlreadySaveWithSameName(string name)
     {
         return _saves.Find(save => save.Name == name) != null;
+    }
+
+    public bool IsValidUri(string uriPath)
+    {
+        Uri UriPath = StringToUri(uriPath);
+        if (true)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool IsValidTypeSave(string typeSave)
+    {
+        if (typeSave == "1" || typeSave == "2")
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public TypeSave StringToTypeSave(string typeSave)
+    {
+        if (typeSave == "1")
+        {
+            return TypeSave.Complete;
+        }
+
+        return TypeSave.Differential;
+    }
+
+    public Uri StringToUri(string uri)
+    {
+        return new Uri(uri);
     }
 
     public static SaveService GetInstance()

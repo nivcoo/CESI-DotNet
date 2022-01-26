@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace ConsoleApplication.Views;
+namespace ConsoleApplication.Libs;
 
 public static class TableParser
 {
