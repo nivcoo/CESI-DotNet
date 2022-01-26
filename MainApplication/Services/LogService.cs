@@ -3,7 +3,7 @@ using MainApplication.Storages;
 
 namespace MainApplication.Services;
 
-public sealed class LogService
+internal sealed class LogService
 {
     private static readonly LogService Instance = new();
     

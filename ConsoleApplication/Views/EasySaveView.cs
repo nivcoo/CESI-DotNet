@@ -10,10 +10,12 @@ namespace ConsoleApplication.Views;
 public class EasySaveView
 {
     private readonly EasySaveViewModel _easySaveViewModel;
+    private bool running;
 
     public EasySaveView()
     {
         _easySaveViewModel = new EasySaveViewModel();
+        running = true;
         InitView();
     }
 
@@ -21,14 +23,12 @@ public class EasySaveView
     {
         Console.WriteLine("Bienvenue dans EasySave");
         SelectLanguage();
-        ClientManager();
+        SelectActions();
     }
 
-    private void ClientManager()
+    private void SelectActions()
     {
-        bool stopAppli = false;
-
-        while (!stopAppli)
+        while (running)
         {
             var motd = new StringBuilder();
             motd.AppendLine("Sélectionnez votre choix : ");
@@ -38,39 +38,47 @@ public class EasySaveView
             motd.AppendLine((int) Choice.Remove + " : Supprimer une sauvegarde");
             motd.AppendLine((int) Choice.Start + " : Lancer une ou plusieurs sauvegardes");
             motd.AppendLine((int) Choice.Stop + " : Arrêter une ou plusieurs sauvegardes");
+            motd.AppendLine((int) Choice.End + " : Stopper l'application");
             Console.Write(motd);
             ChoiceSelector();
-            ShowSaves();
         }
-        
     }
 
     private void ChoiceSelector()
     {
-        Choice? choice = null;
-        while (choice == null)
+        Console.Write("\nVotre choix : ");
+        var choice = BaseViewModel.ConvertStringIntegerToEnum<Choice>(Console.ReadLine());
+        while (choice == default)
         {
-            Console.Write("\nVotre choix : ");
-            var choiceString = Console.ReadLine();
+            Console.Write("\nChoix incorrect. Votre choix : ");
+            choice = BaseViewModel.ConvertStringIntegerToEnum<Choice>(Console.ReadLine());
+        }
 
-            try
-            {
-                if (choiceString != null)
-                {
-                    var convertedChoice = Convert.ToInt32(choiceString);
-                    if (Enum.IsDefined(typeof(Choice), convertedChoice))
-                        choice = (Choice) convertedChoice;
-                }
-            }
-            catch (FormatException)
-            {
-            }
+        switch (choice)
+        {
+            case Choice.Create:
+                var createSaveView = new CreateSaveView();
+                createSaveView.InitView();
+                break;
+            case Choice.ShowList:
+                ShowSavesList();
+                break;
+            case Choice.Remove:
+                break;
+            case Choice.Start:
+                break;
+            case Choice.Stop:
+                break;
+            case Choice.End:
+                StopApplication();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
 
     private void SelectSave()
     {
-        
     }
 
 
@@ -87,27 +95,33 @@ public class EasySaveView
         Console.WriteLine(Language.GLOBAL_SELECTED_LANGUAGE);
     }
 
-    private void ShowSaves()
+    private void ShowSavesList()
     {
-        _easySaveViewModel.UpdateSaves();
+        _easySaveViewModel.UpdateSavesList();
         var saves = _easySaveViewModel.Saves;
 
-        List<Tuple<string?, string?, string?, string?, string?>> tuplesSaves = new();
+        List<Tuple<string, string, string, string, string>> tuplesSaves = new();
 
         if (saves != null)
-            foreach (var save in saves)
-            {
-                tuplesSaves.Add(Tuple.Create(save.Name, save.State?.ToString(), save.Type?.ToString(),
-                    save.SourcePath?.ToString(), save.TargetPath?.ToString()));
-            }
+            tuplesSaves.AddRange(saves.Select(save => Tuple.Create(save.Name, save.State.ToString(),
+                save.Type.ToString(), save.SourcePath.ToString(), save.TargetPath.ToString())));
 
-        Console.WriteLine(tuplesSaves.ToStringTable(
-            new[] {"Nom", "Etat", "Type", "Source", "Destination"},
-            a => a.Item1 ?? string.Empty, a => a.Item2 ?? string.Empty,
-            a => a.Item3 ?? string.Empty
-            , a => a.Item4 ?? string.Empty, a => a.Item5 ?? string.Empty));
+        Console.WriteLine(
+            tuplesSaves.ToStringTable(new[] {"Nom", "Etat", "Type", "Source", "Destination"},
+                a => a.Item1,
+                a => a.Item2,
+                a => a.Item3,
+                a => a.Item4,
+                a => a.Item5
+            )
+        );
 
 
         Console.WriteLine();
+    }
+
+    private void StopApplication()
+    {
+        running = false;
     }
 }

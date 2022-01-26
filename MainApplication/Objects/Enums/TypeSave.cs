@@ -2,6 +2,6 @@
 
 public enum TypeSave
 {
-    Complete,
-    Differential
+    Complete = 1,
+    Differential = 2
 }

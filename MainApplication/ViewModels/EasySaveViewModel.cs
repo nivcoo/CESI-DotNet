@@ -1,10 +1,8 @@
 ﻿using System.Globalization;
 using System.Windows.Input;
-using MainApplication.Handlers;
 using MainApplication.Localization;
 using MainApplication.Objects;
 using MainApplication.Objects.Enums;
-using MainApplication.Storages;
 
 namespace MainApplication.ViewModels;
 
@@ -34,12 +32,10 @@ public class EasySaveViewModel : BaseViewModel
         set => SetField(ref _saves, value, nameof(Saves));
     }
 
-    public void UpdateSaves()
+    public void UpdateSavesList()
     {
         _saves = SaveService.GetSaves();
     }
-    
-    
 
     public bool UpdateLanguage()
     {
@@ -77,5 +73,4 @@ public class EasySaveViewModel : BaseViewModel
         return true;
     }
 
-   
 }

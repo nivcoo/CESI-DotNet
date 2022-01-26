@@ -7,8 +7,9 @@ namespace MainApplication.ViewModels;
 
 public class BaseViewModel : INotifyPropertyChanged
 {
-    protected readonly SaveService SaveService = SaveService.GetInstance();
-    protected readonly LogService LogService = LogService.GetInstance();
+    internal readonly SaveService SaveService = SaveService.GetInstance();
+    internal readonly LogService LogService = LogService.GetInstance();
+    internal readonly ToolsService ToolsService = ToolsService.GetInstance();
     public event PropertyChangedEventHandler? PropertyChanged;
 
     [NotifyPropertyChangedInvocator]
@@ -22,5 +23,10 @@ public class BaseViewModel : INotifyPropertyChanged
         field = value;
         OnPropertyChanged(propertyName);
         return true;
+    }
+    
+    public static T? ConvertStringIntegerToEnum<T>(string? choiceString)
+    {
+        return ToolsService.ConvertStringIntegerToEnum<T>(choiceString);
     }
 }

@@ -7,76 +7,94 @@ namespace ConsoleApplication.Views;
 
 public class CreateSaveView
 {
-    private readonly CreateSaveViewModel _easySaveViewModel;
+    private readonly CreateSaveViewModel _createSaveViewModel;
+
+    private string? Name { get; set; }
+    private Uri? SourcePath { get; set; }
+    private Uri? TargetPath { get; set; }
+    private TypeSave Type { get; set; }
 
     public CreateSaveView()
     {
-        _easySaveViewModel = new CreateSaveViewModel();
-        InitView();
+        _createSaveViewModel = new CreateSaveViewModel();
     }
 
-    private void InitView()
+    public void InitView()
     {
-        SetName();
-        SetSourceUri();
-        SetTargetUri();
-        SetTypeSave();
-        SetState();
+        AskSaveName();
+
+        AskSaveSourceUri();
+        AskSaveTargetUri();
+        AskSaveTypeSave();
+
+        Console.WriteLine(CreateSave()
+            ? "Votre sauvegarder a été créée avec succès !"
+            : "Une erreur est survenue pendant la création de votre sauvegarde !");
     }
 
-    private void SetState()
+    /**private void SetState()
     {
-        _easySaveViewModel.Save.State = State.Active;
-    }
-
-    private void SetTypeSave()
-    {
-        Console.Write("\nDonner type de sauvegarde ( 1 - Complete | 2 - Differential ) : ");
-        var saveTypeSave = Console.ReadLine();
-        while (!SaveService.GetInstance().IsValidTypeSave(saveTypeSave))
-        {
-            Console.Write("\nChoisissez 1 ou 2 pour les types de sauvegarde ( 1 - Complete | 2 - Differential ) : ");
-            saveTypeSave = Console.ReadLine();
-        }
-        _easySaveViewModel.Save.Type = SaveService.GetInstance().StringToTypeSave(saveTypeSave);
-    }
-    
-    private void SetName()
+        _createSaveViewModel.Save.State = State.Active;
+    }**/
+    private void AskSaveName()
     {
         Console.Write("\nDonner un nom à la sauvegarde : ");
         var saveName = Console.ReadLine();
-        while (!SaveService.GetInstance().AlreadySaveWithSameName(saveName))
+        while (saveName == null || _createSaveViewModel.AlreadySaveWithSameName(saveName))
         {
             Console.Write("\nUne sauvegarde comporte déjà ce nom. Donner un nom à la sauvegarde : ");
             saveName = Console.ReadLine();
         }
 
-        _easySaveViewModel.Save.Name = saveName;
+        Name = saveName;
     }
-
-    private void SetSourceUri()
+    private void AskSaveSourceUri()
     {
         Console.Write("\nDonner le chemin d'accès à la sauvegarde : ");
-        var sourceUri = Console.ReadLine();
-        while (!SaveService.GetInstance().IsValidUri(sourceUri))
+        Uri? uri = null;
+        uri = CreateSaveViewModel.IsValidUri(Console.ReadLine());
+        while (uri == null)
         {
             Console.Write("\nLe chemin d'accès est incorrect. Donner un chemin d'accès : ");
-            sourceUri = Console.ReadLine();
+            uri = CreateSaveViewModel.IsValidUri(Console.ReadLine());
         }
 
-        _easySaveViewModel.Save.SourcePath = SaveService.GetInstance().StringToUri(sourceUri);
+        SourcePath = uri;
     }
 
-    private void SetTargetUri()
+    private void AskSaveTargetUri()
     {
         Console.Write("\nDonner le chemin d'écriture de la sauvegarde : ");
-        var targetUri = Console.ReadLine();
-        while (!SaveService.GetInstance().IsValidUri(targetUri))
+        Uri? uri = null;
+        uri = CreateSaveViewModel.IsValidUri(Console.ReadLine());
+        while (uri == null)
         {
             Console.Write("\nLe chemin est incorrect. Donner un chemin d'écriture : ");
-            targetUri = Console.ReadLine();
+            uri = CreateSaveViewModel.IsValidUri(Console.ReadLine());
         }
 
-        _easySaveViewModel.Save.TargetPath = SaveService.GetInstance().StringToUri(targetUri);
+        TargetPath = uri;
+    }
+    
+    private void AskSaveTypeSave()
+    {
+        
+        Console.Write("\nDonner type de sauvegarde ( 1 - Complete | 2 - Differential ) : ");
+        var typeSave = BaseViewModel.ConvertStringIntegerToEnum<TypeSave>(Console.ReadLine());
+        while (typeSave == default)
+        {
+            Console.Write("\nChoisissez 1 ou 2 pour les types de sauvegarde ( 1 - Complete | 2 - Differential ) : ");
+            typeSave = BaseViewModel.ConvertStringIntegerToEnum<TypeSave>(Console.ReadLine());
+        }
+
+        Type = typeSave;
+    }
+
+    private bool CreateSave()
+    {
+        if (Name != null && SourcePath != null && TargetPath != null)
+            return _createSaveViewModel.AddNewSave(new Save(Name, SourcePath, TargetPath, Type, State.Active,
+                0, 0, 0, 0));
+        return false;
     }
 }

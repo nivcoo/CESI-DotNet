@@ -6,5 +6,6 @@ public enum Choice
     Create = 2,
     Remove = 3,
     Start = 4,
-    Stop = 5
+    Stop = 5,
+    End = 6
 }

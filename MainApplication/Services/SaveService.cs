@@ -4,7 +4,7 @@ using MainApplication.Storages;
 
 namespace MainApplication.Services;
 
-public sealed class SaveService
+internal sealed class SaveService
 {
     private static readonly SaveService Instance = new();
 
@@ -44,61 +44,27 @@ public sealed class SaveService
     {
     }
 
-    public void AddNewSave(Save save)
+    public bool AddNewSave(Save save)
     {
-        if (save.Name == null || AlreadySaveWithSameName(save.Name))
-            return;
+        if (AlreadySaveWithSameName(save.Name))
+            return false;
         _storage.AddNewElement(save);
         _saves.Add(save);
+        return true;
     }
 
-    public void RemoveSave(Save save)
+    public bool RemoveSave(Save save)
     {
         if (!_saves.Contains(save))
-            return;
+            return false;
         _storage.RemoveElement(s => s.Name == save.Name);
         _saves.Remove(save);
+        return true;
     }
 
     public bool AlreadySaveWithSameName(string name)
     {
         return _saves.Find(save => save.Name == name) != null;
-    }
-
-    public bool IsValidUri(string uriPath)
-    {
-        Uri UriPath = StringToUri(uriPath);
-        if (true)
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    public bool IsValidTypeSave(string typeSave)
-    {
-        if (typeSave == "1" || typeSave == "2")
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    public TypeSave StringToTypeSave(string typeSave)
-    {
-        if (typeSave == "1")
-        {
-            return TypeSave.Complete;
-        }
-
-        return TypeSave.Differential;
-    }
-
-    public Uri StringToUri(string uri)
-    {
-        return new Uri(uri);
     }
 
     public static SaveService GetInstance()
