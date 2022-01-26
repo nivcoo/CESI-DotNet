@@ -22,7 +22,6 @@ public class CreateSaveView
     public void InitView()
     {
         AskSaveName();
-
         AskSaveSourceUri();
         AskSaveTargetUri();
         AskSaveTypeSave();
@@ -31,11 +30,7 @@ public class CreateSaveView
             ? "Votre sauvegarder a été créée avec succès !"
             : "Une erreur est survenue pendant la création de votre sauvegarde !");
     }
-
-    /**private void SetState()
-    {
-        _createSaveViewModel.Save.State = State.Active;
-    }**/
+    
     private void AskSaveName()
     {
         Console.Write("\nDonner un nom à la sauvegarde : ");
