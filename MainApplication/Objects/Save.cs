@@ -40,6 +40,6 @@ public class Save
 
     public void UpdateProgression()
     {
-        Progression = NbFilesLeftToDo == 0 ? 100 : NbFilesLeftToDo * 100 / TotalFilesToCopy;
+        Progression = (TotalFilesToCopy - NbFilesLeftToDo) * 100 / TotalFilesToCopy;
     }
 }
