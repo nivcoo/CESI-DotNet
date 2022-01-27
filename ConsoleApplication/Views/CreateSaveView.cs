@@ -79,7 +79,7 @@ public class CreateSaveView : BaseView
             return;
         Console.Write(Environment.NewLine + Language.CREATE_SAVE_ASK_TARGET_URI + @" ");
         var consoleRead = Console.ReadLine();
-        var uri = CreateSaveViewModel.IsValidUri(Console.ReadLine());
+        var uri = CreateSaveViewModel.IsValidUri(consoleRead);
         while (consoleRead != "cancel" && uri == null)
         {
             Console.WriteLine(Language.CREATE_SAVE_ASK_TARGET_URI_RETRY);

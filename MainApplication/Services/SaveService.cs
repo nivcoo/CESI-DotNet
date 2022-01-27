@@ -20,8 +20,6 @@ internal sealed class SaveService
         _savesPath = @"data\saves.json";
         _storage = new JsonStorage<Save>(_savesPath);
         LoadSavesFile();
-
-
         _saves = _storage.GetAllElements();
     }
 
@@ -69,7 +67,7 @@ internal sealed class SaveService
 
     public bool AddNewSave(Save save)
     {
-        if (AlreadySaveWithSameName(save.Name) != null)
+        if (AlreadySaveWithSameName(save.Name) != null || save.Name == "all")
             return false;
         _storage.AddNewElement(save);
         _saves.Add(save);
@@ -84,6 +82,12 @@ internal sealed class SaveService
         _saves.Remove(save);
         return true;
     }
+    
+    public bool RemoveSave(string saveName)
+    {
+        var save = AlreadySaveWithSameName(saveName);
+        return save != null && RemoveSave(save);
+    }
 
     public Save? AlreadySaveWithSameName(string name)
     {
@@ -94,4 +98,5 @@ internal sealed class SaveService
     {
         return Instance;
     }
+    
 }

@@ -9,7 +9,6 @@ internal class ToolService
         return Instance;
     }
 
-
     public static Uri? IsValidUri(string? uri)
     {
         if (uri == null)

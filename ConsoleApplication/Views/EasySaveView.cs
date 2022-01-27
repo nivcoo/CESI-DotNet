@@ -38,6 +38,7 @@ public class EasySaveView : BaseView
             motd.AppendLine((int) Choice.Start + " : " + Language.CHOICE_DESC_START);
             motd.AppendLine((int) Choice.Stop + " : " + Language.CHOICE_DESC_STOP);
             motd.AppendLine((int) Choice.End + " : " + Language.CHOICE_DESC_END);
+            Console.WriteLine();
             Console.Write(motd);
             ChoiceSelector();
         }
@@ -60,7 +61,6 @@ public class EasySaveView : BaseView
                 ShowSavesList();
                 break;
             case Choice.Create:
-
                 var createSaveView = new CreateSaveView();
                 createSaveView.InitView();
                 break;
@@ -83,6 +83,16 @@ public class EasySaveView : BaseView
 
     private void RemoveSave()
     {
+        Console.Write(Environment.NewLine + Language.GLOBAL_ASK_SAVE_NAME + @" ");
+        var saveName = Console.ReadLine();
+        while (saveName != "cancel" &&
+               (saveName == null || !_easySaveViewModel.RemoveSave(saveName)))
+        {
+            Console.WriteLine(Language.GLOBAL_SAVE_NAME_NOT_EXIST);
+            Console.Write(Environment.NewLine + Language.GLOBAL_ASK_SAVE_NAME + @" ");
+            saveName = Console.ReadLine();
+        }
+        AskReturnMainMenu();
     }
 
     private void StartSave()
@@ -90,25 +100,17 @@ public class EasySaveView : BaseView
         Console.Write(Environment.NewLine + Language.GLOBAL_ASK_SAVE_NAME_OR_ALL + @" ");
         var saveName = Console.ReadLine();
         while (saveName != "all" && saveName != "cancel" &&
-               (saveName == null || !_easySaveViewModel.AlreadySaveWithSameName(saveName)))
+               (saveName == null || !_easySaveViewModel.StartSave(saveName)))
         {
             Console.WriteLine(Language.GLOBAL_SAVE_NAME_NOT_EXIST_OR_ALL);
             Console.Write(Environment.NewLine + Language.GLOBAL_ASK_SAVE_NAME_OR_ALL + @" ");
             saveName = Console.ReadLine();
         }
+        
+        if(saveName == "all")
+            _easySaveViewModel.StartAllSaves();
 
-        switch (saveName)
-        {
-            case "all":
-                _easySaveViewModel.StartAllSaves();
-                break;
-            case "cancel":
-                AskReturnMainMenu();
-                break;
-            default:
-                _easySaveViewModel.StartSave(saveName);
-                break;
-        }
+        AskReturnMainMenu();
     }
 
     private void StopSave()
@@ -155,8 +157,7 @@ public class EasySaveView : BaseView
             )
         );
 
-
-        Console.WriteLine();
+        AskReturnMainMenu();
     }
 
     private void StopApplication()

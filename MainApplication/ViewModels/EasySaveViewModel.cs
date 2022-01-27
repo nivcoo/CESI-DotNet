@@ -81,4 +81,9 @@ public class EasySaveViewModel : BaseViewModel
     {
         SaveService.StartAllSaves();
     }
+
+    public bool RemoveSave(string saveName)
+    {
+        return SaveService.RemoveSave(saveName);
+    }
 }
