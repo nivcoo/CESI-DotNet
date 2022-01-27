@@ -44,4 +44,9 @@ internal class ToolService
             return default;
         }
     }
+
+    public static long GetTimestamp()
+    {
+        return DateTime.Now.ToFileTime();
+    }
 }

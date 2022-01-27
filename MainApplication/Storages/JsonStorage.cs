@@ -6,13 +6,10 @@ using MainApplication.Storages.NamingPolicies;
 
 namespace MainApplication.Storages;
 
-public class JsonStorage<T> : IStorage<T>
+public class JsonStorage<T> : AStorage<T>
 {
-    public string FilePath { get; set; }
-
-    public JsonStorage(string filePath)
+    public JsonStorage(string filePath) : base(filePath)
     {
-        FilePath = filePath;
     }
 
     private readonly JsonSerializerOptions _serializerOptions = new()
@@ -24,7 +21,7 @@ public class JsonStorage<T> : IStorage<T>
         WriteIndented = true
     };
 
-    public List<T> GetAllElements()
+    public override List<T> GetAllElements()
     {
         try
         {
@@ -41,14 +38,14 @@ public class JsonStorage<T> : IStorage<T>
     }
 
 
-    public void AddNewElement(T obj)
+    public override void AddNewElement(T obj)
     {
         var elementsList = GetAllElements();
         elementsList.Add(obj);
         SerializeAndSaveIntoFiles(elementsList);
     }
 
-    public void AddNewElementWithoutRewrite(T obj)
+    public override void AddNewElementWithoutRewrite(T obj)
     {
         var objects = new List<T> {obj};
         using var fs = new FileStream(FilePath, FileMode.Open);
@@ -66,12 +63,13 @@ public class JsonStorage<T> : IStorage<T>
                 sw.Write("  }," + Environment.NewLine);
             }
         }
+
         sw.Write(serializeObject);
         sw.Close();
         fs.Close();
     }
 
-    public void RemoveElement(Predicate<T> match)
+    public override void RemoveElement(Predicate<T> match)
     {
         var elementsList = GetAllElements();
         var element = elementsList.Find(match);
@@ -81,13 +79,13 @@ public class JsonStorage<T> : IStorage<T>
         SerializeAndSaveIntoFiles(elementsList);
     }
 
-    public T? GetElementBy(Predicate<T> match)
+    public override T? GetElementBy(Predicate<T> match)
     {
         var elementsList = GetAllElements();
         return elementsList.Find(match);
     }
 
-    public bool EditElementBy(Predicate<T> match, T obj)
+    public override bool EditElementBy(Predicate<T> match, T obj)
     {
         var elementsList = GetAllElements();
         var selected = elementsList.Find(match);
@@ -99,7 +97,7 @@ public class JsonStorage<T> : IStorage<T>
         return true;
     }
 
-    public void ClearFile()
+    public override void ClearFile()
     {
         File.WriteAllText(FilePath, string.Empty);
     }

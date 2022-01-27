@@ -11,7 +11,7 @@ internal sealed class SaveService
 
     private readonly string _savesPath;
 
-    private readonly IStorage<Save> _storage;
+    private readonly AStorage<Save> _storage;
 
     private readonly List<Save> _saves;
 
@@ -20,7 +20,8 @@ internal sealed class SaveService
         _savesPath = @"data\saves.json";
         _storage = new JsonStorage<Save>(_savesPath);
         LoadSavesFile();
-        _saves = _storage.GetAllElements();
+        _saves = new List<Save>();
+        InitSavesList();
     }
 
     private void LoadSavesFile()
@@ -30,11 +31,16 @@ internal sealed class SaveService
             File.CreateText(_savesPath).Close();
     }
 
+    private void InitSavesList()
+    {
+        foreach (var save in _storage.GetAllElements()) AddSaveToList(save);
+    }
+
     public List<Save> GetSaves()
     {
         return _saves;
     }
-    
+
     public bool StartSave(string name)
     {
         var save = AlreadySaveWithSameName(name);
@@ -46,13 +52,13 @@ internal sealed class SaveService
         ASave aSave = save.Type switch
         {
             TypeSave.Complete => new CompleteASave(save),
-            TypeSave.Differential => new DifferentialASave(save),
+            TypeSave.Differential => new DifferentialSave(save),
             _ => new CompleteASave(save)
         };
 
         return aSave.RunSave();
     }
-    
+
     public void StartAllSaves()
     {
         foreach (var save in _saves)
@@ -70,8 +76,13 @@ internal sealed class SaveService
         if (AlreadySaveWithSameName(save.Name) != null || save.Name == "all")
             return false;
         _storage.AddNewElement(save);
-        _saves.Add(save);
+        AddSaveToList(save);
         return true;
+    }
+
+    private void AddSaveToList(Save save)
+    {
+        _saves.Add(save);
     }
 
     public bool RemoveSave(Save save)
@@ -82,7 +93,7 @@ internal sealed class SaveService
         _saves.Remove(save);
         return true;
     }
-    
+
     public bool RemoveSave(string saveName)
     {
         var save = AlreadySaveWithSameName(saveName);
@@ -98,5 +109,9 @@ internal sealed class SaveService
     {
         return Instance;
     }
-    
+
+    public void UpdateSaveStorage(Save save)
+    {
+        _storage.EditElementBy(s => s.Name == save.Name, save);
+    }
 }

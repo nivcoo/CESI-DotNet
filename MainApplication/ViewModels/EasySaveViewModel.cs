@@ -39,32 +39,6 @@ public class EasySaveViewModel : BaseViewModel
 
     public bool UpdateLanguage()
     {
-        /*IStorage isStorage = new JsonStorage("saves.json");
-
-        isStorage.AddNewElement(new Save
-        {
-            Name = "trt9",
-            Type = TypeSave.Complete
-        });
-
-        Console.WriteLine(isStorage.GetAllElements<Save>()[2].Name);
-
-        IStorage<Log> isStorage = new JsonStorage<Log>(@"datas\logs.json");
-        isStorage.ClearFile();
-        isStorage.AddNewElementWithoutRewrite(new Log
-        {
-            Name = "IOUIVUGYG",
-            SourcePath = new Uri(Directory.GetCurrentDirectory() + @"\datas\logs.json"),
-            Date = DateTime.Now
-        });
-        isStorage.AddNewElementWithoutRewrite(new Log
-        {
-            Name = "IOUIVUGYG222",
-            Date = DateTime.Now
-        });
-        Console.WriteLine(isStorage.GetAllElements()[0].SourcePath);
-
-        */
         if (LanguageString == null)
             return false;
         if (!LanguageCheck.CorrectLanguage(LanguageString))
@@ -72,6 +46,7 @@ public class EasySaveViewModel : BaseViewModel
         Language.Culture = CultureInfo.GetCultureInfo(LanguageString);
         return true;
     }
+
     public bool StartSave(string name)
     {
         return SaveService.StartSave(name);

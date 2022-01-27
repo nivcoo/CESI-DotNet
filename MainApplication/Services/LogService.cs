@@ -9,7 +9,7 @@ internal sealed class LogService
     
     private readonly string _logsPath;
 
-    private readonly IStorage<Log> _storage;
+    private readonly AStorage<Log> _storage;
 
     private LogService()
     {

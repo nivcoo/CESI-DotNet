@@ -5,19 +5,27 @@ namespace MainApplication.Objects;
 
 public class Save
 {
-    [JsonPropertyName("Name")] public string Name { get; set; }
+    [JsonPropertyName("Name")] public string Name { get; }
+
     [JsonPropertyName("SourcePath")] public Uri SourcePath { get; set; }
+
     [JsonPropertyName("TargetPath")] public Uri TargetPath { get; set; }
+
     [JsonPropertyName("Type")] public TypeSave Type { get; set; }
+
     [JsonPropertyName("State")] public State State { get; set; }
+
     [JsonPropertyName("TotalFilesToCopy")] public int TotalFilesToCopy { get; set; }
-    [JsonPropertyName("TotalFilesSize")] public int TotalFilesSize { get; set; }
+
+    [JsonPropertyName("TotalFilesSize")] public long TotalFilesSize { get; set; }
+
     [JsonPropertyName("NbFilesLeftToDo")] public int NbFilesLeftToDo { get; set; }
+
     [JsonPropertyName("Progression")] public int Progression { get; set; }
 
     [JsonConstructor]
     public Save(string name, Uri sourcePath, Uri targetPath, TypeSave type, State state, int totalFilesToCopy,
-        int totalFilesSize, int nbFilesLeftToDo, int progression)
+        long totalFilesSize, int nbFilesLeftToDo, int progression)
     {
         Name = name;
         SourcePath = sourcePath;
@@ -32,6 +40,6 @@ public class Save
 
     public void UpdateProgression()
     {
-        Progression = NbFilesLeftToDo / TotalFilesToCopy * 100;
+        Progression = NbFilesLeftToDo == 0 ? 100 : NbFilesLeftToDo * 100 / TotalFilesToCopy;
     }
 }

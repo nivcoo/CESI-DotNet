@@ -118,7 +118,7 @@ public class CreateSaveView : BaseView
     private bool CreateSave()
     {
         if (Name != null && SourcePath != null && TargetPath != null)
-            return _createSaveViewModel.AddNewSave(new Save(Name, SourcePath, TargetPath, Type, State.Active,
+            return _createSaveViewModel.AddNewSave(new Save(Name, SourcePath, TargetPath, Type, State.End,
                 0, 0, 0, 0));
         return false;
     }
