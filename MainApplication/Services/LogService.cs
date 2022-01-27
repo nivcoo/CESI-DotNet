@@ -1,4 +1,5 @@
-﻿using MainApplication.Objects;
+﻿using System.Globalization;
+using MainApplication.Objects;
 using MainApplication.Storages;
 
 namespace MainApplication.Services;
@@ -6,20 +7,17 @@ namespace MainApplication.Services;
 internal sealed class LogService
 {
     private static readonly LogService Instance = new();
-    
-    private readonly string _logsPath;
 
-    private readonly AStorage<Log> _storage;
+    private string? _logsPath;
 
-    private LogService()
-    {
-        _logsPath = @"data\logs.json";
-        _storage = new JsonStorage<Log>(_logsPath);
-        LoadLogsFile();
-    }
+    private AStorage<Log>? _storage;
 
     private void LoadLogsFile()
     {
+        var dateTime = DateTime.Now;
+        var date = dateTime.ToString("yyyy-MM-dd");
+        _logsPath = @"data\logs\" + date + ".log.json";
+        _storage = new JsonStorage<Log>(_logsPath);
         Directory.CreateDirectory(Path.GetDirectoryName(_logsPath) ?? string.Empty);
         if (!File.Exists(_logsPath))
             File.CreateText(_logsPath).Close();
@@ -27,7 +25,8 @@ internal sealed class LogService
 
     public void InsertLog(Log log)
     {
-        _storage.AddNewElementWithoutRewrite(log);
+        LoadLogsFile();
+        _storage?.AddNewElementWithoutRewrite(log);
     }
 
     public static LogService GetInstance()
