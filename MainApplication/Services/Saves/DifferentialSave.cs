@@ -2,11 +2,11 @@
 
 namespace MainApplication.Services.Saves;
 
-public class CompleteSave : ISave
+public class DifferentialSave : ISave
 {
     public Save Save { get; set; }
 
-    public CompleteSave(Save save)
+    public DifferentialSave(Save save)
     {
         Save = save;
     }

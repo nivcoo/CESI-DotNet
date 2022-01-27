@@ -1,5 +1,6 @@
 ﻿using MainApplication.Objects;
 using MainApplication.Objects.Enums;
+using MainApplication.Services.Saves;
 using MainApplication.Storages;
 
 namespace MainApplication.Services;
@@ -38,6 +39,12 @@ internal sealed class SaveService
 
     public void StartSave(Save save)
     {
+        ISave iSave = save.Type switch
+        {
+            TypeSave.Complete => new CompleteSave(save),
+            TypeSave.Differential => new DifferentialSave(save),
+            _ => new CompleteSave(save)
+        };
     }
 
     public void StopSave(Save save)
