@@ -24,9 +24,9 @@ public abstract class ASave
         return Directory.GetFiles(path.LocalPath, "*.*", SearchOption.AllDirectories);
     }
 
-    protected byte[] GetHashSha256(string filename)
+    protected byte[] GetHashSha256(string fileName)
     {
-        using var stream = File.OpenRead(filename);
+        using var stream = File.OpenRead(fileName);
         return _sha256.ComputeHash(stream);
     }
 

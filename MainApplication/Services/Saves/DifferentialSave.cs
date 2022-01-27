@@ -26,32 +26,38 @@ public class DifferentialSave : ASave
             return false;
         var sourceLocalPath = Save.SourcePath.LocalPath;
         var targetLocalPath = Save.TargetPath.LocalPath;
-        DeleteFolderWithFiles(Save.TargetPath);
+        
         foreach (var saveFile in SaveFiles)
         {
             var actualTimestamp = ToolService.GetTimestamp();
             var sourceFolder = saveFile.Path;
             var localPath = sourceFolder.Replace(sourceLocalPath, "");
             var targetFolder = targetLocalPath + localPath;
-            Directory.CreateDirectory(targetFolder);
             var fileName = saveFile.FileName;
-            var sourceFilePath = Path.Combine(sourceFolder, fileName);
-            var targetFilePath = Path.Combine(targetFolder, fileName);
-            File.Copy(sourceFilePath, targetFilePath, true);
-            UpdateSaveStatut();
-            var sourceFileInfo = new FileInfo(sourceFilePath);
-            var finalTimestamp = ToolService.GetTimestamp();
-            var time = finalTimestamp - actualTimestamp;
-            LogService.InsertLog(new Log(Save.Name, new Uri(sourceFilePath), new Uri(targetFilePath),
-                sourceFileInfo.Length, time, DateTime.Now));
+            
+
+            if (!IsSameFile(saveFile.Hash,GetHash(Path.Combine(targetFolder, fileName))))
+            {
+                File.Delete(Path.Combine(targetFolder, fileName));
+                Directory.CreateDirectory(targetFolder);
+                var sourceFilePath = Path.Combine(sourceFolder, fileName);
+                var targetFilePath = Path.Combine(targetFolder, fileName);
+                File.Copy(sourceFilePath, targetFilePath);
+                UpdateSaveStatut();
+                var sourceFileInfo = new FileInfo(sourceFilePath);
+                var finalTimestamp = ToolService.GetTimestamp();
+                var time = finalTimestamp - actualTimestamp;
+                LogService.InsertLog(new Log(Save.Name, new Uri(sourceFilePath), new Uri(targetFilePath),
+                    sourceFileInfo.Length, time, DateTime.Now));
+            }
         }
 
         return true;
     }
     
-    public bool IsSameFile(string sourceFile, string destinationFile)
+    public bool IsSameFile(byte[] sourceFile, byte[] destinationFile)
     {
-        if (BytesToString(GetHash(sourceFile)) == BytesToString(GetHash(destinationFile)))
+        if (BytesToString(sourceFile) == BytesToString(destinationFile))
         {
             return true;
         }
@@ -59,21 +65,16 @@ public class DifferentialSave : ASave
         return false;
     }
     
-    public byte[] GetHash(string fileName)
+    public byte[] GetHash(string filename)
     {
         SHA256 hash = SHA256.Create();
-        using (FileStream stream = File.OpenRead(fileName))
+        using (FileStream stream = File.OpenRead(filename))
         {
             return hash.ComputeHash(stream);
         }
     }
 
-    public string GetString(string fileName)
-    {
-        return BytesToString(GetHash(fileName));
-    }
-    
-    public static string BytesToString(byte[] fileHash)
+    private static string BytesToString(byte[] fileHash)
     {
         string result = "";
         foreach (byte b in fileHash) result += b.ToString("x2");
