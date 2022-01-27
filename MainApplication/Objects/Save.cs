@@ -29,4 +29,9 @@ public class Save
         NbFilesLeftToDo = nbFilesLeftToDo;
         Progression = progression;
     }
+
+    public void UpdateProgression()
+    {
+        Progression = NbFilesLeftToDo / TotalFilesToCopy * 100;
+    }
 }
