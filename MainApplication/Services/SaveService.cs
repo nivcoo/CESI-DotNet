@@ -36,15 +36,31 @@ internal sealed class SaveService
     {
         return _saves;
     }
-
-    public void StartSave(Save save)
+    
+    public bool StartSave(string name)
     {
-        ISave iSave = save.Type switch
+        var save = AlreadySaveWithSameName(name);
+        return save != null && StartSave(save);
+    }
+
+    private static bool StartSave(Save save)
+    {
+        ASave aSave = save.Type switch
         {
-            TypeSave.Complete => new CompleteSave(save),
-            TypeSave.Differential => new DifferentialSave(save),
-            _ => new CompleteSave(save)
+            TypeSave.Complete => new CompleteASave(save),
+            TypeSave.Differential => new DifferentialASave(save),
+            _ => new CompleteASave(save)
         };
+
+        return aSave.RunSave();
+    }
+    
+    public void StartAllSaves()
+    {
+        foreach (var save in _saves)
+        {
+            StartSave(save);
+        }
     }
 
     public void StopSave(Save save)
@@ -53,7 +69,7 @@ internal sealed class SaveService
 
     public bool AddNewSave(Save save)
     {
-        if (AlreadySaveWithSameName(save.Name))
+        if (AlreadySaveWithSameName(save.Name) != null)
             return false;
         _storage.AddNewElement(save);
         _saves.Add(save);
@@ -69,9 +85,9 @@ internal sealed class SaveService
         return true;
     }
 
-    public bool AlreadySaveWithSameName(string name)
+    public Save? AlreadySaveWithSameName(string name)
     {
-        return _saves.Find(save => save.Name == name) != null;
+        return _saves.Find(save => save.Name == name);
     }
 
     public static SaveService GetInstance()

@@ -6,7 +6,7 @@ using MainApplication.ViewModels;
 
 namespace ConsoleApplication.Views;
 
-public class EasySaveView
+public class EasySaveView : BaseView
 {
     private readonly EasySaveViewModel _easySaveViewModel;
     private bool _running;
@@ -49,7 +49,8 @@ public class EasySaveView
         var choice = BaseViewModel.ConvertStringIntegerToEnum<Choice>(Console.ReadLine());
         while (choice == default)
         {
-            Console.Write(Environment.NewLine + Language.GLOBAL_SELECT_CHOICE_RETRY + @" ");
+            Console.WriteLine(Language.GLOBAL_SELECT_CHOICE_RETRY);
+            Console.Write(Environment.NewLine + Language.GLOBAL_SELECT_CHOICE + @" ");
             choice = BaseViewModel.ConvertStringIntegerToEnum<Choice>(Console.ReadLine());
         }
 
@@ -59,6 +60,7 @@ public class EasySaveView
                 ShowSavesList();
                 break;
             case Choice.Create:
+
                 var createSaveView = new CreateSaveView();
                 createSaveView.InitView();
                 break;
@@ -85,6 +87,28 @@ public class EasySaveView
 
     private void StartSave()
     {
+        Console.Write(Environment.NewLine + Language.GLOBAL_ASK_SAVE_NAME_OR_ALL + @" ");
+        var saveName = Console.ReadLine();
+        while (saveName != "all" && saveName != "cancel" &&
+               (saveName == null || !_easySaveViewModel.AlreadySaveWithSameName(saveName)))
+        {
+            Console.WriteLine(Language.GLOBAL_SAVE_NAME_NOT_EXIST_OR_ALL);
+            Console.Write(Environment.NewLine + Language.GLOBAL_ASK_SAVE_NAME_OR_ALL + @" ");
+            saveName = Console.ReadLine();
+        }
+
+        switch (saveName)
+        {
+            case "all":
+                _easySaveViewModel.StartAllSaves();
+                break;
+            case "cancel":
+                AskReturnMainMenu();
+                break;
+            default:
+                _easySaveViewModel.StartSave(saveName);
+                break;
+        }
     }
 
     private void StopSave()
@@ -97,7 +121,7 @@ public class EasySaveView
         var success = false;
         while (!success)
         {
-            Console.Write(Environment.NewLine + @"Please Select Language (en-US, fr-FR) : ");
+            Console.Write(Environment.NewLine + Language.GLOBAL_SELECT_LANGUAGE + @" ");
             _easySaveViewModel.LanguageString = Console.ReadLine();
             success = _easySaveViewModel.UpdateLanguage();
         }

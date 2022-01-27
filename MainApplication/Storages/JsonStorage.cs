@@ -31,13 +31,11 @@ public class JsonStorage<T> : IStorage<T>
             var text = File.ReadAllText(FilePath);
             if (text == "")
                 return new List<T>();
-            Console.WriteLine(text.Trim());
             var elementsList = JsonSerializer.Deserialize<List<T>>(text.Trim(), _serializerOptions);
             return elementsList ?? new List<T>();
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            Console.WriteLine(e);
             return new List<T>();
         }
     }

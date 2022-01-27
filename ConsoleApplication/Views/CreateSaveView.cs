@@ -5,9 +5,11 @@ using MainApplication.ViewModels;
 
 namespace ConsoleApplication.Views;
 
-public class CreateSaveView
+public class CreateSaveView : BaseView
 {
     private readonly CreateSaveViewModel _createSaveViewModel;
+
+    private bool _cancel;
 
     private string? Name { get; set; }
     private Uri? SourcePath { get; set; }
@@ -26,7 +28,10 @@ public class CreateSaveView
         AskSaveTargetUri();
         AskSaveTypeSave();
 
-        Console.WriteLine(CreateSave() ? Language.CREATE_SAVE_SUCCESS : Language.CREATE_SAVE_ERROR);
+        if (!_cancel)
+            Console.WriteLine(CreateSave() ? Language.CREATE_SAVE_SUCCESS : Language.CREATE_SAVE_ERROR);
+
+        AskReturnMainMenu();
     }
 
     private void AskSaveName()
@@ -35,50 +40,79 @@ public class CreateSaveView
         var saveName = Console.ReadLine();
         while (saveName == null || _createSaveViewModel.AlreadySaveWithSameName(saveName))
         {
-            Console.Write(Environment.NewLine + Language.CREATE_SAVE_ASK_NAME_RETRY+ @" ");
+            Console.WriteLine(Language.CREATE_SAVE_ASK_NAME_RETRY);
+            Console.Write(Environment.NewLine + Language.CREATE_SAVE_ASK_NAME + @" ");
             saveName = Console.ReadLine();
         }
 
-        Name = saveName;
+        if (saveName == "cancel")
+            _cancel = true;
+        else
+            Name = saveName;
     }
 
     private void AskSaveSourceUri()
     {
+        if (_cancel)
+            return;
         Console.Write(Environment.NewLine + Language.CREATE_SAVE_ASK_SOURCE_URI + @" ");
-        var uri = CreateSaveViewModel.IsValidUri(Console.ReadLine());
-        while (uri == null)
+        var consoleRead = Console.ReadLine();
+        var uri = CreateSaveViewModel.IsValidUri(consoleRead);
+
+        while (consoleRead != "cancel" && uri == null)
         {
-            Console.Write(Environment.NewLine + Language.CREATE_SAVE_ASK_SOURCE_URI_RETRY + @" ");
-            uri = CreateSaveViewModel.IsValidUri(Console.ReadLine());
+            Console.WriteLine(Language.CREATE_SAVE_ASK_SOURCE_URI_RETRY);
+            Console.Write(Environment.NewLine + Language.CREATE_SAVE_ASK_SOURCE_URI + @" ");
+            consoleRead = Console.ReadLine();
+            uri = CreateSaveViewModel.IsValidUri(consoleRead);
         }
 
-        SourcePath = uri;
+        if (uri == null)
+            _cancel = true;
+        else
+            SourcePath = uri;
     }
 
     private void AskSaveTargetUri()
     {
+        if (_cancel)
+            return;
         Console.Write(Environment.NewLine + Language.CREATE_SAVE_ASK_TARGET_URI + @" ");
+        var consoleRead = Console.ReadLine();
         var uri = CreateSaveViewModel.IsValidUri(Console.ReadLine());
-        while (uri == null)
+        while (consoleRead != "cancel" && uri == null)
         {
-            Console.Write(Environment.NewLine + Language.CREATE_SAVE_ASK_TARGET_URI_RETRY + @" ");
-            uri = CreateSaveViewModel.IsValidUri(Console.ReadLine());
+            Console.WriteLine(Language.CREATE_SAVE_ASK_TARGET_URI_RETRY);
+            Console.Write(Environment.NewLine + Language.CREATE_SAVE_ASK_TARGET_URI + @" ");
+            consoleRead = Console.ReadLine();
+            uri = CreateSaveViewModel.IsValidUri(consoleRead);
         }
 
-        TargetPath = uri;
+        if (uri == null)
+            _cancel = true;
+        else
+            TargetPath = uri;
     }
 
     private void AskSaveTypeSave()
     {
+        if (_cancel)
+            return;
         Console.Write(Environment.NewLine + Language.CREATE_SAVE_ASK_TYPE + @" ");
-        var typeSave = BaseViewModel.ConvertStringIntegerToEnum<TypeSave>(Console.ReadLine());
-        while (typeSave == default)
+        var consoleRead = Console.ReadLine();
+        var typeSave = BaseViewModel.ConvertStringIntegerToEnum<TypeSave>(consoleRead);
+        while (consoleRead != "cancel" && typeSave == default)
         {
-            Console.Write(Environment.NewLine + Language.CREATE_SAVE_ASK_TYPE_RETRY + @" ");
-            typeSave = BaseViewModel.ConvertStringIntegerToEnum<TypeSave>(Console.ReadLine());
+            Console.WriteLine(Language.CREATE_SAVE_ASK_TYPE_RETRY);
+            Console.Write(Environment.NewLine + Language.CREATE_SAVE_ASK_TYPE + @" ");
+            consoleRead = Console.ReadLine();
+            typeSave = BaseViewModel.ConvertStringIntegerToEnum<TypeSave>(consoleRead);
         }
 
-        Type = typeSave;
+        if (typeSave == default)
+            _cancel = true;
+        else
+            Type = typeSave;
     }
 
     private bool CreateSave()

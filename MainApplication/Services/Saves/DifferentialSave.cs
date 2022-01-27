@@ -1,18 +1,16 @@
-﻿using MainApplication.Objects;
+﻿using MainApplication.Annotations;
+using MainApplication.Objects;
 
 namespace MainApplication.Services.Saves;
 
-public class DifferentialSave : ISave
+public class DifferentialASave : ASave
 {
-    public Save Save { get; set; }
-
-    public DifferentialSave(Save save)
+    public DifferentialASave(Save save) : base(save)
     {
-        Save = save;
     }
 
-    public bool RunSave()
+    public override bool RunSave()
     {
-        throw new NotImplementedException();
+        return false;
     }
 }

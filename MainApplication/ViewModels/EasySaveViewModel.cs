@@ -72,5 +72,13 @@ public class EasySaveViewModel : BaseViewModel
         Language.Culture = CultureInfo.GetCultureInfo(LanguageString);
         return true;
     }
+    public bool StartSave(string name)
+    {
+        return SaveService.StartSave(name);
+    }
 
+    public void StartAllSaves()
+    {
+        SaveService.StartAllSaves();
+    }
 }

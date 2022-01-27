@@ -1,18 +1,25 @@
-﻿using MainApplication.Objects;
+﻿using MainApplication.Annotations;
+using MainApplication.Objects;
 
 namespace MainApplication.Services.Saves;
 
-public class CompleteSave : ISave
+public class CompleteASave : ASave
 {
-    public Save Save { get; set; }
-
-    public CompleteSave(Save save)
+    public CompleteASave(Save save) : base(save)
     {
-        Save = save;
     }
 
-    public bool RunSave()
+    public override bool RunSave()
     {
-        throw new NotImplementedException();
+        var files = Directory.GetFiles(Save.SourcePath.LocalPath);
+        if (files.Length <= 0)
+            return false;
+        
+        foreach (var file in files)
+        {
+            Console.WriteLine(file);
+        }
+
+        return false;
     }
 }

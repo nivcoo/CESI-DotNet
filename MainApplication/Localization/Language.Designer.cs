@@ -64,6 +64,13 @@ namespace MainApplication.Localization {
         {
             return ResourceManager.GetString(key, resourceCulture);
         }
+        
+        public static string GLOBAL_SELECT_LANGUAGE {
+            get
+            {
+                return GetLanguage("GLOBAL_SELECT_LANGUAGE");
+            }
+        }
 
         public static string GLOBAL_SELECTED_LANGUAGE {
             get
@@ -95,6 +102,35 @@ namespace MainApplication.Localization {
                 return GetLanguage("GLOBAL_NAME");
             }
         }
+        
+        public static string GLOBAL_ASK_SAVE_NAME {
+            get {
+                return GetLanguage("GLOBAL_ASK_SAVE_NAME");
+            }
+        }
+        
+        public static string GLOBAL_ASK_SAVE_NAME_OR_ALL {
+            get {
+                return GetLanguage("GLOBAL_ASK_SAVE_NAME_OR_ALL");
+            }
+        }
+        public static string GLOBAL_SAVE_NAME_NOT_EXIST {
+            get {
+                return GetLanguage("GLOBAL_SAVE_NAME_NOT_EXIST");
+            }
+        }
+        public static string GLOBAL_SAVE_NAME_NOT_EXIST_OR_ALL {
+            get {
+                return GetLanguage("GLOBAL_SAVE_NAME_NOT_EXIST_OR_ALL");
+            }
+        }
+        
+        public static string GLOBAL_ASK_GO_TO_MENU {
+            get {
+                return GetLanguage("GLOBAL_ASK_GO_TO_MENU");
+            }
+        }
+
         public static string GLOBAL_STATE {
             get {
                 return GetLanguage("GLOBAL_STATE");
@@ -213,6 +249,6 @@ namespace MainApplication.Localization {
                 return GetLanguage("CREATE_SAVE_ASK_TYPE_RETRY");
             }
         }
-
+        
     }
 }

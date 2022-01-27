@@ -23,6 +23,9 @@
             PublicKeyToken=b77a5c561934e089
         </value>
     </resheader>
+    <data name="GLOBAL_SELECT_LANGUAGE" xml:space="preserve">
+        <value>Please Select Language (en-US, fr-FR):</value>
+    </data>
     <data name="GLOBAL_SELECTED_LANGUAGE" xml:space="preserve">
         <value>The language selected is : en-US</value>
     </data>
@@ -33,7 +36,20 @@
         <value>Your Choice:</value>
     </data>
     <data name="GLOBAL_SELECT_CHOICE_RETRY" xml:space="preserve">
-        <value>Incorrect Choice. Your Choice:</value>
+        <value>Incorrect Choice.</value>
+    </data>
+
+    <data name="GLOBAL_ASK_SAVE_NAME" xml:space="preserve">
+        <value>Please enter name of Save or "cancel" to cancel:</value>
+    </data>
+    
+    <data name="GLOBAL_ASK_SAVE_NAME_OR_ALL" xml:space="preserve">
+        <value>Please enter name of Save or "all" to run all Saves or "cancel" to cancel:</value>
+    </data>
+
+    
+    <data name="GLOBAL_SAVE_NAME_NOT_EXIST" xml:space="preserve">
+        <value>This save doesn't exist.</value>
     </data>
 
     <data name="GLOBAL_NAME" xml:space="preserve">
@@ -73,33 +89,36 @@
         <value>Stop one or multiple Save(s)</value>
     </data>
     <data name="CREATE_SAVE_ASK_NAME" xml:space="preserve">
-        <value>Type a name to the Save:</value>
+        <value>Type a name to the Save or "cancel" to cancel:</value>
     </data>
     <data name="CREATE_SAVE_ASK_NAME_RETRY" xml:space="preserve">
-        <value>A save already has this name. type a name to the Save::</value>
+        <value>A save already has this name.</value>
     </data>
     <data name="CREATE_SAVE_ASK_SOURCE_URI" xml:space="preserve">
-        <value>Type the Save path:</value>
+        <value>Type the Save path or "cancel" to cancel:</value>
     </data>
     <data name="CREATE_SAVE_ASK_SOURCE_URI_RETRY" xml:space="preserve">
-        <value>The path is incorrect. Give a path:</value>
+        <value>The path is incorrect.</value>
     </data>
     <data name="CREATE_SAVE_ASK_TARGET_URI" xml:space="preserve">
-        <value>Type the Save write path:</value>
+        <value>Type the Save write path or "cancel" to cancel:</value>
     </data>
     <data name="CREATE_SAVE_ASK_TARGET_URI_RETRY" xml:space="preserve">
-        <value>The path is incorrect. Type a write path:</value>
+        <value>The path is incorrect.</value>
     </data>
     <data name="CREATE_SAVE_ASK_TYPE" xml:space="preserve">
-        <value>Type backup type ( 1 - Complete | 2 - Differential ):</value>
+        <value>Type backup type ( 1 - Complete | 2 - Differential ) or "cancel" to cancel:</value>
     </data>
     <data name="CREATE_SAVE_ASK_TYPE_RETRY" xml:space="preserve">
-        <value>Choose 1 or 2 for backup types ( 1 - Complete | 2 - Differential ):</value>
+        <value>This backup type doesn't exist.</value>
     </data>
     <data name="CREATE_SAVE_ERROR" xml:space="preserve">
         <value>An error occurred while creating your Save!</value>
     </data>
     <data name="CREATE_SAVE_SUCCESS" xml:space="preserve">
         <value>Your Save has been successfully created!</value>
+    </data>
+    <data name="GLOBAL_ASK_GO_TO_MENU" xml:space="preserve">
+        <value>Type something or type enter to back to the menu</value>
     </data>
 </root>
