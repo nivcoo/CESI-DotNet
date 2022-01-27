@@ -1,6 +1,6 @@
+using MainApplication.Localization;
 using MainApplication.Objects;
 using MainApplication.Objects.Enums;
-using MainApplication.Services;
 using MainApplication.ViewModels;
 
 namespace ConsoleApplication.Views;
@@ -26,30 +26,29 @@ public class CreateSaveView
         AskSaveTargetUri();
         AskSaveTypeSave();
 
-        Console.WriteLine(CreateSave()
-            ? "Votre sauvegarder a été créée avec succès !"
-            : "Une erreur est survenue pendant la création de votre sauvegarde !");
+        Console.WriteLine(CreateSave() ? Language.CREATE_SAVE_SUCCESS : Language.CREATE_SAVE_ERROR);
     }
-    
+
     private void AskSaveName()
     {
-        Console.Write("\nDonner un nom à la sauvegarde : ");
+        Console.Write(Environment.NewLine + Language.CREATE_SAVE_ASK_NAME + @" ");
         var saveName = Console.ReadLine();
         while (saveName == null || _createSaveViewModel.AlreadySaveWithSameName(saveName))
         {
-            Console.Write("\nUne sauvegarde comporte déjà ce nom. Donner un nom à la sauvegarde : ");
+            Console.Write(Environment.NewLine + Language.CREATE_SAVE_ASK_NAME_RETRY+ @" ");
             saveName = Console.ReadLine();
         }
 
         Name = saveName;
     }
+
     private void AskSaveSourceUri()
     {
-        Console.Write("\nDonner le chemin d'accès à la sauvegarde : ");
+        Console.Write(Environment.NewLine + Language.CREATE_SAVE_ASK_SOURCE_URI + @" ");
         var uri = CreateSaveViewModel.IsValidUri(Console.ReadLine());
         while (uri == null)
         {
-            Console.Write("\nLe chemin d'accès est incorrect. Donner un chemin d'accès : ");
+            Console.Write(Environment.NewLine + Language.CREATE_SAVE_ASK_SOURCE_URI_RETRY + @" ");
             uri = CreateSaveViewModel.IsValidUri(Console.ReadLine());
         }
 
@@ -58,25 +57,24 @@ public class CreateSaveView
 
     private void AskSaveTargetUri()
     {
-        Console.Write("\nDonner le chemin d'écriture de la sauvegarde : ");
+        Console.Write(Environment.NewLine + Language.CREATE_SAVE_ASK_TARGET_URI + @" ");
         var uri = CreateSaveViewModel.IsValidUri(Console.ReadLine());
         while (uri == null)
         {
-            Console.Write("\nLe chemin est incorrect. Donner un chemin d'écriture : ");
+            Console.Write(Environment.NewLine + Language.CREATE_SAVE_ASK_TARGET_URI_RETRY + @" ");
             uri = CreateSaveViewModel.IsValidUri(Console.ReadLine());
         }
 
         TargetPath = uri;
     }
-    
+
     private void AskSaveTypeSave()
     {
-        
-        Console.Write("\nDonner type de sauvegarde ( 1 - Complete | 2 - Differential ) : ");
+        Console.Write(Environment.NewLine + Language.CREATE_SAVE_ASK_TYPE + @" ");
         var typeSave = BaseViewModel.ConvertStringIntegerToEnum<TypeSave>(Console.ReadLine());
         while (typeSave == default)
         {
-            Console.Write("\nChoisissez 1 ou 2 pour les types de sauvegarde ( 1 - Complete | 2 - Differential ) : ");
+            Console.Write(Environment.NewLine + Language.CREATE_SAVE_ASK_TYPE_RETRY + @" ");
             typeSave = BaseViewModel.ConvertStringIntegerToEnum<TypeSave>(Console.ReadLine());
         }
 

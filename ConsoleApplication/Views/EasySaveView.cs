@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using System.Xml.Schema;
 using ConsoleApplication.Libs;
 using MainApplication.Localization;
 using MainApplication.Objects.Enums;
@@ -10,35 +9,35 @@ namespace ConsoleApplication.Views;
 public class EasySaveView
 {
     private readonly EasySaveViewModel _easySaveViewModel;
-    private bool running;
+    private bool _running;
 
     public EasySaveView()
     {
         _easySaveViewModel = new EasySaveViewModel();
-        running = true;
+        _running = true;
         InitView();
     }
 
     private void InitView()
     {
-        Console.WriteLine("Bienvenue dans EasySave");
+        Console.WriteLine(Language.GLOBAL_WELCOME);
         SelectLanguage();
-        SelectActions();
+        DisplayMotd();
     }
 
-    private void SelectActions()
+    private void DisplayMotd()
     {
-        while (running)
+        while (_running)
         {
             var motd = new StringBuilder();
-            motd.AppendLine("Sélectionnez votre choix : ");
-            motd.AppendLine("");
-            motd.AppendLine((int) Choice.ShowList + " : Afficher la liste des sauvegardes ");
-            motd.AppendLine((int) Choice.Create + " : Ajouter une sauvegarde ");
-            motd.AppendLine((int) Choice.Remove + " : Supprimer une sauvegarde");
-            motd.AppendLine((int) Choice.Start + " : Lancer une ou plusieurs sauvegardes");
-            motd.AppendLine((int) Choice.Stop + " : Arrêter une ou plusieurs sauvegardes");
-            motd.AppendLine((int) Choice.End + " : Stopper l'application");
+            motd.AppendLine(Language.CHOICE_DISPLAY);
+            motd.AppendLine();
+            motd.AppendLine((int) Choice.ShowList + " : " + Language.CHOICE_DESC_SHOW_LIST);
+            motd.AppendLine((int) Choice.Create + " : " + Language.CHOICE_DESC_CREATE);
+            motd.AppendLine((int) Choice.Remove + " : " + Language.CHOICE_DESC_REMOVE);
+            motd.AppendLine((int) Choice.Start + " : " + Language.CHOICE_DESC_START);
+            motd.AppendLine((int) Choice.Stop + " : " + Language.CHOICE_DESC_STOP);
+            motd.AppendLine((int) Choice.End + " : " + Language.CHOICE_DESC_END);
             Console.Write(motd);
             ChoiceSelector();
         }
@@ -46,28 +45,31 @@ public class EasySaveView
 
     private void ChoiceSelector()
     {
-        Console.Write("\nVotre choix : ");
+        Console.Write(Environment.NewLine + Language.GLOBAL_SELECT_CHOICE + @" ");
         var choice = BaseViewModel.ConvertStringIntegerToEnum<Choice>(Console.ReadLine());
         while (choice == default)
         {
-            Console.Write("\nChoix incorrect. Votre choix : ");
+            Console.Write(Environment.NewLine + Language.GLOBAL_SELECT_CHOICE_RETRY + @" ");
             choice = BaseViewModel.ConvertStringIntegerToEnum<Choice>(Console.ReadLine());
         }
 
         switch (choice)
         {
+            case Choice.ShowList:
+                ShowSavesList();
+                break;
             case Choice.Create:
                 var createSaveView = new CreateSaveView();
                 createSaveView.InitView();
                 break;
-            case Choice.ShowList:
-                ShowSavesList();
-                break;
             case Choice.Remove:
+                RemoveSave();
                 break;
             case Choice.Start:
+                StartSave();
                 break;
             case Choice.Stop:
+                StopSave();
                 break;
             case Choice.End:
                 StopApplication();
@@ -77,7 +79,15 @@ public class EasySaveView
         }
     }
 
-    private void SelectSave()
+    private void RemoveSave()
+    {
+    }
+
+    private void StartSave()
+    {
+    }
+
+    private void StopSave()
     {
     }
 
@@ -87,7 +97,7 @@ public class EasySaveView
         var success = false;
         while (!success)
         {
-            Console.WriteLine("Please Select Language : en-US, fr-FR");
+            Console.Write(Environment.NewLine + @"Please Select Language (en-US, fr-FR) : ");
             _easySaveViewModel.LanguageString = Console.ReadLine();
             success = _easySaveViewModel.UpdateLanguage();
         }
@@ -107,7 +117,12 @@ public class EasySaveView
                 save.Type.ToString(), save.SourcePath.ToString(), save.TargetPath.ToString())));
 
         Console.WriteLine(
-            tuplesSaves.ToStringTable(new[] {"Nom", "Etat", "Type", "Source", "Destination"},
+            tuplesSaves.ToStringTable(
+                new[]
+                {
+                    Language.GLOBAL_NAME, Language.GLOBAL_STATE, Language.GLOBAL_TYPE, Language.GLOBAL_SOURCE,
+                    Language.GLOBAL_TARGET
+                },
                 a => a.Item1,
                 a => a.Item2,
                 a => a.Item3,
@@ -122,6 +137,6 @@ public class EasySaveView
 
     private void StopApplication()
     {
-        running = false;
+        _running = false;
     }
 }

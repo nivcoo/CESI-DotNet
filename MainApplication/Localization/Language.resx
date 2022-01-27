@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <root>
-    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <xsd:element name="root" msdata:IsDataSet="true">
-            
+
         </xsd:element>
     </xsd:schema>
     <resheader name="resmimetype">
@@ -13,12 +14,92 @@
         <value>1.3</value>
     </resheader>
     <resheader name="reader">
-        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
     </resheader>
     <resheader name="writer">
-        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
     </resheader>
     <data name="GLOBAL_SELECTED_LANGUAGE" xml:space="preserve">
         <value>The language selected is : en-US</value>
+    </data>
+    <data name="GLOBAL_WELCOME" xml:space="preserve">
+        <value>Welcome to EasySave</value>
+    </data>
+    <data name="GLOBAL_SELECT_CHOICE" xml:space="preserve">
+        <value>Your Choice:</value>
+    </data>
+    <data name="GLOBAL_SELECT_CHOICE_RETRY" xml:space="preserve">
+        <value>Incorrect Choice. Your Choice:</value>
+    </data>
+
+    <data name="GLOBAL_NAME" xml:space="preserve">
+        <value>Name</value>
+    </data>
+    <data name="GLOBAL_STATE" xml:space="preserve">
+        <value>State</value>
+    </data>
+    <data name="GLOBAL_TYPE" xml:space="preserve">
+        <value>Type</value>
+    </data>
+    <data name="GLOBAL_SOURCE" xml:space="preserve">
+        <value>Source</value>
+    </data>
+    <data name="GLOBAL_TARGET" xml:space="preserve">
+        <value>Target</value>
+    </data>
+    <data name="CHOICE_DISPLAY" xml:space="preserve">
+        <value>Possible Actions List:</value>
+    </data>
+    <data name="CHOICE_DESC_CREATE" xml:space="preserve">
+        <value>Add a Save</value>
+    </data>
+    <data name="CHOICE_DESC_END" xml:space="preserve">
+        <value>Stop Application</value>
+    </data>
+    <data name="CHOICE_DESC_REMOVE" xml:space="preserve">
+        <value>Remove a Save</value>
+    </data>
+    <data name="CHOICE_DESC_SHOW_LIST" xml:space="preserve">
+        <value>Show Save List</value>
+    </data>
+    <data name="CHOICE_DESC_START" xml:space="preserve">
+        <value>Run one or multiple Save(s)</value>
+    </data>
+    <data name="CHOICE_DESC_STOP" xml:space="preserve">
+        <value>Stop one or multiple Save(s)</value>
+    </data>
+    <data name="CREATE_SAVE_ASK_NAME" xml:space="preserve">
+        <value>Type a name to the Save:</value>
+    </data>
+    <data name="CREATE_SAVE_ASK_NAME_RETRY" xml:space="preserve">
+        <value>A save already has this name. type a name to the Save::</value>
+    </data>
+    <data name="CREATE_SAVE_ASK_SOURCE_URI" xml:space="preserve">
+        <value>Type the Save path:</value>
+    </data>
+    <data name="CREATE_SAVE_ASK_SOURCE_URI_RETRY" xml:space="preserve">
+        <value>The path is incorrect. Give a path:</value>
+    </data>
+    <data name="CREATE_SAVE_ASK_TARGET_URI" xml:space="preserve">
+        <value>Type the Save write path:</value>
+    </data>
+    <data name="CREATE_SAVE_ASK_TARGET_URI_RETRY" xml:space="preserve">
+        <value>The path is incorrect. Type a write path:</value>
+    </data>
+    <data name="CREATE_SAVE_ASK_TYPE" xml:space="preserve">
+        <value>Type backup type ( 1 - Complete | 2 - Differential ):</value>
+    </data>
+    <data name="CREATE_SAVE_ASK_TYPE_RETRY" xml:space="preserve">
+        <value>Choose 1 or 2 for backup types ( 1 - Complete | 2 - Differential ):</value>
+    </data>
+    <data name="CREATE_SAVE_ERROR" xml:space="preserve">
+        <value>An error occurred while creating your Save!</value>
+    </data>
+    <data name="CREATE_SAVE_SUCCESS" xml:space="preserve">
+        <value>Your Save has been successfully created!</value>
     </data>
 </root>

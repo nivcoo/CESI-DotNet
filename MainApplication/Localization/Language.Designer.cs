@@ -27,7 +27,7 @@ namespace MainApplication.Localization {
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal Language() {
         }
@@ -59,11 +59,160 @@ namespace MainApplication.Localization {
                 resourceCulture = value;
             }
         }
-        
+
+        private static string GetLanguage(string key)
+        {
+            return ResourceManager.GetString(key, resourceCulture);
+        }
+
         public static string GLOBAL_SELECTED_LANGUAGE {
-            get {
-                return ResourceManager.GetString("GLOBAL_SELECTED_LANGUAGE", resourceCulture);
+            get
+            {
+                return GetLanguage("GLOBAL_SELECTED_LANGUAGE");
             }
         }
+        
+        public static string GLOBAL_WELCOME {
+            get {
+                return GetLanguage("GLOBAL_WELCOME");
+            }
+        }
+        
+        public static string GLOBAL_SELECT_CHOICE {
+            get {
+                return GetLanguage("GLOBAL_SELECT_CHOICE");
+            }
+        }
+        
+        public static string GLOBAL_SELECT_CHOICE_RETRY {
+            get {
+                return GetLanguage("GLOBAL_SELECT_CHOICE_RETRY");
+            }
+        }
+        
+        public static string GLOBAL_NAME {
+            get {
+                return GetLanguage("GLOBAL_NAME");
+            }
+        }
+        public static string GLOBAL_STATE {
+            get {
+                return GetLanguage("GLOBAL_STATE");
+            }
+        }
+        public static string GLOBAL_TYPE {
+            get {
+                return GetLanguage("GLOBAL_TYPE");
+            }
+        }
+        public static string GLOBAL_SOURCE {
+            get {
+                return GetLanguage("GLOBAL_SOURCE");
+            }
+        }
+        public static string GLOBAL_TARGET {
+            get {
+                return GetLanguage("GLOBAL_TARGET");
+            }
+        }
+        
+        public static string CHOICE_DISPLAY {
+            get {
+                return GetLanguage("CHOICE_DISPLAY");
+            }
+        }
+        
+        public static string CHOICE_DESC_SHOW_LIST {
+            get {
+                return GetLanguage("CHOICE_DESC_SHOW_LIST");
+            }
+        }
+        public static string CHOICE_DESC_CREATE {
+            get {
+                return GetLanguage("CHOICE_DESC_CREATE");
+            }
+        }
+        public static string CHOICE_DESC_REMOVE {
+            get {
+                return GetLanguage("CHOICE_DESC_REMOVE");
+            }
+        }
+        public static string CHOICE_DESC_START {
+            get {
+                return GetLanguage("CHOICE_DESC_START");
+            }
+        }
+        public static string CHOICE_DESC_STOP {
+            get {
+                return GetLanguage("CHOICE_DESC_STOP");
+            }
+        }
+        public static string CHOICE_DESC_END {
+            get {
+                return GetLanguage("CHOICE_DESC_END");
+            }
+        }
+        
+        public static string CREATE_SAVE_SUCCESS {
+            get {
+                return GetLanguage("CREATE_SAVE_SUCCESS");
+            }
+        }
+        
+        public static string CREATE_SAVE_ERROR {
+            get {
+                return GetLanguage("CREATE_SAVE_ERROR");
+            }
+        }
+        
+        public static string CREATE_SAVE_ASK_NAME {
+            get {
+                return GetLanguage("CREATE_SAVE_ASK_NAME");
+            }
+        }
+        
+        public static string CREATE_SAVE_ASK_NAME_RETRY {
+            get {
+                return GetLanguage("CREATE_SAVE_ASK_NAME_RETRY");
+            }
+        }
+        
+        public static string CREATE_SAVE_ASK_SOURCE_URI {
+            get {
+                return GetLanguage("CREATE_SAVE_ASK_SOURCE_URI");
+            }
+        }
+        
+        public static string CREATE_SAVE_ASK_SOURCE_URI_RETRY {
+            get {
+                return GetLanguage("CREATE_SAVE_ASK_SOURCE_URI_RETRY");
+            }
+        }
+        
+
+        public static string CREATE_SAVE_ASK_TARGET_URI {
+            get {
+                return GetLanguage("CREATE_SAVE_ASK_TARGET_URI");
+            }
+        }
+        
+        public static string CREATE_SAVE_ASK_TARGET_URI_RETRY {
+            get {
+                return GetLanguage("CREATE_SAVE_ASK_TARGET_URI_RETRY");
+            }
+        }
+
+        public static string CREATE_SAVE_ASK_TYPE {
+            get {
+                return GetLanguage("CREATE_SAVE_ASK_TYPE");
+            }
+        }
+        
+        public static string CREATE_SAVE_ASK_TYPE_RETRY {
+            get {
+                return GetLanguage("CREATE_SAVE_ASK_TYPE_RETRY");
+            }
+        }
+
     }
 }

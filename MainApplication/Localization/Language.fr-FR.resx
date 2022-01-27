@@ -21,4 +21,86 @@
     <data name="GLOBAL_SELECTED_LANGUAGE" xml:space="preserve">
         <value>La langue choisie est : fr-FR</value>
     </data>
+    <data name="GLOBAL_NAME" xml:space="preserve">
+        <value>Nom</value>
+    </data>
+    <data name="GLOBAL_SELECT_CHOICE" xml:space="preserve">
+        <value>Votre choix :</value>
+    </data>
+    <data name="GLOBAL_SELECT_CHOICE_RETRY" xml:space="preserve">
+        <value>Choix incorrect. Votre choix :</value>
+    </data>
+    <data name="GLOBAL_SOURCE" xml:space="preserve">
+        <value>Source</value>
+    </data>
+    <data name="GLOBAL_STATE" xml:space="preserve">
+        <value>État</value>
+    </data>
+    <data name="GLOBAL_TARGET" xml:space="preserve">
+        <value>Destination</value>
+    </data>
+    <data name="GLOBAL_WELCOME" xml:space="preserve">
+        <value>Bienvenue dans EasySave</value>
+    </data>
+    <data name="CHOICE_DISPLAY" xml:space="preserve">
+        <value>Liste des Actions Possible :</value>
+    </data>
+    
+    <data name="CHOICE_DESC_SHOW_LIST" xml:space="preserve">
+        <value>Afficher la liste des sauvegardes</value>
+    </data>
+    <data name="CHOICE_DESC_CREATE" xml:space="preserve">
+        <value>Ajouter une sauvegarde</value>
+    </data>
+    <data name="CHOICE_DESC_REMOVE" xml:space="preserve">
+        <value>Supprimer une sauvegarde</value>
+    </data>
+    <data name="CHOICE_DESC_START" xml:space="preserve">
+        <value>Lancer une ou plusieurs sauvegarde(s)</value>
+    </data>
+    <data name="CHOICE_DESC_STOP" xml:space="preserve">
+        <value>Arrêter une ou plusieurs sauvegarde(s)</value>
+    </data>
+    <data name="CHOICE_DESC_END" xml:space="preserve">
+        <value>Stopper l'application</value>
+    </data>
+
+
+    <data name="CREATE_SAVE_SUCCESS" xml:space="preserve">
+        <value>Votre sauvegarde a été créée avec succès !</value>
+    </data>
+    <data name="CREATE_SAVE_ERROR" xml:space="preserve">
+        <value>Une erreur est survenue pendant la création de votre sauvegarde !</value>
+    </data>
+
+    <data name="CREATE_SAVE_ASK_NAME" xml:space="preserve">
+        <value>Donner un nom à la sauvegarde :</value>
+    </data>
+    <data name="CREATE_SAVE_ASK_NAME_RETRY" xml:space="preserve">
+        <value>Une sauvegarde comporte déjà ce nom. Donner un nom à la sauvegarde :</value>
+    </data>
+
+    <data name="CREATE_SAVE_ASK_SOURCE_URI" xml:space="preserve">
+        <value>Donner le chemin d'accès à la sauvegarde :</value>
+    </data>
+    <data name="CREATE_SAVE_ASK_SOURCE_URI_RETRY" xml:space="preserve">
+        <value>Le chemin d'accès est incorrect. Donner un chemin d'accès :</value>
+    </data>
+
+    <data name="CREATE_SAVE_ASK_TARGET_URI" xml:space="preserve">
+        <value>Donner le chemin d'écriture de la sauvegarde :</value>
+    </data>
+    <data name="CREATE_SAVE_ASK_TARGET_URI_RETRY" xml:space="preserve">
+        <value>Le chemin est incorrect. Donner un chemin d'écriture :</value>
+    </data>
+
+    <data name="CREATE_SAVE_ASK_TYPE" xml:space="preserve">
+        <value>Donner type de sauvegarde ( 1 - Complète | 2 - Differentielle ) :</value>
+    </data>
+    <data name="CREATE_SAVE_ASK_TYPE_RETRY" xml:space="preserve">
+        <value>Choisissez 1 ou 2 pour les types de sauvegarde ( 1 - Complète | 2 - Differentielle ) :</value>
+    </data>
+    <data name="GLOBAL_TYPE" xml:space="preserve">
+        <value>Type</value>
+    </data>
 </root>
