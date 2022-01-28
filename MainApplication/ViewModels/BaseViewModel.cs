@@ -4,7 +4,9 @@ using MainApplication.Services;
 using MainApplication.Annotations;
 
 namespace MainApplication.ViewModels;
-
+/// <summary>
+/// The base and generic viewmodel for the application 
+/// </summary>
 public class BaseViewModel : INotifyPropertyChanged
 {
     internal readonly SaveService SaveService = SaveService.GetInstance();
