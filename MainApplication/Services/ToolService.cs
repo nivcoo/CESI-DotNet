@@ -49,4 +49,9 @@ internal class ToolService
     {
         return DateTime.Now.ToFileTime();
     }
+
+    public static string BytesToString(IEnumerable<byte> fileHash)
+    {
+        return fileHash.Aggregate("", (current, b) => current + b.ToString("x2"));
+    }
 }
