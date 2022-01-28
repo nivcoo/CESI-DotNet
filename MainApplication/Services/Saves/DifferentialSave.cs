@@ -27,13 +27,11 @@ public class DifferentialSave : ASave
                 continue;
             var fileName = Path.GetFileName(file);
             var hash = GetHashSha256(file);
-            var targetfile = localtargetpath+ filefolder;
-            if (!IsSameFile(hash, GetHashSha256(targetfile)))
-            {
-                Console.WriteLine(file);
-                    var sourceFileInfo = new FileInfo(file);
-                SaveFiles.Add(new SaveFile(path, fileName, hash, sourceFileInfo.Length));
-            }
+            var targetfile = localtargetpath + filefolder;
+            if (IsSameFile(hash, targetfile)) continue;
+            Console.WriteLine(file);
+            var sourceFileInfo = new FileInfo(file);
+            SaveFiles.Add(new SaveFile(path, fileName, hash, sourceFileInfo.Length));
         }
 
         return true;
@@ -45,7 +43,7 @@ public class DifferentialSave : ASave
             return false;
         var sourceLocalPath = Save.SourcePath.LocalPath;
         var targetLocalPath = Save.TargetPath.LocalPath;
-        DeleteFolderWithFiles(Save.TargetPath);
+        
         foreach (var saveFile in SaveFiles)
         {
             var actualTimestamp = ToolService.GetTimestamp();
@@ -68,8 +66,9 @@ public class DifferentialSave : ASave
         return true;
     }
 
-    private static bool IsSameFile(IEnumerable<byte> sourceFile, IEnumerable<byte> destinationFile)
+    private bool IsSameFile(byte[] hashSourceFile, string destinationFile)
     {
-        return ToolService.BytesToString(sourceFile) == ToolService.BytesToString(destinationFile);
+        
+        return File.Exists(destinationFile) && ToolService.BytesToString(hashSourceFile) == ToolService.BytesToString(GetHashSha256(destinationFile));
     }
 }
