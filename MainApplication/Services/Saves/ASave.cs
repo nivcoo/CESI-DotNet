@@ -7,7 +7,7 @@ namespace MainApplication.Services.Saves;
 public abstract class ASave
 {
     internal readonly LogService LogService = LogService.GetInstance();
-    internal readonly SaveService SaveService = SaveService.GetInstance();
+    private readonly SaveService _saveService = SaveService.GetInstance();
     protected Save Save { get; set; }
     private readonly SHA256 _sha256 = SHA256.Create();
 
@@ -33,7 +33,6 @@ public abstract class ASave
     protected static void DeleteFolderWithFiles(Uri folderPath)
     {
         var filePaths = GetAllFolderFiles(folderPath);
-        Console.WriteLine(filePaths);
         foreach (var filePath in filePaths)
             File.Delete(filePath);
         
@@ -67,20 +66,20 @@ public abstract class ASave
         UpdateSaveStorage();
     }
 
-    protected void ChangeSaveState(State state)
+    private void ChangeSaveState(State state)
     {
         Save.State = state;
         UpdateSaveStorage();
     }
 
-    public void UpdateSaveStorage()
+    protected void UpdateSaveStorage()
     {
-        SaveService.UpdateSaveStorage(Save);
+        _saveService.UpdateSaveStorage(Save);
     }
 
-    public abstract bool RetrieveFilesToCopy();
+    protected abstract bool RetrieveFilesToCopy();
 
     protected abstract void UpdateStartSaveStatut();
 
-    public abstract bool CopyFiles();
+    protected abstract bool CopyFiles();
 }

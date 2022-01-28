@@ -8,7 +8,7 @@ public class CompleteASave : ASave
     {
     }
 
-    public override bool RetrieveFilesToCopy()
+    protected override bool RetrieveFilesToCopy()
     {
         var files = GetAllFolderFiles(Save.SourcePath);
         if (files.Length <= 0)
@@ -36,7 +36,7 @@ public class CompleteASave : ASave
         UpdateSaveStorage();
     }
 
-    public override bool CopyFiles()
+    protected override bool CopyFiles()
     {
         if (SaveFiles.Count <= 0)
             return false;

@@ -10,7 +10,7 @@ public class DifferentialSave : ASave
     {
     }
 
-    public override bool RetrieveFilesToCopy()
+    protected override bool RetrieveFilesToCopy()
     {
         throw new NotImplementedException();
     }
@@ -20,7 +20,7 @@ public class DifferentialSave : ASave
         throw new NotImplementedException();
     }
 
-    public override bool CopyFiles()
+    protected override bool CopyFiles()
     {
         if (SaveFiles.Count <= 0)
             return false;
