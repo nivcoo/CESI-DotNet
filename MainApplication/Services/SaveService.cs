@@ -1,7 +1,9 @@
 ﻿using MainApplication.Objects;
 
 namespace MainApplication.Services;
-
+/// <summary>
+/// This service manages the Save Module
+/// </summary>
 public sealed class SaveService
 {
     private static readonly SaveService Instance = new ();

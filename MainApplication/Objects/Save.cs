@@ -2,6 +2,10 @@
 
 namespace MainApplication.Objects;
 
+
+/// <summary>
+/// Just like the log file creation, this creates the JSON SAVE LOG file
+/// </summary>
 public class Save
 {
     public string? Name { get; set; }

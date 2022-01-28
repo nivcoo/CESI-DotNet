@@ -1,5 +1,8 @@
 ﻿namespace MainApplication.Services;
 
+/// <summary>
+/// This service manges the LogFile module
+/// </summary>
 public sealed class LogService
 {
     private static readonly LogService Instance = new();

@@ -2,6 +2,11 @@
 using MainApplication.ViewModels;
 namespace ConsoleApplication.Views;
 
+/// <summary>
+/// Here is the view for the console application you'll also find the language selection
+/// And all the interactions for the console application.
+/// 
+/// </summary>
 public class EasySaveView
 {
     private readonly EasySaveViewModel _easySaveViewModel;

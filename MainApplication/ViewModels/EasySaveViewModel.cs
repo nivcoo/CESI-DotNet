@@ -5,6 +5,10 @@ using MainApplication.Localization;
 
 namespace MainApplication.ViewModels;
 
+
+/// <summary>
+/// The view used byEASYSAVE
+/// </summary>
 public class EasySaveViewModel : BaseViewModel
 {
     
@@ -40,7 +44,7 @@ public class EasySaveViewModel : BaseViewModel
         get => _languageString;
         set => SetField(ref _languageString, value, nameof(LanguageString));
     }
-
+// Get the current system language 
     public bool UpdateLanguage()
     {
         if (LanguageString == null)
@@ -51,6 +55,7 @@ public class EasySaveViewModel : BaseViewModel
         return true;
     }
 
+   //Culture Management --> language Selection
     public bool ConvertToInt()
     {
         var cultures = new[] {"en", "es", "fr"};
