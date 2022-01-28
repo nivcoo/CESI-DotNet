@@ -3,6 +3,10 @@ using MainApplication.Storages.Converter;
 
 namespace MainApplication.Objects;
 
+/// <summary>
+///  Structure of the JSON LogFile : /// This  handles the creation of the JSON log file, you can find the different types of information present
+/// in the JSON file such as the name of the file, its location, the desired location for the save, the file size.... 
+/// </summary>
 public class Log
 {
     public string? Name { get; set; }

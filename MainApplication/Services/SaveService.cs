@@ -5,6 +5,10 @@ using MainApplication.Storages;
 
 namespace MainApplication.Services;
 
+/// <summary>
+/// Manages the saves, start saves, get saves and delete saves
+/// </summary>
+
 internal sealed class SaveService
 {
     private static readonly SaveService Instance = new();
@@ -27,7 +31,7 @@ internal sealed class SaveService
         InitSavesList();
     }
 
-    private void LoadSavesFile()
+    private void LoadSavesFile() 
     {
         Directory.CreateDirectory(Path.GetDirectoryName(_savesPath) ?? string.Empty);
         if (!File.Exists(_savesPath))

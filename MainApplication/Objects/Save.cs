@@ -2,10 +2,10 @@
 
 namespace MainApplication.Objects;
 
-
 /// <summary>
-/// Just like the log file creation, this creates the JSON SAVE LOG file
+/// Structure of the save : Name, Source path etc..... 
 /// </summary>
+
 public class Save
 {
     public string Name { get; }
@@ -39,7 +39,10 @@ public class Save
         NbFilesLeftToDo = nbFilesLeftToDo;
         Progression = progression;
     }
-
+/// <summary>
+/// Shows the progression of the save
+/// </summary>
+///
     public void UpdateProgression()
     {
         Progression = TotalFilesToCopy == 0 ? 0 :(TotalFilesToCopy - NbFilesLeftToDo) * 100 / TotalFilesToCopy;

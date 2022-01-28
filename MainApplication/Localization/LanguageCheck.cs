@@ -1,6 +1,7 @@
 ﻿namespace MainApplication.Localization;
+
 /// <summary>
-/// Here is the language check function
+/// Get the language selected by the user 
 /// </summary>
 public abstract class LanguageCheck
 {

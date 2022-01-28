@@ -4,7 +4,9 @@ using MainApplication.Objects.Enums;
 using MainApplication.ViewModels;
 
 namespace ConsoleApplication.Views;
-
+/// <summary>
+/// Here we can create a view
+/// </summary>
 public class CreateSaveView : BaseView
 {
     private readonly CreateSaveViewModel _createSaveViewModel;
@@ -21,9 +23,9 @@ public class CreateSaveView : BaseView
         _createSaveViewModel = new CreateSaveViewModel();
     }
 
-    public void InitView()
+    public void InitView() 
     {
-        AskSaveName();
+        AskSaveName(); 
         AskSaveSourceUri();
         AskSaveTargetUri();
         AskSaveTypeSave();
@@ -34,7 +36,10 @@ public class CreateSaveView : BaseView
         AskReturnMainMenu();
     }
 
-    private void AskSaveName()
+    private void AskSaveName() 
+        /// <summary>
+        /// Get the name for the save
+        /// </summary>
     {
         Console.Write(Environment.NewLine + Language.CREATE_SAVE_ASK_NAME + @" ");
         var saveName = Console.ReadLine();
@@ -52,6 +57,10 @@ public class CreateSaveView : BaseView
     }
 
     private void AskSaveSourceUri()
+    
+        /// <summary>
+        ///Get the source file's URI
+        /// </summary>
     {
         if (_cancel)
             return;
@@ -74,6 +83,10 @@ public class CreateSaveView : BaseView
     }
 
     private void AskSaveTargetUri()
+    
+        /// <summary>
+        /// Get target's location URI
+        /// </summary>
     {
         if (_cancel)
             return;
@@ -95,6 +108,10 @@ public class CreateSaveView : BaseView
     }
 
     private void AskSaveTypeSave()
+    
+        /// <summary>
+        /// get the save's type : complete / differential
+        /// </summary>
     {
         if (_cancel)
             return;
@@ -116,6 +133,9 @@ public class CreateSaveView : BaseView
     }
 
     private bool CreateSave()
+        /// <summary>
+        /// Create a new save profile will all the informations provided by the user
+        /// </summary>
     {
         if (Name != null && SourcePath != null && TargetPath != null)
             return _createSaveViewModel.AddNewSave(new Save(Name, SourcePath, TargetPath, Type, State.End,

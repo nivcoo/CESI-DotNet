@@ -2,6 +2,10 @@
 
 namespace ConsoleApplication.Views;
 
+/// <summary>
+/// The base and generic viewmodel for the application 
+/// </summary>
+/// 
 public class BaseView
 {
     protected static void AskReturnMainMenu()

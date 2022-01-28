@@ -5,7 +5,9 @@ using MainApplication.Objects.Enums;
 using MainApplication.ViewModels;
 
 namespace ConsoleApplication.Views;
-
+/// <summary>
+/// The view used byEASYSAVE
+/// </summary>
 public class EasySaveView : BaseView
 {
     private readonly EasySaveViewModel _easySaveViewModel;

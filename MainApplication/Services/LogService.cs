@@ -4,6 +4,9 @@ using MainApplication.Storages;
 
 namespace MainApplication.Services;
 
+/// <summary>
+/// Log Manager
+/// </summary>
 internal sealed class LogService
 {
     private static readonly LogService Instance = new();
