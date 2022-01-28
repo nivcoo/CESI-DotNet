@@ -28,14 +28,6 @@ public class CompleteASave : ASave
         return true;
     }
 
-    protected override void UpdateStartSaveStatut()
-    {
-        Save.TotalFilesToCopy = SaveFiles.Count;
-        Save.NbFilesLeftToDo = SaveFiles.Count;
-        Save.TotalFilesSize = SaveFiles.Sum(saveFile => saveFile.FileSize);
-        UpdateSaveStorage();
-    }
-
     protected override bool CopyFiles()
     {
         if (SaveFiles.Count <= 0)

@@ -15,11 +15,6 @@ public class DifferentialSave : ASave
         throw new NotImplementedException();
     }
 
-    protected override void UpdateStartSaveStatut()
-    {
-        throw new NotImplementedException();
-    }
-
     protected override bool CopyFiles()
     {
         if (SaveFiles.Count <= 0)

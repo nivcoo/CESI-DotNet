@@ -20,10 +20,10 @@ public class Save
 
     public int NbFilesLeftToDo { get; set; }
 
-    public int Progression { get; set; }
+    public double Progression { get; set; }
 
     public Save(string name, Uri sourcePath, Uri targetPath, TypeSave type, State state, int totalFilesToCopy,
-        long totalFilesSize, int nbFilesLeftToDo, int progression)
+        long totalFilesSize, int nbFilesLeftToDo, double progression)
     {
         Name = name;
         SourcePath = sourcePath;
@@ -38,6 +38,7 @@ public class Save
 
     public void UpdateProgression()
     {
-        Progression = (TotalFilesToCopy - NbFilesLeftToDo) * 100 / TotalFilesToCopy;
+        Progression = TotalFilesToCopy == 0 ? 0 :(TotalFilesToCopy - NbFilesLeftToDo) * 100 / TotalFilesToCopy;
+
     }
 }

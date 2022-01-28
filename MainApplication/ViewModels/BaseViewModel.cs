@@ -30,7 +30,7 @@ public class BaseViewModel : INotifyPropertyChanged
         return ToolService.ConvertStringIntegerToEnum<T>(choiceString);
     }
     
-    public bool AlreadySaveWithSameName(string name)
+    public bool AlreadySaveWithSameName(string? name)
     {
         return SaveService.AlreadySaveWithSameName(name) != null;
     }

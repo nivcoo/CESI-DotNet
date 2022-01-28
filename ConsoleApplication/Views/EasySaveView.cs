@@ -85,13 +85,18 @@ public class EasySaveView : BaseView
     {
         Console.Write(Environment.NewLine + Language.GLOBAL_ASK_SAVE_NAME + @" ");
         var saveName = Console.ReadLine();
+        var isRunning = _easySaveViewModel.IsRunningSave(saveName);
         while (saveName != "cancel" &&
                (saveName == null || !_easySaveViewModel.RemoveSave(saveName)))
         {
-            Console.WriteLine(Language.GLOBAL_SAVE_NAME_NOT_EXIST);
+            Console.WriteLine(isRunning
+                ? Language.GLOBAL_CANNOT_REMOVE_RUNNING_SAVE
+                : Language.GLOBAL_SAVE_NAME_NOT_EXIST);
             Console.Write(Environment.NewLine + Language.GLOBAL_ASK_SAVE_NAME + @" ");
             saveName = Console.ReadLine();
+            isRunning = _easySaveViewModel.IsRunningSave(saveName);
         }
+
         AskReturnMainMenu();
     }
 
@@ -99,16 +104,43 @@ public class EasySaveView : BaseView
     {
         Console.Write(Environment.NewLine + Language.GLOBAL_ASK_SAVE_NAME_OR_ALL + @" ");
         var saveName = Console.ReadLine();
+        var isRunning = _easySaveViewModel.IsRunningSave(saveName);
         while (saveName != "all" && saveName != "cancel" &&
                (saveName == null || !_easySaveViewModel.StartSave(saveName)))
         {
-            Console.WriteLine(Language.GLOBAL_SAVE_NAME_NOT_EXIST_OR_ALL);
+            Console.WriteLine(isRunning ? Language.GLOBAL_SAVE_ALREADY_RUN : Language.GLOBAL_SAVE_NAME_NOT_EXIST);
+
             Console.Write(Environment.NewLine + Language.GLOBAL_ASK_SAVE_NAME_OR_ALL + @" ");
             saveName = Console.ReadLine();
+            isRunning = _easySaveViewModel.IsRunningSave(saveName);
         }
-        
-        if(saveName == "all")
+
+        var startAll = saveName == "all";
+
+        if (startAll)
             _easySaveViewModel.StartAllSaves();
+
+        if (saveName != "cancel")
+        {
+            Console.Write(Language.GLOBAL_PERFORMING_SAVE + @" ");
+            using (var progress = new ProgressBar())
+            {
+                var percent = startAll
+                    ? _easySaveViewModel.GetProgressionOfAllSave()
+                    : _easySaveViewModel.GetProgressionOfSave(saveName);
+                while (percent >= 100)
+                {
+                    percent = startAll
+                        ? _easySaveViewModel.GetProgressionOfAllSave()
+                        : _easySaveViewModel.GetProgressionOfSave(saveName);
+                    progress.Report(percent > 0 ? percent / 100 : 0);
+                    Thread.Sleep(10);
+                }
+            }
+
+
+            Console.WriteLine(Language.GLOBAL_DONE);
+        }
 
         AskReturnMainMenu();
     }
@@ -140,7 +172,7 @@ public class EasySaveView : BaseView
 
         if (saves != null)
             tuplesSaves.AddRange(saves.Select(save => Tuple.Create(save.Name, save.State.ToString(),
-                save.Type.ToString(), save.SourcePath.ToString(), save.TargetPath.ToString())));
+                save.Type.ToString(), save.SourcePath.LocalPath, save.TargetPath.LocalPath)));
 
         Console.WriteLine(
             tuplesSaves.ToStringTable(

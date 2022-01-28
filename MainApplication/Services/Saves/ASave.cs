@@ -8,6 +8,8 @@ public abstract class ASave
 {
     internal readonly LogService LogService = LogService.GetInstance();
     private readonly SaveService _saveService = SaveService.GetInstance();
+
+    public readonly Task<bool> SaveTask;
     protected Save Save { get; set; }
     private readonly SHA256 _sha256 = SHA256.Create();
 
@@ -15,11 +17,12 @@ public abstract class ASave
 
     protected ASave(Save save)
     {
+        SaveTask = new Task<bool>(RunSave);
         SaveFiles = new List<SaveFile>();
         Save = save;
     }
 
-    public static string[] GetAllFolderFiles(Uri path)
+    protected static string[] GetAllFolderFiles(Uri path)
     {
         return Directory.GetFiles(path.LocalPath, "*.*", SearchOption.AllDirectories);
     }
@@ -35,12 +38,13 @@ public abstract class ASave
         var filePaths = GetAllFolderFiles(folderPath);
         foreach (var filePath in filePaths)
             File.Delete(filePath);
-        
+
         Directory.Delete(folderPath.LocalPath, true);
     }
 
-    public bool RunSave()
+    private bool RunSave()
     {
+        ResetSaveValues();
         ChangeSaveState(State.Active);
         if (!RetrieveFilesToCopy())
         {
@@ -55,8 +59,16 @@ public abstract class ASave
             return false;
         }
 
-        ChangeSaveState(State.Active);
+        ChangeSaveState(State.End);
+
         return true;
+    }
+
+    private void ResetSaveValues()
+    {
+        Save.NbFilesLeftToDo = 0;
+        Save.TotalFilesToCopy = 0;
+        Save.Progression = 0;
     }
 
     protected void UpdateSaveStatut()
@@ -66,20 +78,26 @@ public abstract class ASave
         UpdateSaveStorage();
     }
 
+    private void UpdateStartSaveStatut()
+    {
+        Save.TotalFilesToCopy = SaveFiles.Count;
+        Save.NbFilesLeftToDo = SaveFiles.Count;
+        Save.TotalFilesSize = SaveFiles.Sum(saveFile => saveFile.FileSize);
+        UpdateSaveStorage();
+    }
+
     private void ChangeSaveState(State state)
     {
         Save.State = state;
         UpdateSaveStorage();
     }
 
-    protected void UpdateSaveStorage()
+    private void UpdateSaveStorage()
     {
         _saveService.UpdateSaveStorage(Save);
     }
 
     protected abstract bool RetrieveFilesToCopy();
-
-    protected abstract void UpdateStartSaveStatut();
 
     protected abstract bool CopyFiles();
 }

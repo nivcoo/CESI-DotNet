@@ -125,6 +125,30 @@ namespace MainApplication.Localization {
             }
         }
         
+        public static string GLOBAL_SAVE_ALREADY_RUN {
+            get {
+                return GetLanguage("GLOBAL_SAVE_ALREADY_RUN");
+            }
+        }
+        
+        public static string GLOBAL_CANNOT_REMOVE_RUNNING_SAVE {
+            get {
+                return GetLanguage("GLOBAL_CANNOT_REMOVE_RUNNING_SAVE");
+            }
+        }
+        
+        public static string GLOBAL_PERFORMING_SAVE {
+            get {
+                return GetLanguage("GLOBAL_PERFORMING_SAVE");
+            }
+        }
+        
+        public static string GLOBAL_DONE {
+            get {
+                return GetLanguage("GLOBAL_DONE");
+            }
+        }
+
         public static string GLOBAL_ASK_GO_TO_MENU {
             get {
                 return GetLanguage("GLOBAL_ASK_GO_TO_MENU");

@@ -30,7 +30,7 @@
         <value>The language selected is : en-US</value>
     </data>
     <data name="GLOBAL_WELCOME" xml:space="preserve">
-        <value>Welcome to EasySave</value>
+        <value>Welcome to EasySave !</value>
     </data>
     <data name="GLOBAL_SELECT_CHOICE" xml:space="preserve">
         <value>Your Choice:</value>
@@ -50,6 +50,22 @@
     
     <data name="GLOBAL_SAVE_NAME_NOT_EXIST" xml:space="preserve">
         <value>This save doesn't exist.</value>
+    </data>
+
+    <data name="GLOBAL_SAVE_ALREADY_RUN" xml:space="preserve">
+        <value>This save is already running.</value>
+    </data>
+
+    <data name="GLOBAL_CANNOT_REMOVE_RUNNING_SAVE" xml:space="preserve">
+        <value>You cannot remove running save.</value>
+    </data>
+
+    <data name="GLOBAL_PERFORMING_SAVE" xml:space="preserve">
+        <value>Performing Save...</value>
+    </data>
+
+    <data name="GLOBAL_DONE" xml:space="preserve">
+        <value>Done.</value>
     </data>
 
     <data name="GLOBAL_NAME" xml:space="preserve">

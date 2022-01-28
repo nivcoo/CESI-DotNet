@@ -52,7 +52,7 @@
         <value>Destination</value>
     </data>
     <data name="GLOBAL_WELCOME" xml:space="preserve">
-        <value>Bienvenue dans EasySave</value>
+        <value>Bienvenue dans EasySave !</value>
     </data>
     <data name="CHOICE_DISPLAY" xml:space="preserve">
         <value>Liste des Actions Possible :</value>
@@ -77,7 +77,6 @@
         <value>Stopper l'application</value>
     </data>
 
-
     <data name="CREATE_SAVE_SUCCESS" xml:space="preserve">
         <value>Votre sauvegarde a été créée avec succès !</value>
     </data>
@@ -90,6 +89,10 @@
     </data>
     <data name="CREATE_SAVE_ASK_NAME_RETRY" xml:space="preserve">
         <value>Une sauvegarde comporte déjà ce nom.</value>
+    </data>
+
+    <data name="GLOBAL_SAVE_ALREADY_RUN" xml:space="preserve">
+        <value>La Save est déjà lancée !</value>
     </data>
 
     <data name="CREATE_SAVE_ASK_SOURCE_URI" xml:space="preserve">
@@ -117,5 +120,14 @@
     </data>
     <data name="GLOBAL_ASK_GO_TO_MENU" xml:space="preserve">
         <value>Écrivez ou appuyez sur entré pour revenir au menu.</value>
+    </data>
+    <data name="GLOBAL_CANNOT_REMOVE_RUNNING_SAVE" xml:space="preserve">
+        <value>Vous ne pouvez pas supprimer une sauvegarde lancée !</value>
+    </data>
+    <data name="GLOBAL_DONE" xml:space="preserve">
+        <value>Fait.</value>
+    </data>
+    <data name="GLOBAL_PERFORMING_SAVE" xml:space="preserve">
+        <value>Sauvegarde en cours...</value>
     </data>
 </root>
