@@ -88,7 +88,7 @@ public class ProgressBar : IDisposable, IProgress<double>
         _timer.Change(_animationInterval, TimeSpan.FromMilliseconds(-1));
     }
 
-    void IDisposable.Dispose()
+    public void Dispose()
     {
         lock (_timer)
         {
