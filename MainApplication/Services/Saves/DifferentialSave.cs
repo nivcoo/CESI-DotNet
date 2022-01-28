@@ -10,53 +10,29 @@ public class DifferentialSave : ASave
     {
     }
 
-    public override bool RetrieveFilesToCopy()
+    protected override bool RetrieveFilesToCopy()
     {
-        throw new NotImplementedException();
-    }
+        var files = GetAllFolderFiles(Save.SourcePath);
 
-    protected override void UpdateStartSaveStatut()
-    {
-        throw new NotImplementedException();
-    }
-
-    public override bool CopyFiles()
-    {
-        if (SaveFiles.Count <= 0)
+        if (files.Length <= 0)
             return false;
-        var sourceLocalPath = Save.SourcePath.LocalPath;
-        var targetLocalPath = Save.TargetPath.LocalPath;
+        var localsourcepath = Save.SourcePath.LocalPath;
+        var localtargetpath = Save.TargetPath.LocalPath;
 
-        foreach (var saveFile in SaveFiles)
+        foreach (var file in files)
         {
-            var actualTimestamp = ToolService.GetTimestamp();
-            var sourceFolder = saveFile.Path;
-            var localPath = sourceFolder.Replace(sourceLocalPath, "");
-            var targetFolder = targetLocalPath + localPath;
-            var fileName = saveFile.FileName;
-
-            var targetFilePath = Path.Combine(targetFolder, fileName);
-
-
-            if (IsSameFile(saveFile.Hash, GetHashSha256(targetFilePath)))
+            var filefolder = file.Replace(localsourcepath, "");
+            var path = Path.GetDirectoryName(file);
+            if (path == null)
                 continue;
-            File.Delete(targetFilePath);
-            Directory.CreateDirectory(targetFolder);
-            var sourceFilePath = Path.Combine(sourceFolder, fileName);
-            File.Copy(sourceFilePath, targetFilePath);
-            UpdateSaveStatut();
-            var sourceFileInfo = new FileInfo(sourceFilePath);
-            var finalTimestamp = ToolService.GetTimestamp();
-            var time = finalTimestamp - actualTimestamp;
-            LogService.InsertLog(new Log(Save.Name, new Uri(sourceFilePath), new Uri(targetFilePath),
-                sourceFileInfo.Length, time, DateTime.Now));
+            var fileName = Path.GetFileName(file);
+            var targetfile = localtargetpath + filefolder;
+            if (ToolService.FileCompare(file, targetfile)) continue;
+            Console.WriteLine(file);
+            var sourceFileInfo = new FileInfo(file);
+            SaveFiles.Add(new SaveFile(path, fileName, sourceFileInfo.Length));
         }
 
         return true;
-    }
-
-    private static bool IsSameFile(IEnumerable<byte> sourceFile, IEnumerable<byte> destinationFile)
-    {
-        return ToolService.BytesToString(sourceFile) == ToolService.BytesToString(destinationFile);
     }
 }

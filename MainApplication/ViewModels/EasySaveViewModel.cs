@@ -57,8 +57,23 @@ public class EasySaveViewModel : BaseViewModel
         SaveService.StartAllSaves();
     }
 
-    public bool RemoveSave(string saveName)
+    public bool RemoveSave(string? saveName)
     {
         return SaveService.RemoveSave(saveName);
+    }
+
+    public bool IsRunningSave(string? saveName)
+    {
+        return SaveService.IsRunningSave(saveName);
+    }
+
+    public double GetProgressionOfSave(string saveName)
+    {
+        return SaveService.GetProgressionOfSave(saveName);
+    }
+
+    public double GetProgressionOfAllSave()
+    {
+        return SaveService.GetProgressionOfAllSave();
     }
 }

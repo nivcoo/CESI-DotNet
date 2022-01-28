@@ -15,8 +15,11 @@ internal sealed class SaveService
 
     private readonly List<Save> _saves;
 
+    private IDictionary<Save, ASave> SaveTasks;
+
     private SaveService()
     {
+        SaveTasks = new Dictionary<Save, ASave>();
         _savesPath = @"data\saves.json";
         _storage = new JsonStorage<Save>(_savesPath);
         LoadSavesFile();
@@ -41,22 +44,50 @@ internal sealed class SaveService
         return _saves;
     }
 
-    public bool StartSave(string name)
+    public bool StartSave(string saveName)
     {
-        var save = AlreadySaveWithSameName(name);
+        var save = AlreadySaveWithSameName(saveName);
         return save != null && StartSave(save);
     }
 
-    private static bool StartSave(Save save)
+    private bool StartSave(Save save)
     {
-        ASave aSave = save.Type switch
+        if (IsRunningSave(save))
+            return false;
+        ASave aSave;
+        if (SaveTasks.ContainsKey(save))
+            aSave = SaveTasks.First(x => x.Key == save).Value;
+        else
         {
-            TypeSave.Complete => new CompleteASave(save),
-            TypeSave.Differential => new DifferentialSave(save),
-            _ => new CompleteASave(save)
-        };
+            aSave = save.Type switch
+            {
+                TypeSave.Complete => new CompleteASave(save),
+                TypeSave.Differential => new DifferentialSave(save),
+                _ => new CompleteASave(save)
+            };
+            SaveTasks.Add(save, aSave);
+        }
 
-        return aSave.RunSave();
+        if (aSave.SaveTask.Status != TaskStatus.Running)
+            aSave.SaveTask.Start();
+        else
+            return false;
+        return true;
+    }
+
+
+    public bool IsRunningSave(string? saveName)
+    {
+        var save = AlreadySaveWithSameName(saveName);
+        return save != null && IsRunningSave(save);
+    }
+
+    private bool IsRunningSave(Save save)
+    {
+        if (!SaveTasks.ContainsKey(save))
+            return false;
+        var aSave = SaveTasks.First(x => x.Key == save).Value;
+        return aSave.SaveTask.Status == TaskStatus.Running;
     }
 
     public void StartAllSaves()
@@ -73,7 +104,7 @@ internal sealed class SaveService
 
     public bool AddNewSave(Save save)
     {
-        if (AlreadySaveWithSameName(save.Name) != null || save.Name == "all")
+        if (_saves.Count >= 5 || AlreadySaveWithSameName(save.Name) != null || save.Name == "all")
             return false;
         _storage.AddNewElement(save);
         AddSaveToList(save);
@@ -85,8 +116,10 @@ internal sealed class SaveService
         _saves.Add(save);
     }
 
-    public bool RemoveSave(Save save)
+    private bool RemoveSave(Save save)
     {
+        if (IsRunningSave(save))
+            return false;
         if (!_saves.Contains(save))
             return false;
         _storage.RemoveElement(s => s.Name == save.Name);
@@ -94,13 +127,13 @@ internal sealed class SaveService
         return true;
     }
 
-    public bool RemoveSave(string saveName)
+    public bool RemoveSave(string? saveName)
     {
         var save = AlreadySaveWithSameName(saveName);
         return save != null && RemoveSave(save);
     }
 
-    public Save? AlreadySaveWithSameName(string name)
+    public Save? AlreadySaveWithSameName(string? name)
     {
         return _saves.Find(save => save.Name == name);
     }
@@ -113,5 +146,21 @@ internal sealed class SaveService
     public void UpdateSaveStorage(Save save)
     {
         _storage.EditElementBy(s => s.Name == save.Name, save);
+    }
+
+    public double GetProgressionOfSave(string saveName)
+    {
+        var save = AlreadySaveWithSameName(saveName);
+        return save == null ? 100 : GetProgressionOfSave(save);
+    }
+
+    private static double GetProgressionOfSave(Save save)
+    {
+        return save.Progression;
+    }
+
+    public double GetProgressionOfAllSave()
+    {
+        return _saves.Sum(save => save.Progression) / _saves.Count;
     }
 }

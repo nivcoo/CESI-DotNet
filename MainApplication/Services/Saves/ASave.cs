@@ -6,42 +6,41 @@ namespace MainApplication.Services.Saves;
 
 public abstract class ASave
 {
-    internal readonly LogService LogService = LogService.GetInstance();
-    internal readonly SaveService SaveService = SaveService.GetInstance();
+    private readonly LogService _logService = LogService.GetInstance();
+    private readonly SaveService _saveService = SaveService.GetInstance();
+
+    public readonly Task<bool> SaveTask;
     protected Save Save { get; set; }
     private readonly SHA256 _sha256 = SHA256.Create();
 
     protected readonly List<SaveFile> SaveFiles;
 
+    protected bool DeleteFilesBeforeCopy = false;
+
     protected ASave(Save save)
     {
+        SaveTask = new Task<bool>(RunSave);
         SaveFiles = new List<SaveFile>();
         Save = save;
     }
 
-    public static string[] GetAllFolderFiles(Uri path)
+    protected static string[] GetAllFolderFiles(Uri path)
     {
         return Directory.GetFiles(path.LocalPath, "*.*", SearchOption.AllDirectories);
     }
 
-    protected byte[] GetHashSha256(string fileName)
-    {
-        using var stream = File.OpenRead(fileName);
-        return _sha256.ComputeHash(stream);
-    }
-
-    protected static void DeleteFolderWithFiles(Uri folderPath)
+    private static void DeleteFolderWithFiles(Uri folderPath)
     {
         var filePaths = GetAllFolderFiles(folderPath);
-        Console.WriteLine(filePaths);
         foreach (var filePath in filePaths)
             File.Delete(filePath);
-        
+
         Directory.Delete(folderPath.LocalPath, true);
     }
 
-    public bool RunSave()
+    private bool RunSave()
     {
+        ResetSaveValues();
         ChangeSaveState(State.Active);
         if (!RetrieveFilesToCopy())
         {
@@ -56,31 +55,80 @@ public abstract class ASave
             return false;
         }
 
-        ChangeSaveState(State.Active);
+        ChangeSaveState(State.End);
+
         return true;
     }
 
-    protected void UpdateSaveStatut()
+    private void ResetSaveValues()
+    {
+        Save.NbFilesLeftToDo = 0;
+        Save.TotalFilesToCopy = 0;
+        Save.Progression = 0;
+    }
+
+    private void UpdateSaveStatut()
     {
         Save.NbFilesLeftToDo -= 1;
         Save.UpdateProgression();
         UpdateSaveStorage();
     }
 
-    protected void ChangeSaveState(State state)
+    private void UpdateStartSaveStatut()
+    {
+        Save.TotalFilesToCopy = SaveFiles.Count;
+        Save.NbFilesLeftToDo = SaveFiles.Count;
+        Save.TotalFilesSize = SaveFiles.Sum(saveFile => saveFile.FileSize);
+        UpdateSaveStorage();
+    }
+
+    private void ChangeSaveState(State state)
     {
         Save.State = state;
         UpdateSaveStorage();
     }
 
-    public void UpdateSaveStorage()
+    private void UpdateSaveStorage()
     {
-        SaveService.UpdateSaveStorage(Save);
+        _saveService.UpdateSaveStorage(Save);
     }
 
-    public abstract bool RetrieveFilesToCopy();
+    protected abstract bool RetrieveFilesToCopy();
 
-    protected abstract void UpdateStartSaveStatut();
+    private bool CopyFiles()
+    {
+        if (SaveFiles.Count <= 0)
+            return false;
+        var sourceLocalPath = Save.SourcePath.LocalPath;
+        var targetLocalPath = Save.TargetPath.LocalPath;
+        if (DeleteFilesBeforeCopy)
+            DeleteFolderWithFiles(Save.TargetPath);
+        foreach (var saveFile in SaveFiles)
+        {
+            var actualTimestamp = ToolService.GetTimestamp();
+            var sourceFolder = saveFile.Path;
+            var localPath = sourceFolder.Replace(sourceLocalPath, "");
+            var targetFolder = targetLocalPath + localPath;
+            Directory.CreateDirectory(targetFolder);
+            var fileName = saveFile.FileName;
+            var sourceFilePath = Path.Combine(sourceFolder, fileName);
+            var targetFilePath = Path.Combine(targetFolder, fileName);
+            try
+            {
+                File.Copy(sourceFilePath, targetFilePath, true);
+                UpdateSaveStatut();
+                var sourceFileInfo = new FileInfo(sourceFilePath);
+                var finalTimestamp = ToolService.GetTimestamp();
+                var time = finalTimestamp - actualTimestamp;
+                _logService.InsertLog(new Log(Save.Name, new Uri(sourceFilePath), new Uri(targetFilePath),
+                    sourceFileInfo.Length, time, DateTime.Now));
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+        }
 
-    public abstract bool CopyFiles();
+        return true;
+    }
 }
