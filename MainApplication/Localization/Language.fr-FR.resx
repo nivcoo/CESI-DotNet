@@ -130,4 +130,7 @@
     <data name="GLOBAL_PERFORMING_SAVE" xml:space="preserve">
         <value>Sauvegarde en cours...</value>
     </data>
+    <data name="CREATE_SAVE_REACH_LIMIT" xml:space="preserve">
+        <value>La limite de 5 sauvegardes est dépassé.</value>
+    </data>
 </root>

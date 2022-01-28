@@ -104,7 +104,7 @@ internal sealed class SaveService
 
     public bool AddNewSave(Save save)
     {
-        if (AlreadySaveWithSameName(save.Name) != null || save.Name == "all")
+        if (_saves.Count >= 5 || AlreadySaveWithSameName(save.Name) != null || save.Name == "all")
             return false;
         _storage.AddNewElement(save);
         AddSaveToList(save);

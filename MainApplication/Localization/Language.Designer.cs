@@ -273,6 +273,11 @@ namespace MainApplication.Localization {
                 return GetLanguage("CREATE_SAVE_ASK_TYPE_RETRY");
             }
         }
-        
+
+        public static string CREATE_SAVE_REACH_LIMIT
+        {
+            get { return GetLanguage("CREATE_SAVE_REACH_LIMIT"); }
+        }
+
     }
 }

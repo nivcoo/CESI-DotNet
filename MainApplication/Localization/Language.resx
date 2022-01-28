@@ -137,4 +137,7 @@
     <data name="GLOBAL_ASK_GO_TO_MENU" xml:space="preserve">
         <value>Type something or type enter to back to the menu</value>
     </data>
+    <data name="CREATE_SAVE_REACH_LIMIT" xml:space="preserve">
+        <value>You have reached the limit of 5 saves.</value>
+    </data>
 </root>

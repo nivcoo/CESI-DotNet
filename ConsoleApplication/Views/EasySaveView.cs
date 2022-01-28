@@ -61,8 +61,15 @@ public class EasySaveView : BaseView
                 ShowSavesList();
                 break;
             case Choice.Create:
-                var createSaveView = new CreateSaveView();
-                createSaveView.InitView();
+                _easySaveViewModel.UpdateSavesList();
+                var saves = _easySaveViewModel.Saves;
+                if (saves?.Count < 5)
+                {
+                    var createSaveView = new CreateSaveView();
+                    createSaveView.InitView();
+                }
+                else
+                    Console.WriteLine(Language.CREATE_SAVE_REACH_LIMIT);
                 break;
             case Choice.Remove:
                 RemoveSave();
@@ -137,7 +144,6 @@ public class EasySaveView : BaseView
                     Thread.Sleep(10);
                 }
             }
-
 
             Console.WriteLine(Language.GLOBAL_DONE);
         }
