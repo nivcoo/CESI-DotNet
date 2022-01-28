@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography;
-using MainApplication.Objects;
+﻿using MainApplication.Objects;
 using MainApplication.Objects.Enums;
 
 namespace MainApplication.Services.Saves;
@@ -9,9 +8,8 @@ public abstract class ASave
     private readonly LogService _logService = LogService.GetInstance();
     private readonly SaveService _saveService = SaveService.GetInstance();
 
-    public readonly Task<bool> SaveTask;
-    protected Save Save { get; set; }
-    private readonly SHA256 _sha256 = SHA256.Create();
+    public Task<bool> SaveTask;
+    protected Save Save { get; }
 
     protected readonly List<SaveFile> SaveFiles;
 
@@ -57,6 +55,7 @@ public abstract class ASave
 
         ChangeSaveState(State.End);
 
+        SaveTask = new Task<bool>(RunSave);
         return true;
     }
 

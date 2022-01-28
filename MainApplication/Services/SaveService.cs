@@ -15,11 +15,11 @@ internal sealed class SaveService
 
     private readonly List<Save> _saves;
 
-    private IDictionary<Save, ASave> SaveTasks;
+    private readonly IDictionary<Save, ASave> _saveTasks;
 
     private SaveService()
     {
-        SaveTasks = new Dictionary<Save, ASave>();
+        _saveTasks = new Dictionary<Save, ASave>();
         _savesPath = @"data\saves.json";
         _storage = new JsonStorage<Save>(_savesPath);
         LoadSavesFile();
@@ -55,8 +55,8 @@ internal sealed class SaveService
         if (IsRunningSave(save))
             return false;
         ASave aSave;
-        if (SaveTasks.ContainsKey(save))
-            aSave = SaveTasks.First(x => x.Key == save).Value;
+        if (_saveTasks.ContainsKey(save))
+            aSave = _saveTasks.First(x => x.Key == save).Value;
         else
         {
             aSave = save.Type switch
@@ -65,7 +65,7 @@ internal sealed class SaveService
                 TypeSave.Differential => new DifferentialSave(save),
                 _ => new CompleteASave(save)
             };
-            SaveTasks.Add(save, aSave);
+            _saveTasks.Add(save, aSave);
         }
 
         if (aSave.SaveTask.Status != TaskStatus.Running)
@@ -84,9 +84,9 @@ internal sealed class SaveService
 
     private bool IsRunningSave(Save save)
     {
-        if (!SaveTasks.ContainsKey(save))
+        if (!_saveTasks.ContainsKey(save))
             return false;
-        var aSave = SaveTasks.First(x => x.Key == save).Value;
+        var aSave = _saveTasks.First(x => x.Key == save).Value;
         return aSave.SaveTask.Status == TaskStatus.Running;
     }
 
@@ -147,14 +147,9 @@ internal sealed class SaveService
     {
         _storage.EditElementBy(s => s.Name == save.Name, save);
     }
+    
 
-    public double GetProgressionOfSave(string saveName)
-    {
-        var save = AlreadySaveWithSameName(saveName);
-        return save == null ? 100 : GetProgressionOfSave(save);
-    }
-
-    private static double GetProgressionOfSave(Save save)
+    public static double GetProgressionOfSave(Save save)
     {
         return save.Progression;
     }
@@ -162,5 +157,16 @@ internal sealed class SaveService
     public double GetProgressionOfAllSave()
     {
         return _saves.Sum(save => save.Progression) / _saves.Count;
+    }
+    
+
+    public static Tuple<int, int> GetFilesInformationsOfSave(Save save)
+    {
+        return new Tuple<int, int>(save.NbFilesLeftToDo, save.TotalFilesToCopy);
+    }
+
+    public Tuple<int, int> GetFilesInformationsOfAllSave()
+    {
+        return new Tuple<int, int>(_saves.Sum(save => save.NbFilesLeftToDo), _saves.Sum(save => save.TotalFilesToCopy));
     }
 }

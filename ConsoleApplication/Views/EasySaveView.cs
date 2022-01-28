@@ -70,6 +70,7 @@ public class EasySaveView : BaseView
                 }
                 else
                     Console.WriteLine(Language.CREATE_SAVE_REACH_LIMIT);
+
                 break;
             case Choice.Remove:
                 RemoveSave();
@@ -123,6 +124,7 @@ public class EasySaveView : BaseView
         }
 
         var startAll = saveName == "all";
+        var save = _easySaveViewModel.AlreadySaveWithSameName(saveName);
 
         if (startAll)
             _easySaveViewModel.StartAllSaves();
@@ -132,18 +134,26 @@ public class EasySaveView : BaseView
             Console.Write(Language.GLOBAL_PERFORMING_SAVE + @" ");
             using (var progress = new ProgressBar())
             {
-                var percent = startAll
-                    ? _easySaveViewModel.GetProgressionOfAllSave()
-                    : _easySaveViewModel.GetProgressionOfSave(saveName);
-                while (percent >= 100)
+                double percent;
+                do
                 {
-                    percent = startAll
+                    percent = save == null
                         ? _easySaveViewModel.GetProgressionOfAllSave()
-                        : _easySaveViewModel.GetProgressionOfSave(saveName);
+                        : _easySaveViewModel.GetProgressionOfSave(save);
+                    var (item1, totalFiles) = save == null
+                        ? _easySaveViewModel.GetFilesInformationsOfAllSave()
+                        : _easySaveViewModel.GetFilesInformationsOfSave(save);
+
+                    var doneFiles = totalFiles - item1;
+                    progress.UpdateFilesStatus(doneFiles, totalFiles);
                     progress.Report(percent > 0 ? percent / 100 : 0);
                     Thread.Sleep(10);
-                }
+                } while (percent < 100);
+
+                progress.Report(1);
+                Thread.Sleep(10);
             }
+
 
             Console.WriteLine(Language.GLOBAL_DONE);
         }

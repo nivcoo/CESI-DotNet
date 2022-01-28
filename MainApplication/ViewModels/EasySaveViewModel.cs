@@ -3,6 +3,7 @@ using System.Windows.Input;
 using MainApplication.Localization;
 using MainApplication.Objects;
 using MainApplication.Objects.Enums;
+using MainApplication.Services;
 
 namespace MainApplication.ViewModels;
 
@@ -57,7 +58,7 @@ public class EasySaveViewModel : BaseViewModel
         SaveService.StartAllSaves();
     }
 
-    public bool RemoveSave(string? saveName)
+    public bool RemoveSave(string saveName)
     {
         return SaveService.RemoveSave(saveName);
     }
@@ -67,13 +68,23 @@ public class EasySaveViewModel : BaseViewModel
         return SaveService.IsRunningSave(saveName);
     }
 
-    public double GetProgressionOfSave(string saveName)
+    public double GetProgressionOfSave(Save save)
     {
-        return SaveService.GetProgressionOfSave(saveName);
+        return SaveService.GetProgressionOfSave(save);
     }
 
     public double GetProgressionOfAllSave()
     {
         return SaveService.GetProgressionOfAllSave();
+    }
+
+    public Tuple<int, int> GetFilesInformationsOfSave(Save save)
+    {
+        return SaveService.GetFilesInformationsOfSave(save);
+    }
+    
+    public Tuple<int, int> GetFilesInformationsOfAllSave()
+    {
+        return SaveService.GetFilesInformationsOfAllSave();
     }
 }
