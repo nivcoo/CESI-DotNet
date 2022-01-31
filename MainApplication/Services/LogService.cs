@@ -22,7 +22,11 @@ internal sealed class LogService
         if (!File.Exists(_logsPath))
             File.CreateText(_logsPath).Close();
     }
-
+    
+    /// <summary>
+    /// Insert log object into storage
+    /// </summary>
+    /// <param name="log"></param>
     public void InsertLog(Log log)
     {
         LoadLogsFile();

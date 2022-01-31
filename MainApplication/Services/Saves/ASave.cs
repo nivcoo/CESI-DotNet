@@ -21,12 +21,21 @@ public abstract class ASave
         SaveFiles = new List<SaveFile>();
         Save = save;
     }
-
+    
+    /// <summary>
+    /// Get all files in folder recursively
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns>List of files</returns>
     protected static string[] GetAllFolderFiles(Uri path)
     {
         return Directory.GetFiles(path.LocalPath, "*.*", SearchOption.AllDirectories);
     }
-
+    
+    /// <summary>
+    /// Delete not empty folder
+    /// </summary>
+    /// <param name="folderPath"></param>
     private static void DeleteFolderWithFiles(Uri folderPath)
     {
         var filePaths = GetAllFolderFiles(folderPath);
@@ -36,6 +45,10 @@ public abstract class ASave
         Directory.Delete(folderPath.LocalPath, true);
     }
 
+    /// <summary>
+    /// Run current save
+    /// </summary>
+    /// <returns>true if Success</returns>
     private bool RunSave()
     {
         ResetSaveValues();
@@ -58,7 +71,10 @@ public abstract class ASave
         SaveTask = new Task<bool>(RunSave);
         return true;
     }
-
+    
+    /// <summary>
+    /// Reset all default values
+    /// </summary>
     private void ResetSaveValues()
     {
         Save.NbFilesLeftToDo = 0;
@@ -66,6 +82,9 @@ public abstract class ASave
         Save.Progression = 0;
     }
 
+    /// <summary>
+    /// Update save into storage
+    /// </summary>
     private void UpdateSaveStatut()
     {
         Save.NbFilesLeftToDo -= 1;
@@ -73,6 +92,9 @@ public abstract class ASave
         UpdateSaveStorage();
     }
 
+    /// <summary>
+    /// Update save default values into storage
+    /// </summary>
     private void UpdateStartSaveStatut()
     {
         Save.TotalFilesToCopy = SaveFiles.Count;
@@ -81,19 +103,30 @@ public abstract class ASave
         UpdateSaveStorage();
     }
 
+    /// <summary>
+    /// Change state of save (End, Active)
+    /// </summary>
+    /// <param name="state"></param>
     private void ChangeSaveState(State state)
     {
         Save.State = state;
         UpdateSaveStorage();
     }
 
+    /// <summary>
+    /// Update save into storage
+    /// </summary>
     private void UpdateSaveStorage()
     {
         _saveService.UpdateSaveStorage(Save);
     }
-
+    
     protected abstract bool RetrieveFilesToCopy();
 
+    /// <summary>
+    /// Copy all retrieved files
+    /// </summary>
+    /// <returns>true if Success</returns>
     private bool CopyFiles()
     {
         if (SaveFiles.Count <= 0)

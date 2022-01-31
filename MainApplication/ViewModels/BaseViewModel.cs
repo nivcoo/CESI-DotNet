@@ -11,8 +11,6 @@ namespace MainApplication.ViewModels;
 public class BaseViewModel : INotifyPropertyChanged
 {
     internal readonly SaveService SaveService = SaveService.GetInstance();
-    internal readonly LogService LogService = LogService.GetInstance();
-    internal readonly ToolService ToolService = ToolService.GetInstance();
     public event PropertyChangedEventHandler? PropertyChanged;
 
     [NotifyPropertyChangedInvocator]

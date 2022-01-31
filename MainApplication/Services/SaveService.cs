@@ -38,18 +38,32 @@ internal sealed class SaveService
     {
         foreach (var save in _storage.GetAllElements()) AddSaveToList(save);
     }
-
+    
+    /// <summary>
+    /// Get all saves
+    /// </summary>
+    /// <returns>Save List</returns>
     public List<Save> GetSaves()
     {
         return _saves;
     }
 
+    /// <summary>
+    /// Start save with name
+    /// </summary>
+    /// <param name="saveName"></param>
+    /// <returns>Success</returns>
     public bool StartSave(string saveName)
     {
         var save = AlreadySaveWithSameName(saveName);
         return save != null && StartSave(save);
     }
 
+    /// <summary>
+    /// Start save with save object
+    /// </summary>
+    /// <param name="save"></param>
+    /// <returns>true if Success</returns>
     private bool StartSave(Save save)
     {
         if (IsRunningSave(save))
@@ -76,6 +90,11 @@ internal sealed class SaveService
     }
 
 
+    /// <summary>
+    /// Check if save is running
+    /// </summary>
+    /// <param name="saveName"></param>
+    /// <returns>true if Running</returns>
     public bool IsRunningSave(string? saveName)
     {
         var save = AlreadySaveWithSameName(saveName);
@@ -90,6 +109,9 @@ internal sealed class SaveService
         return aSave.SaveTask.Status == TaskStatus.Running;
     }
 
+    /// <summary>
+    /// STart all saves
+    /// </summary>
     public void StartAllSaves()
     {
         foreach (var save in _saves)
@@ -102,6 +124,11 @@ internal sealed class SaveService
     {
     }
 
+    /// <summary>
+    /// Add new save with save object
+    /// </summary>
+    /// <param name="save"></param>
+    /// <returns>tru if Success</returns>
     public bool AddNewSave(Save save)
     {
         if (_saves.Count >= 5 || AlreadySaveWithSameName(save.Name) != null || save.Name == "all")
@@ -115,6 +142,12 @@ internal sealed class SaveService
     {
         _saves.Add(save);
     }
+    
+    /// <summary>
+    /// Remove save with save object
+    /// </summary>
+    /// <param name="save"></param>
+    /// <returns>true if Success</returns>
 
     private bool RemoveSave(Save save)
     {
@@ -126,13 +159,24 @@ internal sealed class SaveService
         _saves.Remove(save);
         return true;
     }
-
+    
+    
+    /// <summary>
+    /// Remove save with name
+    /// </summary>
+    /// <param name="saveName"></param>
+    /// <returns>true if Success</returns>
     public bool RemoveSave(string? saveName)
     {
         var save = AlreadySaveWithSameName(saveName);
         return save != null && RemoveSave(save);
     }
 
+    /// <summary>
+    /// Check if save exist with same name
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns>Save object</returns>
     public Save? AlreadySaveWithSameName(string? name)
     {
         return _saves.Find(save => save.Name == name);
@@ -143,28 +187,48 @@ internal sealed class SaveService
         return Instance;
     }
 
+    /// <summary>
+    /// Update storage of save object
+    /// </summary>
+    /// <param name="save"></param>
     public void UpdateSaveStorage(Save save)
     {
         _storage.EditElementBy(s => s.Name == save.Name, save);
     }
     
 
+    /// <summary>
+    /// Get progression of specific save
+    /// </summary>
+    /// <param name="save"></param>
+    /// <returns>The save progression</returns>
     public static double GetProgressionOfSave(Save save)
     {
         return save.Progression;
     }
-
+    
+    /// <summary>
+    /// Get sum of all progression 
+    /// </summary>
+    /// <returns>The sum of all progression</returns>
     public double GetProgressionOfAllSave()
     {
         return _saves.Sum(save => save.Progression) / _saves.Count;
     }
     
-
+    /// <summary>
+    /// Get Number of file in specific save
+    /// </summary>
+    /// <returns>Number left to do, Total Number</returns>
     public static Tuple<int, int> GetFilesInformationsOfSave(Save save)
     {
         return new Tuple<int, int>(save.NbFilesLeftToDo, save.TotalFilesToCopy);
     }
-
+    
+    /// <summary>
+    /// Get Number of file in all save (Sum)
+    /// </summary>
+    /// <returns>Number left to do, Total Number</returns>
     public Tuple<int, int> GetFilesInformationsOfAllSave()
     {
         return new Tuple<int, int>(_saves.Sum(save => save.NbFilesLeftToDo), _saves.Sum(save => save.TotalFilesToCopy));

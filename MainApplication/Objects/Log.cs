@@ -5,14 +5,14 @@ namespace MainApplication.Objects;
 
 public class Log
 {
-    public string? Name { get; set; }
-    public Uri SourcePath { get; set; }
-    public Uri TargetPath { get; set; }
-    public long FileSize { get; set; }
+    private string? Name { get; set; }
+    private Uri SourcePath { get; set; }
+    private Uri TargetPath { get; set; }
+    private long FileSize { get; set; }
     long FileTransferTime { get; set; }
 
     [JsonConverter(typeof(DateTimeConverter))]
-    public DateTime Date { get; set; }
+    private DateTime Date { get; set; }
 
     public Log(string? name, Uri sourcePath, Uri targetPath, long fileSize, long fileTransferTime, DateTime date)
     {
