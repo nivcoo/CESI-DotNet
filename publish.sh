@@ -13,8 +13,6 @@ git checkout master
 NUM_COMMITS=`git log --oneline master ^development | wc -l | bc`
 git rebase development
 git rebase -i HEAD~$NUM_COMMITS
-echo $1 > VERSION
-git add VERSION
 git commit -m "chore: bump version to $1"
 git tag v$1
 git push
