@@ -43,7 +43,7 @@ public class CreateSaveView : BaseView
     {
         Console.Write(Environment.NewLine + Language.CREATE_SAVE_ASK_NAME + @" ");
         var saveName = Console.ReadLine();
-        while (saveName == null || _createSaveViewModel.AlreadySaveWithSameName(saveName))
+        while (saveName == null || _createSaveViewModel.AlreadySaveWithSameName(saveName) != null)
         {
             Console.WriteLine(Language.CREATE_SAVE_ASK_NAME_RETRY);
             Console.Write(Environment.NewLine + Language.CREATE_SAVE_ASK_NAME + @" ");

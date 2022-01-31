@@ -8,7 +8,12 @@ internal class ToolService
     {
         return Instance;
     }
-
+    
+    /// <summary>
+    /// Is value Uri
+    /// </summary>
+    /// <param name="uri"></param>
+    /// <returns>uri object or null if error</returns>
     public static Uri? IsValidUri(string? uri)
     {
         if (uri == null)
@@ -22,14 +27,26 @@ internal class ToolService
             return null;
         }
     }
-
-    public static T? IsValidEnumInteger<T>(int obj)
+    
+    /// <summary>
+    /// Check if object is present into enum
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns>object or null if error</returns>
+    private static T? IsValidEnumInteger<T>(int obj)
     {
         if (Enum.IsDefined(typeof(T), obj))
             return (T) Enum.Parse(typeof(T), obj.ToString());
         return default;
     }
 
+    /// <summary>
+    /// Convert string to integer and integer to enum
+    /// </summary>
+    /// <param name="choiceString"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns>object or null if error</returns>
     public static T? ConvertStringIntegerToEnum<T>(string? choiceString)
     {
         if (choiceString == null)
@@ -44,24 +61,39 @@ internal class ToolService
             return default;
         }
     }
-
+    
+    /// <summary>
+    /// Get current timestamp
+    /// </summary>
+    /// <returns>timestamp</returns>
     public static long GetTimestamp()
     {
         return DateTime.Now.ToFileTime();
     }
 
+    /// <summary>
+    /// Convert bytes to string
+    /// </summary>
+    /// <param name="fileHash"></param>
+    /// <returns>string</returns>
     public static string BytesToString(IEnumerable<byte> fileHash)
     {
         return fileHash.Aggregate("", (current, b) => current + b.ToString("x2"));
     }
 
+    /// <summary>
+    /// Compare two file with hash
+    /// </summary>
+    /// <param name="file1"></param>
+    /// <param name="file2"></param>
+    /// <returns>true if identical</returns>
     public static bool FileCompare(string file1, string file2)
     {
         int file1Byte, file2Byte;
         if (file1 == file2)
             return true;
-        var fs1 = new FileStream(file1, FileMode.Open);
-        var fs2 = new FileStream(file2, FileMode.Open);
+        using var fs1 = new FileStream(file1, FileMode.Open);
+        using var fs2 = new FileStream(file2, FileMode.Open);
 
         if (fs1.Length != fs2.Length)
         {

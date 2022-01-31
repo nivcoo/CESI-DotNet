@@ -10,6 +10,10 @@ public class DifferentialSave : ASave
     {
     }
 
+    /// <summary>
+    /// Retrieve all file to copy
+    /// </summary>
+    /// <returns>true if Success</returns>
     protected override bool RetrieveFilesToCopy()
     {
         var files = GetAllFolderFiles(Save.SourcePath);

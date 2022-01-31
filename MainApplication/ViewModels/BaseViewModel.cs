@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using MainApplication.Services;
 using MainApplication.Annotations;
+using MainApplication.Objects;
 
 namespace MainApplication.ViewModels;
 /// <summary>
@@ -10,8 +11,6 @@ namespace MainApplication.ViewModels;
 public class BaseViewModel : INotifyPropertyChanged
 {
     internal readonly SaveService SaveService = SaveService.GetInstance();
-    internal readonly LogService LogService = LogService.GetInstance();
-    internal readonly ToolService ToolService = ToolService.GetInstance();
     public event PropertyChangedEventHandler? PropertyChanged;
 
     [NotifyPropertyChangedInvocator]
@@ -19,6 +18,7 @@ public class BaseViewModel : INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+
     protected bool SetField<T>(ref T field, T value, string propertyName)
     {
         if (EqualityComparer<T>.Default.Equals(field, value)) return false;
@@ -26,14 +26,14 @@ public class BaseViewModel : INotifyPropertyChanged
         OnPropertyChanged(propertyName);
         return true;
     }
-    
+
     public static T? ConvertStringIntegerToEnum<T>(string? choiceString)
     {
         return ToolService.ConvertStringIntegerToEnum<T>(choiceString);
     }
-    
-    public bool AlreadySaveWithSameName(string? name)
+
+    public Save? AlreadySaveWithSameName(string? saveName)
     {
-        return SaveService.AlreadySaveWithSameName(name) != null;
+        return SaveService.AlreadySaveWithSameName(saveName);
     }
 }
