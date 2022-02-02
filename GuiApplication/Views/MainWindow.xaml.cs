@@ -3,30 +3,36 @@ using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
+using WinRT.Interop;
 
 namespace GuiApplication.Views;
 
 public sealed partial class MainWindow : Window
 {
-
+    private static readonly MainWindow Instance = new();
+    public IntPtr HWnd;
     private AppWindow _apw;
     private OverlappedPresenter _presenter;
 
-    public void GetAppWindowAndPresenter()
-    {
-        var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(this);
-        WindowId myWndId = Win32Interop.GetWindowIdFromWindow(hWnd);
-        _apw = AppWindow.GetFromWindowId(myWndId);
-        _presenter = _apw.Presenter as OverlappedPresenter;
-    }
+
     public MainWindow()
     {
-        InitializeComponent();
         GetAppWindowAndPresenter();
+        InitializeComponent();
         _presenter.IsResizable = false;
         _apw.Resize(new Windows.Graphics.SizeInt32 { Width = 1400, Height = 800 });
         _apw.Title = "EasySave";
         _presenter.IsMaximizable = false;
+    }
+
+    public void GetAppWindowAndPresenter()
+    {
+        HWnd = WindowNative.GetWindowHandle(this);
+        WindowId myWndId = Win32Interop.GetWindowIdFromWindow(HWnd);
+        _apw = AppWindow.GetFromWindowId(myWndId);
+        _presenter = _apw.Presenter as OverlappedPresenter;
+
+
     }
 
 
@@ -40,6 +46,11 @@ public sealed partial class MainWindow : Window
             Type pageType = Type.GetType(pageName);
             MainContentFrame.Navigate(pageType);
             
+    }
+
+    public static MainWindow GetInstance()
+    {
+        return Instance;
     }
 }
 

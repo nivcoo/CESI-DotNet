@@ -7,7 +7,7 @@
     mc:Ignorable="d">
 
     <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-        <TextBlock Text="Lorem ipsum dolor sit amet, adipisicing elit." TextWrapping="Wrap" />
+        <Button Content="Create new Save" Click="OpenSourceSelectionDialogAsync" />
     </StackPanel>
 
 </Page>
