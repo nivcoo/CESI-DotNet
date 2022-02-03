@@ -1,15 +1,15 @@
-name: .NET 6.0 DesktopApplication
+name: .NET 6.0 GuiApplication
 
 on:
   push:
     branches: [ master ]
     paths:
-    - 'DesktopApplication/**'
+    - 'GuiApplication/**'
     - 'MainApplication/**'
   pull_request:
     branches: [ master ]
     paths:
-    - 'DesktopApplication/**'
+    - 'GuiApplication/**'
     - 'MainApplication/**'
 
 jobs:
@@ -35,14 +35,14 @@ jobs:
         dotnet-version: 6.0.x
         
     - name: Restore
-      run: dotnet restore DesktopApplication
+      run: dotnet restore GuiApplication
         
     - name: Publish
-      run: dotnet publish DesktopApplication -r win-x64 -p:PublishSingleFile=true --configuration Release --self-contained true --no-restore
+      run: dotnet publish GuiApplication -r win10-x64 -p:PublishSingleFile=true --configuration Release --self-contained true --no-restore
         
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
       with: 
-        name: DesktopApplication-win-x64-b${{ github.run_number }}
-        path : ${{ github.workspace }}\DesktopApplication\bin\Release\net6.0-windows\win-x64\publish\
+        name: GuiApplication-win10-x64-b${{ github.run_number }}
+        path : ${{ github.workspace }}\GuiApplication\bin\Release\net6.0-windows\win10-x64\publish\
       
