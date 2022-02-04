@@ -1,18 +1,20 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 
 namespace MainApplication.Handlers;
 
 public class CommandHandler : ICommand
 {
-    private readonly Action _action;
+    private readonly Action<object?> _action;
     private readonly Func<bool> _canExecute;
+    
 
     /// <summary>
     /// Creates instance of the command handler
     /// </summary>
     /// <param name="action">Action to be executed by the command</param>
     /// <param name="canExecute">A bolean property to containing current permissions to execute the command</param>
-    public CommandHandler(Action action, Func<bool> canExecute)
+    public CommandHandler(Action<object?> action, Func<bool> canExecute)
     {
         _action = action;
         _canExecute = canExecute;
@@ -22,7 +24,7 @@ public class CommandHandler : ICommand
     /// Creates instance of the command handler
     /// </summary>
     /// <param name="action">Action to be executed by the command</param>
-    public CommandHandler(Action action)
+    public CommandHandler(Action<object?> action)
     {
         _action = action;
         _canExecute = () => true;
@@ -49,6 +51,6 @@ public class CommandHandler : ICommand
 
     public void Execute(object? parameter)
     {
-        _action();
+        _action(parameter);
     }
 }
