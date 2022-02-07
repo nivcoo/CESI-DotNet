@@ -20,7 +20,7 @@ public sealed partial class MainWindow : Window
         GetAppWindowAndPresenter();
         InitializeComponent();
         _presenter.IsResizable = false;
-        _apw.Resize(new Windows.Graphics.SizeInt32 { Width = 1400, Height = 800 });
+        _apw.Resize(new Windows.Graphics.SizeInt32 { Width = 1600, Height = 900 });
         _apw.Title = "EasySave";
         _presenter.IsMaximizable = false;
     }

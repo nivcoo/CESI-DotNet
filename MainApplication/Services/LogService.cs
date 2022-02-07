@@ -16,7 +16,7 @@ internal sealed class LogService
     {
         var dateTime = DateTime.Now;
         var date = dateTime.ToString("yyyy-MM-dd");
-        _logsPath = @"data\logs\" + date + ".log.json";
+        _logsPath = AppDomain.CurrentDomain.BaseDirectory + @"data\logs\" + date + ".log.json";
         _storage = new JsonStorage<Log>(_logsPath);
         Directory.CreateDirectory(Path.GetDirectoryName(_logsPath) ?? string.Empty);
         if (!File.Exists(_logsPath))

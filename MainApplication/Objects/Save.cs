@@ -1,4 +1,7 @@
-﻿using MainApplication.Objects.Enums;
+﻿using MainApplication.Handlers;
+using MainApplication.Objects.Enums;
+using System.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace MainApplication.Objects;
 
@@ -6,7 +9,7 @@ namespace MainApplication.Objects;
 /// <summary>
 /// Just like the log file creation, this creates the JSON SAVE LOG file
 /// </summary>
-public class Save
+public class Save : INPChanged
 {
     public string Name { get; }
 
@@ -16,7 +19,22 @@ public class Save
 
     public TypeSave Type { get; set; }
 
-    public State State { get; set; }
+    private State _state;
+
+    public State State
+    {
+        get
+        {
+            return _state;
+        }
+        set => SetField(ref _state, value, nameof(State));
+    }
+
+    [JsonIgnore]
+    public bool IsStarted { get => State == State.Active; }
+
+    [JsonIgnore]
+    public bool IsStopped { get => State == State.End; }
 
     public int TotalFilesToCopy { get; set; }
 
@@ -43,6 +61,5 @@ public class Save
     public void UpdateProgression()
     {
         Progression = TotalFilesToCopy == 0 ? 0 :(TotalFilesToCopy - NbFilesLeftToDo) * 100 / TotalFilesToCopy;
-
     }
 }
