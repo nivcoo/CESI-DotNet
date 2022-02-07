@@ -9,11 +9,6 @@ namespace MainApplication.ViewModels;
 
 public class EasySaveViewModel : BaseViewModel
 {
-    private ICommand? _clickCommand;
-    // public ICommand ClickCommand
-    // {
-    //     get { return _clickCommand ??= _clickCommand = new CommandHandler(() => ConvertToInt()); }
-    // }
 
 
     private string? _languageString;
@@ -22,20 +17,6 @@ public class EasySaveViewModel : BaseViewModel
     {
         get => _languageString;
         set => SetField(ref _languageString, value, nameof(LanguageString));
-    }
-
-
-    private List<Save>? _saves;
-
-    public List<Save>? Saves
-    {
-        get => _saves;
-        set => SetField(ref _saves, value, nameof(Saves));
-    }
-
-    public void UpdateSavesList()
-    {
-        _saves = SaveService.GetSaves();
     }
 
     public bool UpdateLanguage()

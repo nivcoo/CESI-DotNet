@@ -11,11 +11,13 @@ namespace ConsoleApplication.Views;
 public class EasySaveView : BaseView
 {
     private readonly EasySaveViewModel _easySaveViewModel;
+    private readonly SavesViewModel _savesViewModel;
     private bool _running;
 
     public EasySaveView()
     {
         _easySaveViewModel = new EasySaveViewModel();
+        _savesViewModel = new SavesViewModel();
         _running = true;
         InitView();
     }
@@ -63,8 +65,8 @@ public class EasySaveView : BaseView
                 ShowSavesList();
                 break;
             case Choice.Create:
-                _easySaveViewModel.UpdateSavesList();
-                var saves = _easySaveViewModel.Saves;
+                _savesViewModel.UpdateSavesList();
+                var saves = _savesViewModel.Saves;
                 if (saves?.Count < 5)
                 {
                     var createSaveView = new CreateSaveView();
@@ -183,8 +185,8 @@ public class EasySaveView : BaseView
 
     private void ShowSavesList()
     {
-        _easySaveViewModel.UpdateSavesList();
-        var saves = _easySaveViewModel.Saves;
+        _savesViewModel.UpdateSavesList();
+        var saves = _savesViewModel.Saves;
 
         List<Tuple<string, string, string, string, string>> tuplesSaves = new();
 

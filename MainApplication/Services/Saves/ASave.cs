@@ -29,7 +29,10 @@ public abstract class ASave
     /// <returns>List of files</returns>
     protected static string[] GetAllFolderFiles(Uri path)
     {
-        return Directory.GetFiles(path.LocalPath, "*.*", SearchOption.AllDirectories);
+        if (Directory.Exists(path.LocalPath))
+            return Directory.GetFiles(path.LocalPath, "*.*", SearchOption.AllDirectories);
+        return Array.Empty<string>();
+        
     }
     
     /// <summary>
@@ -42,7 +45,8 @@ public abstract class ASave
         foreach (var filePath in filePaths)
             File.Delete(filePath);
 
-        Directory.Delete(folderPath.LocalPath, true);
+        if(Directory.Exists(folderPath.LocalPath))
+            Directory.Delete(folderPath.LocalPath, true);
     }
 
     /// <summary>
@@ -109,7 +113,7 @@ public abstract class ASave
     /// <param name="state"></param>
     private void ChangeSaveState(State state)
     {
-        Save.State = state;
+
         UpdateSaveStorage();
     }
 

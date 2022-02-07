@@ -24,7 +24,7 @@ internal sealed class SaveService
     private SaveService()
     {
         _saveTasks = new Dictionary<Save, ASave>();
-        _savesPath = @"data\saves.json";
+        _savesPath = AppDomain.CurrentDomain.BaseDirectory + @"data\saves.json";
         _storage = new JsonStorage<Save>(_savesPath);
         LoadSavesFile();
         _saves = new List<Save>();
@@ -68,7 +68,7 @@ internal sealed class SaveService
     /// </summary>
     /// <param name="save"></param>
     /// <returns>true if Success</returns>
-    private bool StartSave(Save save)
+    public bool StartSave(Save save)
     {
         if (IsRunningSave(save))
             return false;
@@ -144,6 +144,7 @@ internal sealed class SaveService
 
     private void AddSaveToList(Save save)
     {
+        save.State = State.End;
         _saves.Add(save);
     }
     
@@ -152,8 +153,7 @@ internal sealed class SaveService
     /// </summary>
     /// <param name="save"></param>
     /// <returns>true if Success</returns>
-
-    private bool RemoveSave(Save save)
+    public bool RemoveSave(Save save)
     {
         if (IsRunningSave(save))
             return false;
