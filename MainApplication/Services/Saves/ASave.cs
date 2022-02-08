@@ -81,9 +81,12 @@ public abstract class ASave
     /// </summary>
     private void ResetSaveValues()
     {
-        Save.NbFilesLeftToDo = 0;
-        Save.TotalFilesToCopy = 0;
-        Save.Progression = 0;
+        ExecuteActionOnUIThread(() =>
+        {
+            Save.NbFilesLeftToDo = 0;
+            Save.TotalFilesToCopy = 0;
+            Save.Progression = 0;
+        });
     }
 
     /// <summary>
@@ -91,9 +94,12 @@ public abstract class ASave
     /// </summary>
     private void UpdateSaveStatut()
     {
-        Save.NbFilesLeftToDo -= 1;
-        Save.UpdateProgression();
-        UpdateSaveStorage();
+        ExecuteActionOnUIThread(() =>
+        {
+            Save.NbFilesLeftToDo -= 1;
+            Save.UpdateProgression();
+            UpdateSaveStorage();
+        });
     }
 
     /// <summary>
@@ -101,10 +107,13 @@ public abstract class ASave
     /// </summary>
     private void UpdateStartSaveStatut()
     {
-        Save.TotalFilesToCopy = SaveFiles.Count;
-        Save.NbFilesLeftToDo = SaveFiles.Count;
-        Save.TotalFilesSize = SaveFiles.Sum(saveFile => saveFile.FileSize);
-        UpdateSaveStorage();
+        ExecuteActionOnUIThread(() =>
+        {
+            Save.TotalFilesToCopy = SaveFiles.Count;
+            Save.NbFilesLeftToDo = SaveFiles.Count;
+            Save.TotalFilesSize = SaveFiles.Sum(saveFile => saveFile.FileSize);
+            UpdateSaveStorage();
+        });
     }
 
     /// <summary>
@@ -113,8 +122,11 @@ public abstract class ASave
     /// <param name="state"></param>
     private void ChangeSaveState(State state)
     {
-
-        UpdateSaveStorage();
+        ExecuteActionOnUIThread(() =>
+        {
+            Save.State = state;
+            UpdateSaveStorage();
+        });
     }
 
     /// <summary>
@@ -166,5 +178,22 @@ public abstract class ASave
         }
 
         return true;
+    }
+
+    public void ExecuteActionOnUIThread(Action action)
+    {
+        Action<Action> uiThread = _saveService.DispatchUiAction;
+
+        if (uiThread == null)
+        {
+            action.Invoke();
+        }
+        else
+        {
+            uiThread.Invoke(() =>
+            {
+                action.Invoke();
+            });
+        }
     }
 }

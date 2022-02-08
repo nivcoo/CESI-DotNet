@@ -1,5 +1,6 @@
 ﻿using GuiApplication.Views.Dialogs;
 using MainApplication.ViewModels;
+using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
@@ -14,6 +15,12 @@ public sealed partial class SavesPage : Page
     public SavesPage()
     {
         DataContext = _saveViewModel;
+
+        if (_saveViewModel.DispatchUiAction == null)
+        {
+            DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
+            _saveViewModel.DispatchUiAction = (action) => dispatcherQueue.TryEnqueue(() => { action.Invoke(); });
+        }
         InitializeComponent();
     }
 

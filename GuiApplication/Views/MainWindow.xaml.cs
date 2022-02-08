@@ -1,4 +1,5 @@
-﻿using Microsoft.UI;
+﻿using GuiApplication.Views.Pages;
+using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -13,6 +14,8 @@ public sealed partial class MainWindow : Window
     public IntPtr HWnd;
     private AppWindow _apw;
     private OverlappedPresenter _presenter;
+    private HomePage homePage = new();
+    private SavesPage savesPage = new();
 
 
     public MainWindow()
@@ -31,20 +34,27 @@ public sealed partial class MainWindow : Window
         WindowId myWndId = Win32Interop.GetWindowIdFromWindow(HWnd);
         _apw = AppWindow.GetFromWindowId(myWndId);
         _presenter = _apw.Presenter as OverlappedPresenter;
-
-
     }
 
 
     private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
             
-            var selectedItem = (NavigationViewItem)args.SelectedItem;
-            string selectedItemTag = ((string)selectedItem.Tag);
-            sender.Header = "Page " + selectedItemTag;
-            string pageName = "GuiApplication.Views.Pages." + selectedItemTag;
-            Type pageType = Type.GetType(pageName);
-            MainContentFrame.Navigate(pageType);
+        var selectedItem = (NavigationViewItem)args.SelectedItem;
+        string selectedItemTag = ((string)selectedItem.Tag);
+        sender.Header = "Page " + selectedItemTag;
+        //string pageName = "GuiApplication.Views.Pages." + selectedItemTag;
+
+        switch (selectedItemTag) {
+            case "HomePage":
+                MainContentFrame.Navigate(homePage.GetType());
+                break;
+            case "SavesPage":
+                MainContentFrame.Navigate(savesPage.GetType());
+                break;
+        }
+        /**Type pageType = Type.GetType(pageName);
+        MainContentFrame.Navigate(pageType);**/
             
     }
 

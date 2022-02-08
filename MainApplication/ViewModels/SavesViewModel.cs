@@ -28,33 +28,12 @@ public class SavesViewModel : BaseViewModel
         get { return _deleteSaveButtonEvent ??= _deleteSaveButtonEvent = new CommandHandler(DeleteSaveEvent); }
     }
 
+    public Action<Action> DispatchUiAction { get; set; }
+
     public SavesViewModel()
     {
         Saves = new ObservableCollection<Save>();
         UpdateSavesList();
-    }
-
-    private void _innerStuff_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
-    {
-        if (e.NewItems != null)
-        {
-            foreach (Object item in e.NewItems)
-            {
-                ((INotifyPropertyChanged)item).PropertyChanged += ItemPropertyChanged;
-            }
-        }
-        if (e.OldItems != null)
-        {
-            foreach (Object item in e.OldItems)
-            {
-                ((INotifyPropertyChanged)item).PropertyChanged -= ItemPropertyChanged;
-            }
-        }
-    }
-
-    private void ItemPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        File.Create(@"Bureau\test.txt");
     }
 
     public void UpdateSavesList()
@@ -68,10 +47,8 @@ public class SavesViewModel : BaseViewModel
     {
         if (args is not Save save)
             return;
-
+        SaveService.StartSave(save, DispatchUiAction);
         
-        
-        SaveService.StartSave(save);
     }
 
     private void DeleteSaveEvent(object? args)

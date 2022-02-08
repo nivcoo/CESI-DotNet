@@ -61,7 +61,7 @@ public sealed partial class CreateSaveDialog : Page
     {
         string saveName = SaveName.Text;
         var saveType = SaveType.SelectedItem;
-        if (saveName == null || SourcePath == null || TargetPath == null || saveType == null)
+        if (saveName == null || saveName.Length == 0 || SourcePath == null || TargetPath == null || saveType == null)
         {
             ErrorTextBlock.Text = "You have to complete all input !";
             args.Cancel = true;
