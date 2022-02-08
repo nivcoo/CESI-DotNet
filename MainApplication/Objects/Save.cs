@@ -23,26 +23,45 @@ public class Save : INPChanged
 
     public State State
     {
-        get
-        {
-            return _state;
-        }
+        get => _state;
         set => SetField(ref _state, value, nameof(State));
     }
 
-    [JsonIgnore]
-    public bool IsStarted { get => State == State.Active; }
+    private int _totalFilesToCopy;
 
-    [JsonIgnore]
-    public bool IsStopped { get => State == State.End; }
-
-    public int TotalFilesToCopy { get; set; }
+    public int TotalFilesToCopy
+    {
+        get => _totalFilesToCopy;
+        set => SetField(ref _totalFilesToCopy, value, nameof(TotalFilesToCopy));
+    }
 
     public long TotalFilesSize { get; set; }
 
-    public int NbFilesLeftToDo { get; set; }
 
-    public double Progression { get; set; }
+    private int _nbFilesLeftToDo;
+
+    public int NbFilesLeftToDo
+    {
+        get => _nbFilesLeftToDo;
+        set {
+            SetField(ref _nbFilesLeftToDo, value, nameof(NbFilesLeftToDo));
+            FilesAlreadyDone = _totalFilesToCopy - value;
+        }
+    }
+    private int _filesAlreadyDone;
+    public int FilesAlreadyDone
+    {
+        get => _filesAlreadyDone;
+        set => SetField(ref _filesAlreadyDone, value, nameof(FilesAlreadyDone));
+    }
+
+    private double _progression;
+
+    public double Progression
+    {
+        get => _progression;
+        set => SetField(ref _progression, value, nameof(Progression));
+    }
 
     public Save(string name, Uri sourcePath, Uri targetPath, TypeSave type, State state, int totalFilesToCopy,
         long totalFilesSize, int nbFilesLeftToDo, double progression)

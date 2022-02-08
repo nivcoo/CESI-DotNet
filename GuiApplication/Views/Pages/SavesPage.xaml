@@ -4,9 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converter="using:GuiApplication.Converter"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <converter:StateConverter x:Key="StateConverter" />
+    </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
 
         
 
@@ -41,15 +46,29 @@
                                 <TextBlock Text="{Binding Type}"/>
                             </StackPanel>
 
+                            <StackPanel Margin="0,20,0,0">
+                                <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                                    <TextBlock Text="Progression :" FontSize="15" FontWeight="Bold"/>
+                                    <TextBlock Text="(" FontSize="15" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding FilesAlreadyDone}" FontSize="15" FontWeight="Bold"/>
+                                    <TextBlock Text="/" FontSize="15" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding TotalFilesToCopy}" FontSize="15" FontWeight="Bold"/>
+                                    <TextBlock Text=")" FontSize="15" FontWeight="Bold"/>
+                                </StackPanel>
+                                <ProgressBar Margin="0,20,0,0" Value="{Binding Progression}" />
+                            </StackPanel>
+
+                            
+
                             <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                                 <Button Command="{Binding ElementName=savesPage, Path=DataContext.DeleteSaveButtonEvent}"  
                                     CommandParameter="{Binding}">
                                     <SymbolIcon Symbol="Delete"/>
                                 </Button>
-                                <Button Visibility="{Binding IsStarted}">
+                                <Button Visibility="{Binding State, Converter={StaticResource StateConverter}, ConverterParameter=pause}">
                                     <SymbolIcon Symbol="Pause"/>
                                 </Button>
-                                <Button Visibility="{Binding IsStopped}" Command="{Binding ElementName=savesPage, Path=DataContext.StartSaveButtonEvent}"  
+                                <Button Visibility="{Binding State, Converter={StaticResource StateConverter}, ConverterParameter=play}" Command="{Binding ElementName=savesPage, Path=DataContext.StartSaveButtonEvent}"  
                                     CommandParameter="{Binding}">
                                     <SymbolIcon Symbol="Play"/>
                                 </Button>

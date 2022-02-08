@@ -48,6 +48,15 @@ internal sealed class SaveService
         return _saves;
     }
 
+    public Action<Action> DispatchUiAction { get; set; }
+
+    internal void StartSave(Save save, Action<Action> dispatchUiAction)
+    {
+        DispatchUiAction = dispatchUiAction;
+
+        StartSave(save);
+    }
+
     /// <summary>
     /// Start save with name
     /// </summary>
