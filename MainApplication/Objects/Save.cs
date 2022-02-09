@@ -42,16 +42,22 @@ public class Save : INPChanged
     public int NbFilesLeftToDo
     {
         get => _nbFilesLeftToDo;
-        set {
-            SetField(ref _nbFilesLeftToDo, value, nameof(NbFilesLeftToDo));
-            FilesAlreadyDone = _totalFilesToCopy - value;
-        }
+        set => SetField(ref _nbFilesLeftToDo, value, nameof(NbFilesLeftToDo));
     }
     private int _filesAlreadyDone;
     public int FilesAlreadyDone
     {
         get => _filesAlreadyDone;
         set => SetField(ref _filesAlreadyDone, value, nameof(FilesAlreadyDone));
+    }
+
+    public void ResetValues()
+    {
+        State = State.End;
+        NbFilesLeftToDo = 0;
+        FilesAlreadyDone = 0;
+        TotalFilesToCopy = 0;
+        Progression = 0;
     }
 
     private double _progression;

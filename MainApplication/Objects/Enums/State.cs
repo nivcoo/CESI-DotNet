@@ -5,5 +5,6 @@
 public enum State
 {
     Active = 1,
-    End = 2
+    Pause = 2,
+    End = 3
 }

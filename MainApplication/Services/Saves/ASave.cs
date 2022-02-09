@@ -5,21 +5,60 @@ namespace MainApplication.Services.Saves;
 
 public abstract class ASave
 {
+    private readonly EasySaveService _easySaveServiceService = EasySaveService.GetInstance();
     private readonly LogService _logService = LogService.GetInstance();
     private readonly SaveService _saveService = SaveService.GetInstance();
 
     public Task<bool> SaveTask;
+
+    public CancellationTokenSource TaskTokenSource { get; set; }
+
+    public CancellationToken TaskToken { get; set; }
+
     protected Save Save { get; }
 
-    protected readonly List<SaveFile> SaveFiles;
+    protected List<SaveFile> SaveFiles;
 
     protected bool DeleteFilesBeforeCopy = false;
+    public bool PausedTask = false;
+
+    public bool Running = false;
 
     protected ASave(Save save)
     {
-        SaveTask = new Task<bool>(RunSave);
-        SaveFiles = new List<SaveFile>();
+        Init();
         Save = save;
+    }
+
+    public void Init() {
+        InitTask();
+        SaveFiles = new List<SaveFile>();
+    }
+
+    public void CancelTask() {
+
+        try
+        {
+            if (TaskTokenSource != null)
+                TaskTokenSource.Cancel();
+        }
+        catch (ObjectDisposedException)
+        {
+
+        }
+    }
+
+    private void InitTask()
+    {
+
+        Running = false;
+        PausedTask = false;
+        CancelTask();
+
+        TaskTokenSource = new CancellationTokenSource();
+        TaskToken = TaskTokenSource.Token;
+        SaveTask = new Task<bool>(RunSave, TaskToken);
+        
     }
     
     /// <summary>
@@ -34,19 +73,26 @@ public abstract class ASave
         return Array.Empty<string>();
         
     }
-    
+
     /// <summary>
     /// Delete not empty folder
     /// </summary>
     /// <param name="folderPath"></param>
     private static void DeleteFolderWithFiles(Uri folderPath)
     {
-        var filePaths = GetAllFolderFiles(folderPath);
-        foreach (var filePath in filePaths)
-            File.Delete(filePath);
+        
+        if (!Directory.Exists(folderPath.LocalPath))
+            return;
 
-        if(Directory.Exists(folderPath.LocalPath))
+        var filePaths = GetAllFolderFiles(folderPath);
+        try
+        {
+            foreach (var filePath in filePaths)
+                File.Delete(filePath);
+
             Directory.Delete(folderPath.LocalPath, true);
+        } catch (Exception)
+        { }
     }
 
     /// <summary>
@@ -55,25 +101,29 @@ public abstract class ASave
     /// <returns>true if Success</returns>
     private bool RunSave()
     {
+        Running = true;
         ResetSaveValues();
         ChangeSaveState(State.Active);
         if (!RetrieveFilesToCopy())
         {
-            ChangeSaveState(State.End);
+            EndSave();
             return false;
         }
 
         UpdateStartSaveStatut();
         if (!CopyFiles())
         {
-            ChangeSaveState(State.End);
+            EndSave();
             return false;
         }
 
-        ChangeSaveState(State.End);
-
-        SaveTask = new Task<bool>(RunSave);
+        EndSave();
         return true;
+    }
+
+    private void EndSave() {
+        ChangeSaveState(State.End);
+        InitTask();
     }
     
     /// <summary>
@@ -81,11 +131,10 @@ public abstract class ASave
     /// </summary>
     private void ResetSaveValues()
     {
+        SaveFiles = new List<SaveFile>();
         ExecuteActionOnUIThread(() =>
         {
-            Save.NbFilesLeftToDo = 0;
-            Save.TotalFilesToCopy = 0;
-            Save.Progression = 0;
+            Save.ResetValues();
         });
     }
 
@@ -97,6 +146,7 @@ public abstract class ASave
         ExecuteActionOnUIThread(() =>
         {
             Save.NbFilesLeftToDo -= 1;
+            Save.FilesAlreadyDone += 1;
             Save.UpdateProgression();
             UpdateSaveStorage();
         });
@@ -148,6 +198,8 @@ public abstract class ASave
         if (SaveFiles.Count <= 0)
             return false;
         var sourceLocalPath = Save.SourcePath.LocalPath;
+        if (!Directory.Exists(sourceLocalPath))
+            return false;
         var targetLocalPath = Save.TargetPath.LocalPath;
         if (DeleteFilesBeforeCopy)
             DeleteFolderWithFiles(Save.TargetPath);
@@ -164,25 +216,42 @@ public abstract class ASave
             try
             {
                 File.Copy(sourceFilePath, targetFilePath, true);
-                UpdateSaveStatut();
-                var sourceFileInfo = new FileInfo(sourceFilePath);
-                var finalTimestamp = ToolService.GetTimestamp();
-                var time = finalTimestamp - actualTimestamp;
-                _logService.InsertLog(new Log(Save.Name, new Uri(sourceFilePath), new Uri(targetFilePath),
-                    sourceFileInfo.Length, time, DateTime.Now));
             }
             catch (Exception)
             {
                 // ignored
             }
+            while (PausedTask && !IsCancelled())
+            {
+            }
+            if (IsCancelled()) {
+                TaskTokenSource.Dispose();
+                return false;
+            }
+            
+            UpdateSaveStatut();
+            var sourceFileInfo = new FileInfo(sourceFilePath);
+            var finalTimestamp = ToolService.GetTimestamp();
+            var time = finalTimestamp - actualTimestamp;
+            ExecuteActionOnUIThread(() =>
+            {
+                _logService.InsertLog(new Log(Save.Name, new Uri(sourceFilePath), new Uri(targetFilePath),
+                sourceFileInfo.Length, time, 0, DateTime.Now));
+            });
+            
         }
 
         return true;
     }
 
+    public bool IsCancelled() {
+
+        return TaskTokenSource.IsCancellationRequested;
+    }
+
     public void ExecuteActionOnUIThread(Action action)
     {
-        Action<Action> uiThread = _saveService.DispatchUiAction;
+        var uiThread = _easySaveServiceService.DispatchUiAction;
 
         if (uiThread == null)
         {

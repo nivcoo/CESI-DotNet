@@ -2,6 +2,7 @@
 using MainApplication.Objects.Enums;
 using MainApplication.Services.Saves;
 using MainApplication.Storages;
+using System.Globalization;
 
 namespace MainApplication.Services;
 
@@ -21,8 +22,11 @@ internal sealed class SaveService
 
     private readonly IDictionary<Save, ASave> _saveTasks;
 
+    public CultureInfo SelectedCultureInfo;
+
     private SaveService()
     {
+        SelectedCultureInfo = CultureInfo.CurrentCulture;
         _saveTasks = new Dictionary<Save, ASave>();
         _savesPath = AppDomain.CurrentDomain.BaseDirectory + @"data\saves.json";
         _storage = new JsonStorage<Save>(_savesPath);
@@ -40,7 +44,11 @@ internal sealed class SaveService
 
     private void InitSavesList()
     {
-        foreach (var save in _storage.GetAllElements()) AddSaveToList(save);
+        foreach (var save in _storage.GetAllElements()) {
+
+            save.ResetValues();
+            AddSaveToList(save);
+        }
     }
     
     /// <summary>
@@ -50,15 +58,6 @@ internal sealed class SaveService
     public List<Save> GetSaves()
     {
         return _saves;
-    }
-
-    public Action<Action> DispatchUiAction { get; set; }
-
-    internal void StartSave(Save save, Action<Action> dispatchUiAction)
-    {
-        DispatchUiAction = dispatchUiAction;
-
-        StartSave(save);
     }
 
     /// <summary>
@@ -95,11 +94,27 @@ internal sealed class SaveService
             _saveTasks.Add(save, aSave);
         }
 
-        if (aSave.SaveTask.Status != TaskStatus.Running)
+        aSave.CancelTask();
+
+        while (aSave.Running) { } // wait stop correctly
+
+        aSave.Init();
+
+        if (aSave.SaveTask.Status == TaskStatus.Created)
             aSave.SaveTask.Start();
-        else
-            return false;
+        else return false;
         return true;
+    }
+
+    public void SetStateOfSave(Save save, bool paused) {
+        if (!_saveTasks.ContainsKey(save) || save.State == State.End)
+            return;
+        ASave aSave = _saveTasks.First(x => x.Key == save).Value;
+        if (paused)
+            save.State = State.Pause;
+        else
+            save.State = State.Active;
+        aSave.PausedTask = paused;
     }
 
 
@@ -119,11 +134,11 @@ internal sealed class SaveService
         if (!_saveTasks.ContainsKey(save))
             return false;
         var aSave = _saveTasks.First(x => x.Key == save).Value;
-        return aSave.SaveTask.Status == TaskStatus.Running;
+        return aSave.SaveTask.Status == TaskStatus.Running && aSave.PausedTask == false;
     }
 
     /// <summary>
-    /// STart all saves
+    /// Start all saves
     /// </summary>
     public void StartAllSaves()
     {
@@ -133,9 +148,22 @@ internal sealed class SaveService
         }
     }
 
-    public void StopSave(Save save)
+    public void PauseAllSaves()
     {
+        foreach (var save in _saves)
+        {
+            SetStateOfSave(save, true);
+        }
     }
+
+    public void ResumeAllSaves()
+    {
+        foreach (var save in _saves)
+        {
+            SetStateOfSave(save, false);
+        }
+    }
+
 
     /// <summary>
     /// Add new save with save object
@@ -144,7 +172,7 @@ internal sealed class SaveService
     /// <returns>tru if Success</returns>
     public bool AddNewSave(Save save)
     {
-        if (_saves.Count >= 5 || AlreadySaveWithSameName(save.Name) != null || save.Name == "all")
+        if (AlreadySaveWithSameName(save.Name) != null || save.Name == "all")
             return false;
         _storage.AddNewElement(save);
         AddSaveToList(save);

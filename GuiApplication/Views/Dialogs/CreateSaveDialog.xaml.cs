@@ -23,6 +23,14 @@ public sealed partial class CreateSaveDialog : Page
     {
         InitializeComponent();
         DataContext = _createSaveViewModel;
+        InitTexts();
+    }
+
+    private void InitTexts()
+    {
+        SaveName.PlaceholderText = MainApplication.Localization.Language.GLOBAL_NAME;
+        SourcePathButton.Content = MainApplication.Localization.Language.CREATE_SAVE_SELECT_SOURCE;
+        TargetPathButton.Content = MainApplication.Localization.Language.CREATE_SAVE_SELECT_TARGET;
     }
 
     private async void SelectSourcePathAsync(object sender, RoutedEventArgs e)
@@ -63,14 +71,18 @@ public sealed partial class CreateSaveDialog : Page
         var saveType = SaveType.SelectedItem;
         if (saveName == null || saveName.Length == 0 || SourcePath == null || TargetPath == null || saveType == null)
         {
-            ErrorTextBlock.Text = "You have to complete all input !";
+            ErrorInfoBar.Message = MainApplication.Localization.Language.CREATE_COMPLETE_ALL_INPUTS;
+            ErrorInfoBar.Severity = InfoBarSeverity.Error;
+            ErrorInfoBar.IsOpen = true;
             args.Cancel = true;
             return;
         }
 
         if(_createSaveViewModel.AlreadySaveWithSameName(saveName) != null)
         {
-            ErrorTextBlock.Text = "This save already exist, please select another name !";
+            ErrorInfoBar.Message = MainApplication.Localization.Language.CREATE_SAVE_ASK_NAME_RETRY;
+            ErrorInfoBar.Severity = InfoBarSeverity.Error;
+            ErrorInfoBar.IsOpen = true;
             args.Cancel = true;
             return;
         }

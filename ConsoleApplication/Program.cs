@@ -1,4 +1,4 @@
 ﻿using ConsoleApplication.Views;
 
-var main = new EasySaveView();
+var main = new HomeView();
 

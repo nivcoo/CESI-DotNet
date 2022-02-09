@@ -1,31 +1,32 @@
-﻿using System.Globalization;
-using System.Windows.Input;
+﻿
+using System.Globalization;
 using MainApplication.Localization;
 using MainApplication.Objects;
-using MainApplication.Objects.Enums;
 using MainApplication.Services;
 
 namespace MainApplication.ViewModels;
 
-public class EasySaveViewModel : BaseViewModel
+public class HomeViewModel : BaseViewModel
 {
 
 
-    private string? _languageString;
 
-    public string? LanguageString
+    public List<CultureInfo> AllCultureInfo
     {
-        get => _languageString;
-        set => SetField(ref _languageString, value, nameof(LanguageString));
+        get => EasySaveService.AllCultureInfo;
+        set => SetField(ref EasySaveService.AllCultureInfo, value, nameof(AllCultureInfo));
+    }
+
+
+    public CultureInfo SelectedCultureInfo
+    {
+        get => EasySaveService.SelectedCultureInfo;
+        set => EasySaveService.ChangeCulture(value);
     }
 
     public bool UpdateLanguage()
     {
-        if (LanguageString == null)
-            return false;
-        if (!LanguageCheck.CorrectLanguage(LanguageString))
-            return false;
-        Language.Culture = CultureInfo.GetCultureInfo(LanguageString);
+        Language.Culture = SaveService.SelectedCultureInfo;
         return true;
     }
 

@@ -16,7 +16,7 @@ public class CreateSaveViewModel : BaseViewModel
         set => SetField(ref _savesType, value, nameof(TypeSave));
     }
 
-    private List<Save> _saves = new();
+    private readonly List<Save> _saves = new();
 
     /// <summary>
     /// Add save with save object
