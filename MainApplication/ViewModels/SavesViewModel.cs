@@ -3,8 +3,6 @@ using MainApplication.Localization;
 using MainApplication.Objects;
 using MainApplication.Services;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Windows.Input;
 
 namespace MainApplication.ViewModels;
 
@@ -144,7 +142,6 @@ public class SavesViewModel : BaseViewModel
         Saves.Remove(save);
     }
 
-
     private bool CanStartSave(object? origin)
     {
         if (origin is not CommandHandler ch)
@@ -153,7 +150,11 @@ public class SavesViewModel : BaseViewModel
         string message = string.Empty;
         if (!canStart)
             message = Language.ERROR_JOB_APPLICATION_RUNNING;
-        SavePageErrorAction?.Invoke(message);
+        SendSaveError(message);
         return canStart;
+    }
+
+    public void SendSaveError(string message) {
+        SavePageErrorAction?.Invoke(message);
     }
 }
