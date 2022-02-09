@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Globalization;
+using System.Text;
 using ConsoleApplication.Libs;
 using MainApplication.Localization;
 using MainApplication.Objects.Enums;
@@ -6,15 +7,15 @@ using MainApplication.ViewModels;
 
 namespace ConsoleApplication.Views;
 
-public class EasySaveView : BaseView
+public class HomeView : BaseView
 {
-    private readonly EasySaveViewModel _easySaveViewModel;
+    private readonly HomeViewModel _homeViewModel;
     private readonly SavesViewModel _savesViewModel;
     private bool _running;
 
-    public EasySaveView()
+    public HomeView()
     {
-        _easySaveViewModel = new EasySaveViewModel();
+        _homeViewModel = new HomeViewModel();
         _savesViewModel = new SavesViewModel();
         _running = true;
         InitView();
@@ -38,7 +39,6 @@ public class EasySaveView : BaseView
             motd.AppendLine((int) Choice.Create + " : " + Language.CHOICE_DESC_CREATE);
             motd.AppendLine((int) Choice.Remove + " : " + Language.CHOICE_DESC_REMOVE);
             motd.AppendLine((int) Choice.Start + " : " + Language.CHOICE_DESC_START);
-            motd.AppendLine((int) Choice.Stop + " : " + Language.CHOICE_DESC_STOP);
             motd.AppendLine((int) Choice.End + " : " + Language.CHOICE_DESC_END);
             Console.WriteLine();
             Console.Write(motd);
@@ -80,9 +80,6 @@ public class EasySaveView : BaseView
             case Choice.Start:
                 StartSave();
                 break;
-            case Choice.Stop:
-                StopSave();
-                break;
             case Choice.End:
                 StopApplication();
                 break;
@@ -95,16 +92,16 @@ public class EasySaveView : BaseView
     {
         Console.Write(Environment.NewLine + Language.GLOBAL_ASK_SAVE_NAME + @" ");
         var saveName = Console.ReadLine();
-        var isRunning = _easySaveViewModel.IsRunningSave(saveName);
+        var isRunning = _homeViewModel.IsRunningSave(saveName);
         while (saveName != "cancel" &&
-               (saveName == null || !_easySaveViewModel.RemoveSave(saveName)))
+               (saveName == null || !_homeViewModel.RemoveSave(saveName)))
         {
             Console.WriteLine(isRunning
                 ? Language.GLOBAL_CANNOT_REMOVE_RUNNING_SAVE
                 : Language.GLOBAL_SAVE_NAME_NOT_EXIST);
             Console.Write(Environment.NewLine + Language.GLOBAL_ASK_SAVE_NAME + @" ");
             saveName = Console.ReadLine();
-            isRunning = _easySaveViewModel.IsRunningSave(saveName);
+            isRunning = _homeViewModel.IsRunningSave(saveName);
         }
 
         AskReturnMainMenu();
@@ -114,22 +111,22 @@ public class EasySaveView : BaseView
     {
         Console.Write(Environment.NewLine + Language.GLOBAL_ASK_SAVE_NAME_OR_ALL + @" ");
         var saveName = Console.ReadLine();
-        var isRunning = _easySaveViewModel.IsRunningSave(saveName);
+        var isRunning = _homeViewModel.IsRunningSave(saveName);
         while (saveName != "all" && saveName != "cancel" &&
-               (saveName == null || !_easySaveViewModel.StartSave(saveName)))
+               (saveName == null || !_homeViewModel.StartSave(saveName)))
         {
             Console.WriteLine(isRunning ? Language.GLOBAL_SAVE_ALREADY_RUN : Language.GLOBAL_SAVE_NAME_NOT_EXIST);
 
             Console.Write(Environment.NewLine + Language.GLOBAL_ASK_SAVE_NAME_OR_ALL + @" ");
             saveName = Console.ReadLine();
-            isRunning = _easySaveViewModel.IsRunningSave(saveName);
+            isRunning = _homeViewModel.IsRunningSave(saveName);
         }
 
         var startAll = saveName == "all";
-        var save = _easySaveViewModel.AlreadySaveWithSameName(saveName);
+        var save = _homeViewModel.AlreadySaveWithSameName(saveName);
 
         if (startAll)
-            _easySaveViewModel.StartAllSaves();
+            _homeViewModel.StartAllSaves();
 
         if (saveName != "cancel")
         {
@@ -140,11 +137,11 @@ public class EasySaveView : BaseView
                 do
                 {
                     percent = save == null
-                        ? _easySaveViewModel.GetProgressionOfAllSave()
-                        : _easySaveViewModel.GetProgressionOfSave(save);
+                        ? _homeViewModel.GetProgressionOfAllSave()
+                        : _homeViewModel.GetProgressionOfSave(save);
                     var (item1, totalFiles) = save == null
-                        ? _easySaveViewModel.GetFilesInformationsOfAllSave()
-                        : _easySaveViewModel.GetFilesInformationsOfSave(save);
+                        ? _homeViewModel.GetFilesInformationsOfAllSave()
+                        : _homeViewModel.GetFilesInformationsOfSave(save);
 
                     var doneFiles = totalFiles - item1;
                     progress.UpdateFilesStatus(doneFiles, totalFiles);
@@ -163,10 +160,6 @@ public class EasySaveView : BaseView
         AskReturnMainMenu();
     }
 
-    private void StopSave()
-    {
-    }
-
 
     private void SelectLanguage()
     {
@@ -174,8 +167,8 @@ public class EasySaveView : BaseView
         while (!success)
         {
             Console.Write(Environment.NewLine + Language.GLOBAL_SELECT_LANGUAGE + @" ");
-            _easySaveViewModel.LanguageString = Console.ReadLine();
-            success = _easySaveViewModel.UpdateLanguage();
+            _homeViewModel.SelectedCultureInfo = CultureInfo.GetCultureInfo(Console.ReadLine());
+            success = _homeViewModel.UpdateLanguage();
         }
 
         Console.WriteLine(Language.GLOBAL_SELECTED_LANGUAGE);

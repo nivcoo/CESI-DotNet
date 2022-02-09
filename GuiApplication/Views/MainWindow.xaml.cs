@@ -14,8 +14,6 @@ public sealed partial class MainWindow : Window
     public IntPtr HWnd;
     private AppWindow _apw;
     private OverlappedPresenter _presenter;
-    private HomePage homePage = new();
-    private SavesPage savesPage = new();
 
 
     public MainWindow()
@@ -26,6 +24,13 @@ public sealed partial class MainWindow : Window
         _apw.Resize(new Windows.Graphics.SizeInt32 { Width = 1600, Height = 900 });
         _apw.Title = "EasySave";
         _presenter.IsMaximizable = false;
+        InitTexts();
+    }
+
+    public void InitTexts()
+    {
+        PageHomeNavigationItem.Content = MainApplication.Localization.Language.PAGE_NAVIGATION_HOME_TITLE;
+        PageSavesNavigationItem.Content = MainApplication.Localization.Language.PAGE_NAVIGATION_SAVES_TITLE;
     }
 
     public void GetAppWindowAndPresenter()
@@ -40,21 +45,19 @@ public sealed partial class MainWindow : Window
     private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
             
-        var selectedItem = (NavigationViewItem)args.SelectedItem;
-        string selectedItemTag = ((string)selectedItem.Tag);
-        sender.Header = "Page " + selectedItemTag;
-        //string pageName = "GuiApplication.Views.Pages." + selectedItemTag;
+        var selectedItem = args.SelectedItem as NavigationViewItem;
+        string selectedItemTag = selectedItem.Tag as string;
 
         switch (selectedItemTag) {
             case "HomePage":
-                MainContentFrame.Navigate(homePage.GetType());
+                sender.Header = MainApplication.Localization.Language.PAGE_HOME_TITLE;
+                MainContentFrame.Navigate(typeof(HomePage));
                 break;
             case "SavesPage":
-                MainContentFrame.Navigate(savesPage.GetType());
+                sender.Header = MainApplication.Localization.Language.PAGE_SAVES_TITLE;
+                MainContentFrame.Navigate(typeof(SavesPage));
                 break;
         }
-        /**Type pageType = Type.GetType(pageName);
-        MainContentFrame.Navigate(pageType);**/
             
     }
 

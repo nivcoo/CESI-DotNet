@@ -6,19 +6,23 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <ScrollViewer>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="1" Grid.ColumnSpan="1" Margin="6,12">
-                <TextBlock Grid.Row="1" Grid.ColumnSpan="1" Text="Home Page"/>
-            </Grid>
 
-        </Grid>
-    </ScrollViewer>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Name="WelcomeTextBox"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Margin="0,20,0,0" Orientation="Horizontal">
+            <TextBlock Name="SelectLanguageTextBox"/>
+        </StackPanel>
+        <StackPanel  Grid.Row="2" Margin="0,20,0,0" Orientation="Horizontal">
+            <ComboBox Name="LanguageComboBox" ItemsSource="{Binding AllCultureInfo}"/>
+        </StackPanel>
+    </Grid>
+
 
 </Page>
