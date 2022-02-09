@@ -1,6 +1,5 @@
 ﻿using MainApplication.ViewModels;
 using Microsoft.UI.Xaml.Controls;
-using System.Diagnostics;
 using System.Globalization;
 
 namespace GuiApplication.Views.Pages;
