@@ -92,8 +92,12 @@ internal class ToolService
         int file1Byte, file2Byte;
         if (file1 == file2)
             return true;
-        using var fs1 = new FileStream(file1, FileMode.Open);
-        using var fs2 = new FileStream(file2, FileMode.Open);
+        if (!Directory.Exists(Path.GetDirectoryName(file2)))
+            return false;
+        if (!File.Exists(file1) || !File.Exists(file2))
+            return false;
+        using var fs1 = new FileStream(file1, FileMode.Open, FileAccess.Read);
+        using var fs2 = new FileStream(file2, FileMode.Open, FileAccess.Read);
 
         if (fs1.Length != fs2.Length)
         {

@@ -208,7 +208,7 @@
     <value>Ce type de sauvegarde n'existe pas.</value>
   </data>
   <data name="GLOBAL_TYPE" xml:space="preserve">
-    <value>Type</value>
+    <value>Type de Sauvegarde</value>
   </data>
   <data name="GLOBAL_ASK_GO_TO_MENU" xml:space="preserve">
     <value>Écrivez ou appuyez sur entrée pour revenir au menu.</value>
@@ -224,5 +224,47 @@
   </data>
   <data name="CREATE_SAVE_REACH_LIMIT" xml:space="preserve">
     <value>La limite de 5 sauvegardes est dépassée.</value>
+  </data>
+  <data name="BUTTON_CREATE_SAVE" xml:space="preserve">
+    <value>Créer une Sauvegarde</value>
+  </data>
+  <data name="BUTTON_PAUSE_ALL_SAVES" xml:space="preserve">
+    <value>Stopper toutes les Sauvegardes</value>
+  </data>
+  <data name="BUTTON_RESUME_ALL_SAVES" xml:space="preserve">
+    <value>Relancer toutes les Sauvegardes</value>
+  </data>
+  <data name="BUTTON_START_ALL_SAVES" xml:space="preserve">
+    <value>Lancer toutes les Sauvegardes</value>
+  </data>
+  <data name="CREATE_COMPLETE_ALL_INPUTS" xml:space="preserve">
+    <value>Vous devez compléter tous les champs !</value>
+  </data>
+  <data name="CREATE_SAVE_SELECT_SOURCE" xml:space="preserve">
+    <value>Sélectionner la Source</value>
+  </data>
+  <data name="CREATE_SAVE_SELECT_TARGET" xml:space="preserve">
+    <value>Séléctionner la Destination</value>
+  </data>
+  <data name="ERROR_JOB_APPLICATION_RUNNING" xml:space="preserve">
+    <value>Une application métier est lancée, vous devez la stopper pour lancer une sauvegarde</value>
+  </data>
+  <data name="GLOBAL_PROGRESSION" xml:space="preserve">
+    <value>Progression</value>
+  </data>
+  <data name="GLOBAL_SELECT_LANGUAGE_GUI" xml:space="preserve">
+    <value>Selectionnez un Langage !</value>
+  </data>
+  <data name="PAGE_HOME_TITLE" xml:space="preserve">
+    <value>Accueil EasySave</value>
+  </data>
+  <data name="PAGE_NAVIGATION_HOME_TITLE" xml:space="preserve">
+    <value>Page d'Accueil</value>
+  </data>
+  <data name="PAGE_NAVIGATION_SAVES_TITLE" xml:space="preserve">
+    <value>Page des Sauvegardes</value>
+  </data>
+  <data name="PAGE_SAVES_TITLE" xml:space="preserve">
+    <value>Gestionnaire de Sauvegardes</value>
   </data>
 </root>

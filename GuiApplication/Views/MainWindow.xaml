@@ -17,8 +17,8 @@
             </NavigationView.Resources>
 
             <NavigationView.MenuItems>
-                <NavigationViewItem Content="Home Page" Tag="HomePage" Icon="Home" IsSelected="True" />
-                <NavigationViewItem Content="List Of Saves" Tag="SavesPage" Icon="Save" />
+                <NavigationViewItem Name="PageHomeNavigationItem" Tag="HomePage" Icon="Home" IsSelected="True" />
+                <NavigationViewItem Name="PageSavesNavigationItem" Tag="SavesPage" Icon="Save" />
             </NavigationView.MenuItems>
             <Frame Margin="30"  Padding="25,20,0,0" CornerRadius="10" Background="{ThemeResource SolidBackgroundFillColorBase}" x:Name="MainContentFrame" />
         </NavigationView>

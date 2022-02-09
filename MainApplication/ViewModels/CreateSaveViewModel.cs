@@ -1,11 +1,23 @@
 using MainApplication.Objects;
+using MainApplication.Objects.Enums;
 using MainApplication.Services;
 
 namespace MainApplication.ViewModels;
 
 public class CreateSaveViewModel : BaseViewModel
 {
-    
+
+
+    private TypeSave[] _savesType = (TypeSave[]) Enum.GetValues(typeof(TypeSave));
+
+    public TypeSave[] SavesType
+    {
+        get => _savesType;
+        set => SetField(ref _savesType, value, nameof(TypeSave));
+    }
+
+    private readonly List<Save> _saves = new();
+
     /// <summary>
     /// Add save with save object
     /// </summary>

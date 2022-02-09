@@ -1,0 +1,131 @@
+﻿<Page Name="savesPage"
+    x:Class="GuiApplication.Views.Pages.SavesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converter="using:GuiApplication.Converter"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <converter:StateConverter x:Key="StateConverter" />
+
+    </Page.Resources>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <InfoBar Name="SaveInfoBar" Margin="0,0,20,20" />
+        </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Button Content="{Binding ElementName=savesPage, Path=ButtonCreateSaveTextBlock}" Click="CreateSave_OpenDialog">
+                <Button.Resources>
+                    <ResourceDictionary>
+                        <ResourceDictionary.ThemeDictionaries>
+                            <ResourceDictionary x:Key="Light">
+                                <SolidColorBrush x:Key="ButtonBackground" Color="#27ae60"/>
+                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#2bb865"/>
+                                <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
+                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
+                            </ResourceDictionary>
+                        </ResourceDictionary.ThemeDictionaries>
+                    </ResourceDictionary>
+                </Button.Resources>
+
+            </Button>
+
+            <Button Content="{Binding ElementName=savesPage, Path=ButtonStartAllSavesTextBlock}" Command="{Binding ElementName=savesPage, Path=DataContext.StartAllSavesEvent}" />
+            <Button Content="{Binding ElementName=savesPage, Path=ButtonPauseAllSavesTextBlock}" Command="{Binding ElementName=savesPage, Path=DataContext.PauseAllSavesEvent}" />
+            <Button Content="{Binding ElementName=savesPage, Path=ButtonResumeAllSavesTextBlock}" Command="{Binding ElementName=savesPage, Path=DataContext.ResumeAllSavesEvent}" />
+        </StackPanel>
+
+        <GridView SelectionMode="None" Grid.Row="3" Margin="0,20,0,0" x:Name="GridViewSave" ItemsSource="{Binding Saves}" >
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Width="450" Background="{ThemeResource SystemAltHighColor}">
+                        <StackPanel Margin="20">
+
+                            <TextBlock TextAlignment="Center" Text="{Binding Name}" FontWeight="Bold" FontSize="18"/>
+                            <StackPanel Margin="0,20,0,0">
+                                <TextBlock Text="{Binding ElementName=savesPage, Path=SaveSourcePathTextBlock}" FontSize="15" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding SourcePath.LocalPath}"/>
+                            </StackPanel>
+                            <StackPanel Margin="0,20,0,0">
+                                <TextBlock Text="{Binding ElementName=savesPage, Path=SaveTargetPathTextBlock}" FontSize="15" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding TargetPath.LocalPath}"/>
+                            </StackPanel>
+
+                            <StackPanel Margin="0,20,0,0">
+                                <TextBlock Text="{Binding ElementName=savesPage, Path=SaveTypeTextBlock}" FontSize="15" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Type}"/>
+                            </StackPanel>
+
+                            <StackPanel Margin="0,20,0,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding ElementName=savesPage, Path=SaveProgressionTextBlock}" FontSize="15" FontWeight="Bold"/>
+                                    <TextBlock Text=" (" FontSize="15" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding FilesAlreadyDone}" FontSize="15" FontWeight="Bold"/>
+                                    <TextBlock Text="/" FontSize="15" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding TotalFilesToCopy}" FontSize="15" FontWeight="Bold"/>
+                                    <TextBlock Text=")" FontSize="15" FontWeight="Bold"/>
+                                </StackPanel>
+                                <ProgressBar Margin="0,20,0,0" Value="{Binding Progression}" />
+                            </StackPanel>
+
+                            
+
+                            <StackPanel Orientation="Horizontal" Margin="0,30,0,0">
+                                <Button Command="{Binding ElementName=savesPage, Path=DataContext.DeleteSaveButtonEvent}"
+                                    CommandParameter="{Binding}">
+                                    <SymbolIcon Symbol="Delete"/>
+                                    <Button.Resources>
+                                        <ResourceDictionary>
+                                            <ResourceDictionary.ThemeDictionaries>
+                                                <ResourceDictionary x:Key="Light">
+                                                    <SolidColorBrush x:Key="ButtonBackground" Color="#e74c3c"/>
+                                                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#ed5c4c"/>
+                                                    <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
+                                                    <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
+                                                </ResourceDictionary>
+                                            </ResourceDictionary.ThemeDictionaries>
+                                        </ResourceDictionary>
+                                    </Button.Resources>
+                                </Button>
+                                <Button Visibility="{Binding State, Converter={StaticResource StateConverter}, ConverterParameter=pause}" Command="{Binding ElementName=savesPage, Path=DataContext.PauseSaveButtonEvent}"
+                                        CommandParameter="{Binding}">
+                                    <SymbolIcon Symbol="Pause"/>
+                                </Button>
+                                <Button Visibility="{Binding State, Converter={StaticResource StateConverter}, ConverterParameter=resume}" Command="{Binding ElementName=savesPage, Path=DataContext.ResumeSaveButtonEvent}"
+                                        CommandParameter="{Binding}">
+                                    <SymbolIcon Symbol="Previous"/>
+                                </Button>
+                                <Button Visibility="{Binding State, Converter={StaticResource StateConverter}, ConverterParameter=play}" Command="{Binding ElementName=savesPage, Path=DataContext.StartSaveButtonEvent}"  
+                                    CommandParameter="{Binding}">
+                                    <SymbolIcon Symbol="Play"/>
+                                </Button>
+                            </StackPanel>
+
+                        </StackPanel>
+                        </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid MaximumRowsOrColumns="7" Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+
+
+        </GridView>
+    </Grid>
+
+
+</Page>
+
