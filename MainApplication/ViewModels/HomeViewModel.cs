@@ -2,6 +2,7 @@
 using System.Globalization;
 using MainApplication.Localization;
 using MainApplication.Objects;
+using MainApplication.Objects.Enums;
 using MainApplication.Services;
 
 namespace MainApplication.ViewModels;
@@ -17,17 +18,25 @@ public class HomeViewModel : BaseViewModel
         set => SetField(ref EasySaveService.AllCultureInfo, value, nameof(AllCultureInfo));
     }
 
-
     public CultureInfo SelectedCultureInfo
     {
         get => EasySaveService.SelectedCultureInfo;
         set => EasySaveService.ChangeCulture(value);
     }
 
-    public bool UpdateLanguage()
+    private SaveFileType[] _saveFileTypes = (SaveFileType[])Enum.GetValues(typeof(SaveFileType));
+
+    public SaveFileType[] SaveFileTypes
     {
-        Language.Culture = SaveService.SelectedCultureInfo;
-        return true;
+        get => _saveFileTypes;
+        set => SetField(ref _saveFileTypes, value, nameof(SaveFileTypes));
+    }
+
+
+    public SaveFileType SelectedSaveFileType
+    {
+        get => ConfigurationService.Config.SaveFileType;
+        set => ConfigurationService.ChangeSaveFileType(value);
     }
 
     public bool StartSave(string name)
@@ -50,9 +59,9 @@ public class HomeViewModel : BaseViewModel
         return SaveService.IsRunningSave(saveName);
     }
 
-    public double GetProgressionOfSave(Save save)
+    public static double GetProgressionOfSave(Save save)
     {
-        return SaveService.GetProgressionOfSave(save);
+        return save.Progression;
     }
 
     public double GetProgressionOfAllSave()
@@ -68,5 +77,10 @@ public class HomeViewModel : BaseViewModel
     public Tuple<int, int> GetFilesInformationsOfAllSave()
     {
         return SaveService.GetFilesInformationsOfAllSave();
+    }
+
+    public static bool IsCorrectLanguage(string language)
+    {
+        return LanguageCheck.CorrectLanguage(language);
     }
 }

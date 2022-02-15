@@ -439,6 +439,15 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Please Select Save File Type !.
+        /// </summary>
+        public static string GLOBAL_SELECT_SAVE_FILE_TYPE_GUI {
+            get {
+                return ResourceManager.GetString("GLOBAL_SELECT_SAVE_FILE_TYPE_GUI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à The language selected is : en-US.
         /// </summary>
         public static string GLOBAL_SELECTED_LANGUAGE {

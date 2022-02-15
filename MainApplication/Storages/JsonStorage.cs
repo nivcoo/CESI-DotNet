@@ -21,6 +21,22 @@ public class JsonStorage<T> : AStorage<T>
         WriteIndented = true
     };
 
+    public override T? GetElement()
+    {
+        try
+        {
+            var text = File.ReadAllText(FilePath);
+            if (text == "")
+                return default;
+            var elementsList = JsonSerializer.Deserialize<T>(text.Trim(), _serializerOptions);
+            return elementsList ?? default;
+        }
+        catch (Exception)
+        {
+            return default;
+        }
+    }
+
     public override List<T> GetAllElements()
     {
         try
@@ -35,6 +51,12 @@ public class JsonStorage<T> : AStorage<T>
         {
             return new List<T>();
         }
+    }
+
+    public override void WriteElement(T obj)
+    {
+        if(obj != null)
+            SerializeAndSaveIntoFiles(obj);
     }
 
 
@@ -102,9 +124,10 @@ public class JsonStorage<T> : AStorage<T>
         File.WriteAllText(FilePath, string.Empty);
     }
 
-    private void SerializeAndSaveIntoFiles(List<T> objects)
+    private void SerializeAndSaveIntoFiles(object obj)
     {
-        File.WriteAllText(FilePath, SerializeObject(objects));
+        if (obj != null)
+            File.WriteAllText(FilePath, SerializeObject(obj));
     }
 
     private string SerializeObject(object obj)

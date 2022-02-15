@@ -14,6 +14,8 @@ internal sealed class SaveService
 {
     private static readonly SaveService Instance = new();
 
+    private readonly ConfigurationService ConfigurationService = ConfigurationService.GetInstance();
+
     private readonly string _savesPath;
 
     private readonly AStorage<Save> _storage;
@@ -28,8 +30,19 @@ internal sealed class SaveService
     {
         SelectedCultureInfo = CultureInfo.CurrentCulture;
         _saveTasks = new Dictionary<Save, ASave>();
-        _savesPath = AppDomain.CurrentDomain.BaseDirectory + @"data\saves.json";
-        _storage = new JsonStorage<Save>(_savesPath);
+
+
+        if (ConfigurationService.Config.SaveFileType == SaveFileType.XML)
+        {
+            _savesPath = AppDomain.CurrentDomain.BaseDirectory + @"data\saves.xml";
+            _storage = new JsonStorage<Save>(_savesPath);
+        }
+        else
+        {
+            _savesPath = AppDomain.CurrentDomain.BaseDirectory + @"data\saves.json";
+            _storage = new JsonStorage<Save>(_savesPath);
+        }
+
         LoadSavesFile();
         _saves = new List<Save>();
         InitSavesList();
@@ -100,7 +113,7 @@ internal sealed class SaveService
 
         aSave.Init();
 
-        if (aSave.SaveTask.Status == TaskStatus.Created)
+        if (aSave.SaveTask is {Status: TaskStatus.Created})
             aSave.SaveTask.Start();
         else return false;
         return true;
@@ -134,7 +147,7 @@ internal sealed class SaveService
         if (!_saveTasks.ContainsKey(save))
             return false;
         var aSave = _saveTasks.First(x => x.Key == save).Value;
-        return aSave.SaveTask.Status == TaskStatus.Running && aSave.PausedTask == false;
+        return aSave.SaveTask is {Status: TaskStatus.Running} && aSave.PausedTask == false;
     }
 
     /// <summary>
@@ -236,17 +249,7 @@ internal sealed class SaveService
     {
         _storage.EditElementBy(s => s.Name == save.Name, save);
     }
-    
 
-    /// <summary>
-    /// Get progression of specific save
-    /// </summary>
-    /// <param name="save"></param>
-    /// <returns>The save progression</returns>
-    public static double GetProgressionOfSave(Save save)
-    {
-        return save.Progression;
-    }
     
     /// <summary>
     /// Get sum of all progression 
