@@ -9,16 +9,16 @@ namespace MainApplication.Objects;
 /// </summary>
 public class Log
 {
-    private string Name { get; set; }
-    private Uri SourcePath { get; set; }
-    private Uri TargetPath { get; set; }
-    private long FileSize { get; set; }
-    long FileTransferTime { get; set; }
+    public string Name { get; set; }
+    public Uri SourcePath { get; set; }
+    public Uri TargetPath { get; set; }
+    public long FileSize { get; set; }
+    public long FileTransferTime { get; set; }
 
-    private double EncryptTime { get; set; }
+    public double EncryptTime { get; set; }
 
     [JsonConverter(typeof(DateTimeConverter))]
-    private DateTime Date { get; set; }
+    public DateTime Date { get; set; }
 
     public Log(string name, Uri sourcePath, Uri targetPath, long fileSize, long fileTransferTime, double encryptTime, DateTime date)
     {

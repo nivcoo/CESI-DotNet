@@ -138,7 +138,7 @@ public class HomeView : BaseView
                 {
                     percent = save == null
                         ? _homeViewModel.GetProgressionOfAllSave()
-                        : _homeViewModel.GetProgressionOfSave(save);
+                        : HomeViewModel.GetProgressionOfSave(save);
                     var (item1, totalFiles) = save == null
                         ? _homeViewModel.GetFilesInformationsOfAllSave()
                         : _homeViewModel.GetFilesInformationsOfSave(save);
@@ -164,13 +164,17 @@ public class HomeView : BaseView
     private void SelectLanguage()
     {
         var success = false;
+        var language = string.Empty;
         while (!success)
         {
             Console.Write(Environment.NewLine + Language.GLOBAL_SELECT_LANGUAGE + @" ");
-            _homeViewModel.SelectedCultureInfo = CultureInfo.GetCultureInfo(Console.ReadLine());
-            success = _homeViewModel.UpdateLanguage();
+            language = Console.ReadLine() ?? string.Empty;
+            success = HomeViewModel.IsCorrectLanguage(language);
         }
-
+        
+        _homeViewModel.SelectedCultureInfo = CultureInfo.GetCultureInfo(language);
+        
+        
         Console.WriteLine(Language.GLOBAL_SELECTED_LANGUAGE);
     }
 
@@ -181,9 +185,8 @@ public class HomeView : BaseView
 
         List<Tuple<string, string, string, string, string>> tuplesSaves = new();
 
-        if (saves != null)
-            tuplesSaves.AddRange(saves.Select(save => Tuple.Create(save.Name, save.State.ToString(),
-                save.Type.ToString(), save.SourcePath.LocalPath, save.TargetPath.LocalPath)));
+        tuplesSaves.AddRange(saves.Select(save => Tuple.Create(save.Name, save.State.ToString(),
+            save.Type.ToString(), save.SourcePath.LocalPath, save.TargetPath.LocalPath)));
 
         Console.WriteLine(
             tuplesSaves.ToStringTable(

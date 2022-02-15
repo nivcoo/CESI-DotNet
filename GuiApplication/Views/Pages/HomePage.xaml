@@ -16,11 +16,15 @@
         <StackPanel Orientation="Horizontal">
             <TextBlock Name="WelcomeTextBox"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Margin="0,20,0,0" Orientation="Horizontal">
-            <TextBlock Name="SelectLanguageTextBox"/>
+
+        <StackPanel  Grid.Row="1" Margin="0,20,0,0" Orientation="Horizontal">
+            <TextBlock Margin="0,5,0,0" Name="SelectLanguageTextBox"/>
+            <ComboBox Margin="20,0,0,0" Name="LanguageComboBox" ItemsSource="{Binding AllCultureInfo}"/>
         </StackPanel>
-        <StackPanel  Grid.Row="2" Margin="0,20,0,0" Orientation="Horizontal">
-            <ComboBox Name="LanguageComboBox" ItemsSource="{Binding AllCultureInfo}"/>
+
+        <StackPanel  Grid.Row="2" Margin="0,15,0,0" Orientation="Horizontal">
+            <TextBlock Margin="0,5,0,0" Name="SelectSaveFileTypeTextBox"/>
+            <ComboBox Margin="20,0,0,0" Name="SaveFileTypeComboBox" ItemsSource="{Binding SaveFileTypes}"/>
         </StackPanel>
     </Grid>
 

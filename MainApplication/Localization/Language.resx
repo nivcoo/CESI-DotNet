@@ -273,4 +273,7 @@
   <data name="PAGE_SAVES_TITLE" xml:space="preserve">
     <value>Saves Manager</value>
   </data>
+  <data name="GLOBAL_SELECT_SAVE_FILE_TYPE_GUI" xml:space="preserve">
+    <value>Please Select Save File Type !</value>
+  </data>
 </root>

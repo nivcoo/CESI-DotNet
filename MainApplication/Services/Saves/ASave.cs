@@ -9,9 +9,9 @@ public abstract class ASave
     private readonly LogService _logService = LogService.GetInstance();
     private readonly SaveService _saveService = SaveService.GetInstance();
 
-    public Task<bool> SaveTask;
+    public Task<bool>? SaveTask;
 
-    public CancellationTokenSource TaskTokenSource { get; set; }
+    public CancellationTokenSource? TaskTokenSource { get; set; }
 
     public CancellationToken TaskToken { get; set; }
 
@@ -20,13 +20,14 @@ public abstract class ASave
     protected List<SaveFile> SaveFiles;
 
     protected bool DeleteFilesBeforeCopy = false;
-    public bool PausedTask = false;
+    public bool PausedTask;
 
-    public bool Running = false;
+    public bool Running;
 
     protected ASave(Save save)
     {
         Init();
+        SaveFiles = new List<SaveFile>();
         Save = save;
     }
 
@@ -68,10 +69,7 @@ public abstract class ASave
     /// <returns>List of files</returns>
     protected static string[] GetAllFolderFiles(Uri path)
     {
-        if (Directory.Exists(path.LocalPath))
-            return Directory.GetFiles(path.LocalPath, "*.*", SearchOption.AllDirectories);
-        return Array.Empty<string>();
-        
+        return Directory.Exists(path.LocalPath) ? Directory.GetFiles(path.LocalPath, "*.*", SearchOption.AllDirectories) : Array.Empty<string>();
     }
 
     /// <summary>
@@ -91,8 +89,11 @@ public abstract class ASave
                 File.Delete(filePath);
 
             Directory.Delete(folderPath.LocalPath, true);
-        } catch (Exception)
-        { }
+        }
+        catch (Exception)
+        {
+            // ignored
+        }
     }
 
     /// <summary>
@@ -225,7 +226,7 @@ public abstract class ASave
             {
             }
             if (IsCancelled()) {
-                TaskTokenSource.Dispose();
+                TaskTokenSource?.Dispose();
                 return false;
             }
             
@@ -246,7 +247,7 @@ public abstract class ASave
 
     public bool IsCancelled() {
 
-        return TaskTokenSource.IsCancellationRequested;
+        return TaskTokenSource is {IsCancellationRequested: true};
     }
 
     public void ExecuteActionOnUIThread(Action action)
@@ -259,10 +260,7 @@ public abstract class ASave
         }
         else
         {
-            uiThread.Invoke(() =>
-            {
-                action.Invoke();
-            });
+            uiThread.Invoke(action.Invoke);
         }
     }
 }

@@ -12,10 +12,22 @@ public abstract class AStorage<T>
     }
 
     /// <summary>
+    /// Get stored element
+    /// </summary>
+    /// <returns></returns>
+    public abstract T? GetElement();
+
+    /// <summary>
     /// Get list of all stored elements
     /// </summary>
     /// <returns></returns>
     public abstract List<T> GetAllElements();
+
+    /// <summary>
+    /// Write element into storage
+    /// </summary>
+    /// <param name="obj"></param>
+    public abstract void WriteElement(T obj);
 
     /// <summary>
     /// Add new element into storage
@@ -54,4 +66,9 @@ public abstract class AStorage<T>
     /// Delete content of file
     /// </summary>
     public abstract void ClearFile();
+
+    public static implicit operator AStorage<T>(JsonStorage<Config> v)
+    {
+        throw new NotImplementedException();
+    }
 }
