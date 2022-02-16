@@ -9,7 +9,7 @@ public class CompleteASave : ASave
     }
 
     /// <summary>
-    /// Retrieve all file to copy
+    ///     Retrieve all file to copy
     /// </summary>
     /// <returns>true if Success</returns>
     protected override bool RetrieveFilesToCopy()

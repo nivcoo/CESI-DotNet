@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography;
-using MainApplication.Annotations;
-using MainApplication.Objects;
+﻿using MainApplication.Objects;
 
 namespace MainApplication.Services.Saves;
 
@@ -11,7 +9,7 @@ public class DifferentialSave : ASave
     }
 
     /// <summary>
-    /// Retrieve all file to copy
+    ///     Retrieve all file to copy
     /// </summary>
     /// <returns>true if Success</returns>
     protected override bool RetrieveFilesToCopy()

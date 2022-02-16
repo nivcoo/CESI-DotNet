@@ -1,12 +1,11 @@
-﻿using MainApplication.Annotations;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using MainApplication.Annotations;
 
 namespace MainApplication.Handlers;
 
 public abstract class INPChanged : INotifyPropertyChanged
 {
-
     public event PropertyChangedEventHandler? PropertyChanged;
 
     [NotifyPropertyChangedInvocator]
@@ -23,4 +22,3 @@ public abstract class INPChanged : INotifyPropertyChanged
         return true;
     }
 }
-

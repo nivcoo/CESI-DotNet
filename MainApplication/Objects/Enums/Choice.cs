@@ -1,6 +1,6 @@
 namespace MainApplication.Objects.Enums;
 
-public enum Choice 
+public enum Choice
 {
     ShowList = 1,
     Create = 2,

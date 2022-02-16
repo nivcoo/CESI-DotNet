@@ -1,6 +1,6 @@
-﻿using Microsoft.UI.Xaml.Controls;
+﻿using MainApplication.ViewModels;
+using Microsoft.UI.Xaml.Controls;
 using System;
-using MainApplication.ViewModels;
 
 namespace GuiApplication.Views.Dialogs;
 

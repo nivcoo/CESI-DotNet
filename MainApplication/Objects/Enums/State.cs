@@ -1,6 +1,7 @@
 ﻿namespace MainApplication.Objects.Enums;
+
 /// <summary>
-/// Simple Enum File - Save State
+///     Simple Enum File - Save State
 /// </summary>
 public enum State
 {

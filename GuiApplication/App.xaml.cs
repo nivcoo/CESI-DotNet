@@ -16,7 +16,7 @@ public partial class App : Application
             Environment.Exit(0);
             return;
         }
-        
+
         InitializeComponent();
     }
 

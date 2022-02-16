@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace MainApplication.Handlers;
 
@@ -10,38 +9,33 @@ public class CommandHandler : ICommand
 
 
     /// <summary>
-    /// Creates instance of the command handler
+    ///     Creates instance of the command handler
     /// </summary>
     /// <param name="action">Action to be executed by the command</param>
     /// <param name="canExecute">A bolean property to containing current permissions to execute the command</param>
     public CommandHandler(Action<object?> action, Func<object?, bool> canExecute)
     {
         _action = action;
-        _canExecute = (attr) => canExecute.Invoke(this);
+        _canExecute = attr => canExecute.Invoke(this);
     }
 
     /// <summary>
-    /// Creates instance of the command handler
+    ///     Creates instance of the command handler
     /// </summary>
     /// <param name="action">Action to be executed by the command</param>
     public CommandHandler(Action<object?> action)
     {
         _action = action;
-        _canExecute = (obj) => true;
+        _canExecute = obj => true;
     }
 
     /// <summary>
-    /// Wires CanExecuteChanged event 
+    ///     Wires CanExecuteChanged event
     /// </summary>
     public event EventHandler? CanExecuteChanged;
 
-    public void RaiseCanExecuteChanged()
-    {
-        CanExecuteChanged?.Invoke(this, new EventArgs());
-    }
-
     /// <summary>
-    /// Forcess checking if execute is allowed
+    ///     Forcess checking if execute is allowed
     /// </summary>
     /// <param name="parameter"></param>
     /// <returns></returns>
@@ -53,5 +47,10 @@ public class CommandHandler : ICommand
     public void Execute(object? parameter)
     {
         _action(parameter);
+    }
+
+    public void RaiseCanExecuteChanged()
+    {
+        CanExecuteChanged?.Invoke(this, new EventArgs());
     }
 }

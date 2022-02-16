@@ -1,5 +1,4 @@
-﻿
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Globalization;
 using MainApplication.Handlers;
 using MainApplication.Localization;
@@ -11,23 +10,43 @@ namespace MainApplication.ViewModels;
 
 public class HomeViewModel : BaseViewModel
 {
+    private CommandHandler? _removeEncryptExtensionButtonEvent;
+
+    private CommandHandler? _removePriorityFileButtonEvent;
+
+    private SaveFileType[] _saveFileTypes = (SaveFileType[]) Enum.GetValues(typeof(SaveFileType));
+
+    public HomeViewModel()
+    {
+        EncryptExtensions = new ObservableCollection<string>();
+
+        PriorityFiles = new ObservableCollection<string>();
+
+        UpdateEncryptExtensionsList();
+
+        UpdatePriorityFilesList();
+    }
 
     public ObservableCollection<string> EncryptExtensions { get; }
 
     public ObservableCollection<string> PriorityFiles { get; }
 
-    private CommandHandler? _removeEncryptExtensionButtonEvent;
-
     public CommandHandler RemoveEncryptExtensionButtonEvent
     {
-        get { return _removeEncryptExtensionButtonEvent ??= _removeEncryptExtensionButtonEvent = new CommandHandler(RemoveEncryptExtensionEvent); }
+        get
+        {
+            return _removeEncryptExtensionButtonEvent ??=
+                _removeEncryptExtensionButtonEvent = new CommandHandler(RemoveEncryptExtensionEvent);
+        }
     }
-
-    private CommandHandler? _removePriorityFileButtonEvent;
 
     public CommandHandler RemovePriorityFileButtonEvent
     {
-        get { return _removePriorityFileButtonEvent ??= _removePriorityFileButtonEvent = new CommandHandler(RemovePriorityFileEvent); }
+        get
+        {
+            return _removePriorityFileButtonEvent ??=
+                _removePriorityFileButtonEvent = new CommandHandler(RemovePriorityFileEvent);
+        }
     }
 
     public List<CultureInfo> AllCultureInfo
@@ -42,8 +61,6 @@ public class HomeViewModel : BaseViewModel
         set => EasySaveService.ChangeCulture(value);
     }
 
-    private SaveFileType[] _saveFileTypes = (SaveFileType[])Enum.GetValues(typeof(SaveFileType));
-
     public SaveFileType[] SaveFileTypes
     {
         get => _saveFileTypes;
@@ -55,16 +72,6 @@ public class HomeViewModel : BaseViewModel
     {
         get => ConfigurationService.Config.SaveFileType;
         set => ConfigurationService.ChangeSaveFileType(value);
-    }
-
-    public HomeViewModel() {
-        EncryptExtensions = new ObservableCollection<string>();
-
-        PriorityFiles = new ObservableCollection<string>();
-
-        UpdateEncryptExtensionsList();
-
-        UpdatePriorityFilesList();
     }
 
     private void RemoveEncryptExtensionEvent(object? args)
@@ -124,7 +131,7 @@ public class HomeViewModel : BaseViewModel
         foreach (var fileName in ConfigurationService.Config.PriorityFiles)
             PriorityFiles.Add(fileName);
     }
-   
+
 
     public double GetProgressionOfAllSave()
     {
@@ -135,7 +142,7 @@ public class HomeViewModel : BaseViewModel
     {
         return SaveService.GetFilesInformationsOfSave(save);
     }
-    
+
     public Tuple<int, int> GetFilesInformationsOfAllSave()
     {
         return SaveService.GetFilesInformationsOfAllSave();

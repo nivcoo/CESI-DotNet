@@ -4,8 +4,6 @@ namespace MainApplication.Storages;
 
 public abstract class AStorage<T>
 {
-    protected string FilePath { get; set; }
-
     private readonly Mutex EditFilesMutex;
 
     protected AStorage(string filePath)
@@ -14,51 +12,53 @@ public abstract class AStorage<T>
         EditFilesMutex = new Mutex();
     }
 
+    protected string FilePath { get; set; }
+
     /// <summary>
-    /// Get stored element
+    ///     Get stored element
     /// </summary>
     /// <returns></returns>
     public abstract T? GetElement();
 
     /// <summary>
-    /// Get list of all stored elements
+    ///     Get list of all stored elements
     /// </summary>
     /// <returns></returns>
     public abstract List<T> GetAllElements();
 
     /// <summary>
-    /// Write element into storage
+    ///     Write element into storage
     /// </summary>
     /// <param name="obj"></param>
     public abstract void WriteElement(T obj);
 
     /// <summary>
-    /// Add new element into storage
+    ///     Add new element into storage
     /// </summary>
     /// <param name="obj"></param>
     public abstract void AddNewElement(T obj);
 
     /// <summary>
-    /// Add element into file without rewrite it
+    ///     Add element into file without rewrite it
     /// </summary>
     /// <param name="obj"></param>
     public abstract void AddNewElementWithoutRewrite(T obj);
-    
+
     /// <summary>
-    /// Delete element of file
+    ///     Delete element of file
     /// </summary>
     /// <param name="match"></param>
     public abstract void RemoveElement(Predicate<T> match);
 
     /// <summary>
-    /// Get element by match
+    ///     Get element by match
     /// </summary>
     /// <param name="match"></param>
     /// <returns>element or null if not found</returns>
     public abstract T? GetElementBy(Predicate<T> match);
 
     /// <summary>
-    /// Edit element bu match
+    ///     Edit element bu match
     /// </summary>
     /// <param name="match"></param>
     /// <param name="obj"></param>
@@ -66,7 +66,7 @@ public abstract class AStorage<T>
     public abstract bool EditElementBy(Predicate<T> match, T obj);
 
     /// <summary>
-    /// Delete content of file
+    ///     Delete content of file
     /// </summary>
     public abstract void ClearFile();
 
@@ -107,7 +107,7 @@ public abstract class AStorage<T>
         {
             EditFilesMutex.ReleaseMutex();
         }
-        return default;
 
+        return default;
     }
 }

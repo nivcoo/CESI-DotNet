@@ -6,16 +6,16 @@ namespace MainApplication.Services;
 
 internal sealed class ConfigurationService
 {
-
     private static readonly ConfigurationService Instance = new();
-
-    public Config Config;
 
     private string? _configPath;
 
     private AStorage<Config>? _storage;
 
-    public ConfigurationService() {
+    public Config Config;
+
+    public ConfigurationService()
+    {
         Config = new Config("en-US", SaveFileType.JSON, new List<string>(), new List<string>());
         LoadConfigFile();
     }
@@ -30,21 +30,14 @@ internal sealed class ConfigurationService
 
         var config = _storage.GetElement();
         if (config == default)
-        {
             SaveCurrentConfig();
-        } else
+        else
             Config = config;
-        
     }
 
-    public void SaveCurrentConfig() 
+    public void SaveCurrentConfig()
     {
-
-        
-        if (Config != null)
-        {
-            _storage?.WriteElement(Config);
-        }
+        if (Config != null) _storage?.WriteElement(Config);
     }
 
     internal void ChangeSaveFileType(SaveFileType saveFileType)
@@ -58,6 +51,7 @@ internal sealed class ConfigurationService
     {
         return Instance;
     }
+
     public bool AlreadyEncryptExtensionWithSameName(string extensionName)
     {
         return Config.EncryptExtensions.Contains(extensionName);
@@ -69,8 +63,8 @@ internal sealed class ConfigurationService
     }
 
 
-    public bool AddEncryptExtension(string extension) {
-
+    public bool AddEncryptExtension(string extension)
+    {
         if (AlreadyEncryptExtensionWithSameName(extension))
             return false;
         Config.EncryptExtensions.Add(extension);
@@ -102,4 +96,3 @@ internal sealed class ConfigurationService
         return true;
     }
 }
-

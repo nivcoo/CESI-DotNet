@@ -1,28 +1,27 @@
-﻿using MainApplication.Objects;
+﻿using System.Globalization;
+using MainApplication.Objects;
 using MainApplication.Objects.Enums;
 using MainApplication.Services.Saves;
 using MainApplication.Storages;
-using System.Globalization;
 
 namespace MainApplication.Services;
 
 /// <summary>
-/// Manages the saves, start saves, get saves and delete saves
+///     Manages the saves, start saves, get saves and delete saves
 /// </summary>
-
 internal sealed class SaveService
 {
     private static readonly SaveService Instance = new();
 
-    private readonly ConfigurationService ConfigurationService = ConfigurationService.GetInstance();
+    private readonly List<Save> _saves;
 
     private readonly string _savesPath;
 
+    private readonly IDictionary<Save, ASave> _saveTasks;
+
     private readonly AStorage<Save> _storage;
 
-    private readonly List<Save> _saves;
-
-    private readonly IDictionary<Save, ASave> _saveTasks;
+    private readonly ConfigurationService _configurationService = ConfigurationService.GetInstance();
 
     public CultureInfo SelectedCultureInfo;
 
@@ -32,7 +31,7 @@ internal sealed class SaveService
         _saveTasks = new Dictionary<Save, ASave>();
 
 
-        if (ConfigurationService.Config.SaveFileType == SaveFileType.XML)
+        if (_configurationService.Config.SaveFileType == SaveFileType.XML)
         {
             _savesPath = AppDomain.CurrentDomain.BaseDirectory + @"data\saves.xml";
             _storage = new JsonStorage<Save>(_savesPath);
@@ -48,7 +47,7 @@ internal sealed class SaveService
         InitSavesList();
     }
 
-    private void LoadSavesFile() 
+    private void LoadSavesFile()
     {
         Directory.CreateDirectory(Path.GetDirectoryName(_savesPath) ?? string.Empty);
         if (!File.Exists(_savesPath))
@@ -57,15 +56,15 @@ internal sealed class SaveService
 
     private void InitSavesList()
     {
-        foreach (var save in _storage.GetAllElements()) {
-
+        foreach (var save in _storage.GetAllElements())
+        {
             save.ResetValues();
             AddSaveToList(save);
         }
     }
-    
+
     /// <summary>
-    /// Get all saves
+    ///     Get all saves
     /// </summary>
     /// <returns>Save List</returns>
     public List<Save> GetSaves()
@@ -74,7 +73,7 @@ internal sealed class SaveService
     }
 
     /// <summary>
-    /// Start save with name
+    ///     Start save with name
     /// </summary>
     /// <param name="saveName"></param>
     /// <returns>Success</returns>
@@ -85,7 +84,7 @@ internal sealed class SaveService
     }
 
     /// <summary>
-    /// Start save with save object
+    ///     Start save with save object
     /// </summary>
     /// <param name="save"></param>
     /// <returns>true if Success</returns>
@@ -95,7 +94,9 @@ internal sealed class SaveService
             return false;
         ASave aSave;
         if (_saveTasks.ContainsKey(save))
+        {
             aSave = _saveTasks.First(x => x.Key == save).Value;
+        }
         else
         {
             aSave = save.Type switch
@@ -109,7 +110,9 @@ internal sealed class SaveService
 
         aSave.CancelTask();
 
-        while (aSave.Running) { } // wait stop correctly
+        while (aSave.Running)
+        {
+        } // wait stop correctly
 
         aSave.Init();
 
@@ -119,10 +122,11 @@ internal sealed class SaveService
         return true;
     }
 
-    public void SetStateOfSave(Save save, bool paused) {
+    public void SetStateOfSave(Save save, bool paused)
+    {
         if (!_saveTasks.ContainsKey(save) || save.State == State.End)
             return;
-        ASave aSave = _saveTasks.First(x => x.Key == save).Value;
+        var aSave = _saveTasks.First(x => x.Key == save).Value;
         if (paused)
             save.State = State.Pause;
         else
@@ -132,7 +136,7 @@ internal sealed class SaveService
 
 
     /// <summary>
-    /// Check if save is running
+    ///     Check if save is running
     /// </summary>
     /// <param name="saveName"></param>
     /// <returns>true if Running</returns>
@@ -151,35 +155,26 @@ internal sealed class SaveService
     }
 
     /// <summary>
-    /// Start all saves
+    ///     Start all saves
     /// </summary>
     public void StartAllSaves()
     {
-        foreach (var save in _saves)
-        {
-            StartSave(save);
-        }
+        foreach (var save in _saves) StartSave(save);
     }
 
     public void PauseAllSaves()
     {
-        foreach (var save in _saves)
-        {
-            SetStateOfSave(save, true);
-        }
+        foreach (var save in _saves) SetStateOfSave(save, true);
     }
 
     public void ResumeAllSaves()
     {
-        foreach (var save in _saves)
-        {
-            SetStateOfSave(save, false);
-        }
+        foreach (var save in _saves) SetStateOfSave(save, false);
     }
 
 
     /// <summary>
-    /// Add new save with save object
+    ///     Add new save with save object
     /// </summary>
     /// <param name="save"></param>
     /// <returns>tru if Success</returns>
@@ -197,9 +192,9 @@ internal sealed class SaveService
         save.State = State.End;
         _saves.Add(save);
     }
-    
+
     /// <summary>
-    /// Remove save with save object
+    ///     Remove save with save object
     /// </summary>
     /// <param name="save"></param>
     /// <returns>true if Success</returns>
@@ -213,10 +208,10 @@ internal sealed class SaveService
         _saves.Remove(save);
         return true;
     }
-    
-    
+
+
     /// <summary>
-    /// Remove save with name
+    ///     Remove save with name
     /// </summary>
     /// <param name="saveName"></param>
     /// <returns>true if Success</returns>
@@ -227,7 +222,7 @@ internal sealed class SaveService
     }
 
     /// <summary>
-    /// Check if save exist with same name
+    ///     Check if save exist with same name
     /// </summary>
     /// <param name="name"></param>
     /// <returns>Save object</returns>
@@ -242,7 +237,7 @@ internal sealed class SaveService
     }
 
     /// <summary>
-    /// Update storage of save object
+    ///     Update storage of save object
     /// </summary>
     /// <param name="save"></param>
     public void UpdateSaveStorage(Save save)
@@ -250,27 +245,27 @@ internal sealed class SaveService
         _storage.EditElementBy(s => s.Name == save.Name, save);
     }
 
-    
+
     /// <summary>
-    /// Get sum of all progression 
+    ///     Get sum of all progression
     /// </summary>
     /// <returns>The sum of all progression</returns>
     public double GetProgressionOfAllSave()
     {
         return _saves.Sum(save => save.Progression) / _saves.Count;
     }
-    
+
     /// <summary>
-    /// Get Number of file in specific save
+    ///     Get Number of file in specific save
     /// </summary>
     /// <returns>Number left to do, Total Number</returns>
     public static Tuple<int, int> GetFilesInformationsOfSave(Save save)
     {
         return new Tuple<int, int>(save.NbFilesLeftToDo, save.TotalFilesToCopy);
     }
-    
+
     /// <summary>
-    /// Get Number of file in all save (Sum)
+    ///     Get Number of file in all save (Sum)
     /// </summary>
     /// <returns>Number left to do, Total Number</returns>
     public Tuple<int, int> GetFilesInformationsOfAllSave()

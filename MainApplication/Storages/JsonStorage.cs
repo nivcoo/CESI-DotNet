@@ -1,5 +1,4 @@
-﻿using System.Text;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using MainApplication.Storages.NamingPolicies;
@@ -8,19 +7,18 @@ namespace MainApplication.Storages;
 
 public class JsonStorage<T> : AStorage<T>
 {
-
-    public JsonStorage(string filePath) : base(filePath)
-    {
-    }
-
     private readonly JsonSerializerOptions _serializerOptions = new()
     {
         Converters =
         {
-            new JsonStringEnumConverter(new ToUpperNamingPolicy()),
+            new JsonStringEnumConverter(new ToUpperNamingPolicy())
         },
         WriteIndented = true
     };
+
+    public JsonStorage(string filePath) : base(filePath)
+    {
+    }
 
     public override T? GetElement()
     {
@@ -36,12 +34,10 @@ public class JsonStorage<T> : AStorage<T>
         });
 
         return (T?) obj;
-
     }
 
     public override List<T> GetAllElements()
     {
-
         var list = RunMutexFunc(() =>
         {
             var text = File.ReadAllText(FilePath);
@@ -53,12 +49,12 @@ public class JsonStorage<T> : AStorage<T>
 
         if (list != default)
             return list;
-        else return new List<T>();
+        return new List<T>();
     }
 
     public override void WriteElement(T obj)
     {
-        if(obj != null)
+        if (obj != null)
             SerializeAndSaveIntoFiles(obj);
     }
 
@@ -72,8 +68,9 @@ public class JsonStorage<T> : AStorage<T>
 
     public override void AddNewElementWithoutRewrite(T obj)
     {
-        RunMutexAction(() => { 
-             var objects = new List<T> {obj};
+        RunMutexAction(() =>
+        {
+            var objects = new List<T> {obj};
             using var fs = new FileStream(FilePath, FileMode.Open);
             var serializeObject = SerializeObject(objects);
             using var sw = new StreamWriter(fs);

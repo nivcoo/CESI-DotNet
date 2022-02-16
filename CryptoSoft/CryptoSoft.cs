@@ -1,26 +1,40 @@
 ﻿namespace CryptoSoft;
 
-
-public class CryptoSoft
+public static class CryptoSoft
 {
-    public CryptoSoft(string readPath, string writePath, string keyCript)
-    {
-        Encrypt(readPath, writePath, keyCript);
-    }
-    public void Encrypt(string fileToRead, string fileToWrite, string keyCrypt)
-    {
-        var file = System.IO.File.ReadAllText(fileToRead);
-    
-        var count = 0;
-        var textfile = "";
-        foreach (var letter in file.Where(letter => keyCrypt != null))
-        {
-            if (keyCrypt == null) continue;
-            textfile += (char)((int) keyCrypt[count] ^ (int) letter);
 
-            count++;
-            if (count == keyCrypt.Length) count = 0;
+    /// <summary>
+    /// Get current timestamp
+    /// </summary>
+    /// <returns>timestamp</returns>
+    private static long GetTimestamp()
+    {
+        return DateTime.Now.ToFileTime();
+    }
+
+    public static long EncryptFile(string inputFile, string outputFile, string key)
+    {
+
+        using var fileIn = new FileStream(inputFile, FileMode.Open);
+        using var fileOut = new FileStream(outputFile, FileMode.Create);
+
+        var startTimestamp = GetTimestamp();
+        var keyBytes = System.Text.Encoding.ASCII.GetBytes(key);
+        var keyLen = keyBytes.Length;
+        var buffer = new byte[4096];
+        while (true)
+        {
+            var bytesRead = fileIn.Read(buffer);
+            if (bytesRead == 0)
+                break;
+            for (var i = 0; i < bytesRead; i++)
+                buffer[i] = (byte)(buffer[i] ^ keyBytes[i % keyLen]);
+            fileOut.Write(buffer, 0, bytesRead);
         }
-        System.IO.File.WriteAllText(fileToWrite,textfile);
+
+        fileIn.Close();
+        fileOut.Close();
+        var endTimestamp = GetTimestamp();
+        return endTimestamp - startTimestamp;
     }
 }

@@ -1,300 +1,305 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
+    <!-- 
+      Microsoft ResX Schema 
+      
+      Version 2.0
+      
+      The primary goals of this format is to allow a simple XML format 
+      that is mostly human readable. The generation and parsing of the 
+      various data types are done through the TypeConverter classes 
+      associated with the data types.
+      
+      Example:
+      
+      ... ado.net/XML headers & schema ...
+      <resheader name="resmimetype">text/microsoft-resx</resheader>
+      <resheader name="version">2.0</resheader>
+      <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+      <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+      <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+      <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+      <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+          <value>[base64 mime encoded serialized .NET Framework object]</value>
+      </data>
+      <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+          <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+          <comment>This is a comment</comment>
+      </data>
+                  
+      There are any number of "resheader" rows that contain simple 
+      name/value pairs.
+      
+      Each data row contains a name, and value. The row also contains a 
+      type or mimetype. Type corresponds to a .NET class that support 
+      text/value conversion through the TypeConverter architecture. 
+      Classes that don't support this are serialized and stored with the 
+      mimetype set.
+      
+      The mimetype is used for serialized objects, and tells the 
+      ResXResourceReader how to depersist the object. This is currently not 
+      extensible. For a given mimetype the value must be set accordingly:
+      
+      Note - application/x-microsoft.net.object.binary.base64 is the format 
+      that the ResXResourceWriter will generate, however the reader can 
+      read any of the formats listed below.
+      
+      mimetype: application/x-microsoft.net.object.binary.base64
+      value   : The object must be serialized with 
+              : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+              : and then encoded with base64 encoding.
+      
+      mimetype: application/x-microsoft.net.object.soap.base64
+      value   : The object must be serialized with 
+              : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+              : and then encoded with base64 encoding.
+  
+      mimetype: application/x-microsoft.net.object.bytearray.base64
+      value   : The object must be serialized into a byte array 
+              : using a System.ComponentModel.TypeConverter
+              : and then encoded with base64 encoding.
+      -->
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root"
+                xmlns="">
+        <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+        <xsd:element name="root" msdata:IsDataSet="true">
             <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="metadata">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" use="required" type="xsd:string"/>
+                            <xsd:attribute name="type" type="xsd:string"/>
+                            <xsd:attribute name="mimetype" type="xsd:string"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="assembly">
+                        <xsd:complexType>
+                            <xsd:attribute name="alias" type="xsd:string"/>
+                            <xsd:attribute name="name" type="xsd:string"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
             </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="GLOBAL_SELECT_LANGUAGE" xml:space="preserve">
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <data name="GLOBAL_SELECT_LANGUAGE" xml:space="preserve">
     <value>Please Select Language (en-US, fr-FR):</value>
   </data>
-  <data name="GLOBAL_SELECTED_LANGUAGE" xml:space="preserve">
+    <data name="GLOBAL_SELECTED_LANGUAGE" xml:space="preserve">
     <value>The language selected is : en-US</value>
   </data>
-  <data name="GLOBAL_WELCOME" xml:space="preserve">
+    <data name="GLOBAL_WELCOME" xml:space="preserve">
     <value>Welcome to EasySave !</value>
   </data>
-  <data name="GLOBAL_SELECT_CHOICE" xml:space="preserve">
+    <data name="GLOBAL_SELECT_CHOICE" xml:space="preserve">
     <value>Your Choice:</value>
   </data>
-  <data name="GLOBAL_SELECT_CHOICE_RETRY" xml:space="preserve">
+    <data name="GLOBAL_SELECT_CHOICE_RETRY" xml:space="preserve">
     <value>Incorrect Choice.</value>
   </data>
-  <data name="GLOBAL_ASK_SAVE_NAME" xml:space="preserve">
+    <data name="GLOBAL_ASK_SAVE_NAME" xml:space="preserve">
     <value>Please enter name of Save or "cancel" to cancel:</value>
   </data>
-  <data name="GLOBAL_ASK_SAVE_NAME_OR_ALL" xml:space="preserve">
+    <data name="GLOBAL_ASK_SAVE_NAME_OR_ALL" xml:space="preserve">
     <value>Please enter name of Save or "all" to run all Saves or "cancel" to cancel:</value>
   </data>
-  <data name="GLOBAL_SAVE_NAME_NOT_EXIST" xml:space="preserve">
+    <data name="GLOBAL_SAVE_NAME_NOT_EXIST" xml:space="preserve">
     <value>This save doesn't exist.</value>
   </data>
-  <data name="GLOBAL_SAVE_ALREADY_RUN" xml:space="preserve">
+    <data name="GLOBAL_SAVE_ALREADY_RUN" xml:space="preserve">
     <value>This save is already running.</value>
   </data>
-  <data name="GLOBAL_CANNOT_REMOVE_RUNNING_SAVE" xml:space="preserve">
+    <data name="GLOBAL_CANNOT_REMOVE_RUNNING_SAVE" xml:space="preserve">
     <value>You cannot remove running save.</value>
   </data>
-  <data name="GLOBAL_PERFORMING_SAVE" xml:space="preserve">
+    <data name="GLOBAL_PERFORMING_SAVE" xml:space="preserve">
     <value>Performing Save...</value>
   </data>
-  <data name="GLOBAL_DONE" xml:space="preserve">
+    <data name="GLOBAL_DONE" xml:space="preserve">
     <value>Done.</value>
   </data>
-  <data name="GLOBAL_NAME" xml:space="preserve">
+    <data name="GLOBAL_NAME" xml:space="preserve">
     <value>Name</value>
   </data>
-  <data name="GLOBAL_STATE" xml:space="preserve">
+    <data name="GLOBAL_STATE" xml:space="preserve">
     <value>State</value>
   </data>
-  <data name="GLOBAL_TYPE" xml:space="preserve">
+    <data name="GLOBAL_TYPE" xml:space="preserve">
     <value>Type of Save</value>
   </data>
-  <data name="GLOBAL_SOURCE" xml:space="preserve">
+    <data name="GLOBAL_SOURCE" xml:space="preserve">
     <value>Source</value>
   </data>
-  <data name="GLOBAL_TARGET" xml:space="preserve">
+    <data name="GLOBAL_TARGET" xml:space="preserve">
     <value>Target</value>
   </data>
-  <data name="CHOICE_DISPLAY" xml:space="preserve">
+    <data name="CHOICE_DISPLAY" xml:space="preserve">
     <value>Possible Actions List:</value>
   </data>
-  <data name="CHOICE_DESC_CREATE" xml:space="preserve">
+    <data name="CHOICE_DESC_CREATE" xml:space="preserve">
     <value>Add a Save</value>
   </data>
-  <data name="CHOICE_DESC_END" xml:space="preserve">
+    <data name="CHOICE_DESC_END" xml:space="preserve">
     <value>Stop Application</value>
   </data>
-  <data name="CHOICE_DESC_REMOVE" xml:space="preserve">
+    <data name="CHOICE_DESC_REMOVE" xml:space="preserve">
     <value>Remove a Save</value>
   </data>
-  <data name="CHOICE_DESC_SHOW_LIST" xml:space="preserve">
+    <data name="CHOICE_DESC_SHOW_LIST" xml:space="preserve">
     <value>Show Save List</value>
   </data>
-  <data name="CHOICE_DESC_START" xml:space="preserve">
+    <data name="CHOICE_DESC_START" xml:space="preserve">
     <value>Run one or multiple Save(s)</value>
   </data>
-  <data name="CHOICE_DESC_STOP" xml:space="preserve">
+    <data name="CHOICE_DESC_STOP" xml:space="preserve">
     <value>Stop one or multiple Save(s)</value>
   </data>
-  <data name="CREATE_SAVE_ASK_NAME" xml:space="preserve">
+    <data name="CREATE_SAVE_ASK_NAME" xml:space="preserve">
     <value>Type a name to the Save or "cancel" to cancel:</value>
   </data>
-  <data name="CREATE_SAVE_ASK_NAME_RETRY" xml:space="preserve">
+    <data name="CREATE_SAVE_ASK_NAME_RETRY" xml:space="preserve">
     <value>A save already has this name.</value>
   </data>
-  <data name="CREATE_SAVE_ASK_SOURCE_URI" xml:space="preserve">
+    <data name="CREATE_SAVE_ASK_SOURCE_URI" xml:space="preserve">
     <value>Type the Save path or "cancel" to cancel:</value>
   </data>
-  <data name="CREATE_SAVE_ASK_SOURCE_URI_RETRY" xml:space="preserve">
+    <data name="CREATE_SAVE_ASK_SOURCE_URI_RETRY" xml:space="preserve">
     <value>The path is incorrect.</value>
   </data>
-  <data name="CREATE_SAVE_ASK_TARGET_URI" xml:space="preserve">
+    <data name="CREATE_SAVE_ASK_TARGET_URI" xml:space="preserve">
     <value>Type the Save write path or "cancel" to cancel:</value>
   </data>
-  <data name="CREATE_SAVE_ASK_TARGET_URI_RETRY" xml:space="preserve">
+    <data name="CREATE_SAVE_ASK_TARGET_URI_RETRY" xml:space="preserve">
     <value>The path is incorrect.</value>
   </data>
-  <data name="CREATE_SAVE_ASK_TYPE" xml:space="preserve">
+    <data name="CREATE_SAVE_ASK_TYPE" xml:space="preserve">
     <value>Type backup type ( 1 - Complete | 2 - Differential ) or "cancel" to cancel:</value>
   </data>
-  <data name="CREATE_SAVE_ASK_TYPE_RETRY" xml:space="preserve">
+    <data name="CREATE_SAVE_ASK_TYPE_RETRY" xml:space="preserve">
     <value>This backup type doesn't exist.</value>
   </data>
-  <data name="CREATE_SAVE_ERROR" xml:space="preserve">
+    <data name="CREATE_SAVE_ERROR" xml:space="preserve">
     <value>An error occurred while creating your Save!</value>
   </data>
-  <data name="CREATE_SAVE_SUCCESS" xml:space="preserve">
+    <data name="CREATE_SAVE_SUCCESS" xml:space="preserve">
     <value>Your Save has been successfully created!</value>
   </data>
-  <data name="GLOBAL_ASK_GO_TO_MENU" xml:space="preserve">
+    <data name="GLOBAL_ASK_GO_TO_MENU" xml:space="preserve">
     <value>Type something or type enter to back to the menu</value>
   </data>
-  <data name="CREATE_SAVE_REACH_LIMIT" xml:space="preserve">
+    <data name="CREATE_SAVE_REACH_LIMIT" xml:space="preserve">
     <value>You have reached the limit of 5 saves.</value>
   </data>
-  <data name="BUTTON_CREATE_SAVE" xml:space="preserve">
+    <data name="BUTTON_CREATE_SAVE" xml:space="preserve">
     <value>Create new Save</value>
   </data>
-  <data name="BUTTON_PAUSE_ALL_SAVES" xml:space="preserve">
+    <data name="BUTTON_PAUSE_ALL_SAVES" xml:space="preserve">
     <value>Pause all Saves</value>
   </data>
-  <data name="BUTTON_RESUME_ALL_SAVES" xml:space="preserve">
+    <data name="BUTTON_RESUME_ALL_SAVES" xml:space="preserve">
     <value>Resume all Saves</value>
   </data>
-  <data name="BUTTON_START_ALL_SAVES" xml:space="preserve">
+    <data name="BUTTON_START_ALL_SAVES" xml:space="preserve">
     <value>Start all Saves</value>
   </data>
-  <data name="CREATE_COMPLETE_ALL_INPUTS" xml:space="preserve">
+    <data name="CREATE_COMPLETE_ALL_INPUTS" xml:space="preserve">
     <value>You have to complete all input !</value>
   </data>
-  <data name="CREATE_SAVE_SELECT_SOURCE" xml:space="preserve">
+    <data name="CREATE_SAVE_SELECT_SOURCE" xml:space="preserve">
     <value>Select Source Path</value>
   </data>
-  <data name="CREATE_SAVE_SELECT_TARGET" xml:space="preserve">
+    <data name="CREATE_SAVE_SELECT_TARGET" xml:space="preserve">
     <value>Select Target Path</value>
   </data>
-  <data name="ERROR_JOB_APPLICATION_RUNNING" xml:space="preserve">
+    <data name="ERROR_JOB_APPLICATION_RUNNING" xml:space="preserve">
     <value>One job Application is running, please stop them to run save(s) !</value>
   </data>
-  <data name="GLOBAL_CANCEL" xml:space="preserve">
+    <data name="GLOBAL_CANCEL" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="GLOBAL_CREATE" xml:space="preserve">
+    <data name="GLOBAL_CREATE" xml:space="preserve">
     <value>Create</value>
   </data>
-  <data name="GLOBAL_PROGRESSION" xml:space="preserve">
+    <data name="GLOBAL_PROGRESSION" xml:space="preserve">
     <value>Progression</value>
   </data>
-  <data name="GLOBAL_SELECT_LANGUAGE_GUI" xml:space="preserve">
+    <data name="GLOBAL_SELECT_LANGUAGE_GUI" xml:space="preserve">
     <value>Please Select Language !</value>
   </data>
-  <data name="PAGE_HOME_TITLE" xml:space="preserve">
+    <data name="PAGE_HOME_TITLE" xml:space="preserve">
     <value>Home EasySave</value>
   </data>
-  <data name="PAGE_NAVIGATION_HOME_TITLE" xml:space="preserve">
+    <data name="PAGE_NAVIGATION_HOME_TITLE" xml:space="preserve">
     <value>Home Page</value>
   </data>
-  <data name="PAGE_NAVIGATION_SAVES_TITLE" xml:space="preserve">
+    <data name="PAGE_NAVIGATION_SAVES_TITLE" xml:space="preserve">
     <value>Saves Page</value>
   </data>
-  <data name="PAGE_SAVES_TITLE" xml:space="preserve">
+    <data name="PAGE_SAVES_TITLE" xml:space="preserve">
     <value>Saves Manager</value>
   </data>
-  <data name="GLOBAL_SELECT_SAVE_FILE_TYPE_GUI" xml:space="preserve">
+    <data name="GLOBAL_SELECT_SAVE_FILE_TYPE_GUI" xml:space="preserve">
     <value>Please Select Save File Type !</value>
   </data>
-  <data name="BUTTON_CREATE_EXTENSION" xml:space="preserve">
+    <data name="BUTTON_CREATE_EXTENSION" xml:space="preserve">
     <value>Add new Extension</value>
   </data>
-  <data name="BUTTON_CREATE_PRIORITY_FILE" xml:space="preserve">
+    <data name="BUTTON_CREATE_PRIORITY_FILE" xml:space="preserve">
     <value>Add new file name</value>
   </data>
-  <data name="EXTENSION_ADD_ASK_NAME_RETRY" xml:space="preserve">
+    <data name="EXTENSION_ADD_ASK_NAME_RETRY" xml:space="preserve">
     <value>This extension already exist !</value>
   </data>
-  <data name="GLOBAL_ENCRYPT_EXTENSIONS_GUI" xml:space="preserve">
+    <data name="GLOBAL_ENCRYPT_EXTENSIONS_GUI" xml:space="preserve">
     <value>List of Extensions will be Encrypted</value>
   </data>
-  <data name="GLOBAL_PRIORITY_FILES_GUI" xml:space="preserve">
+    <data name="GLOBAL_PRIORITY_FILES_GUI" xml:space="preserve">
     <value>List of all priority Files</value>
   </data>
-  <data name="HOME_ADD_EXTENSION" xml:space="preserve">
+    <data name="HOME_ADD_EXTENSION" xml:space="preserve">
     <value>Add new Extension</value>
   </data>
-  <data name="HOME_ADD_PRIORITY_FILE" xml:space="preserve">
+    <data name="HOME_ADD_PRIORITY_FILE" xml:space="preserve">
     <value>Add new File</value>
   </data>
 </root>

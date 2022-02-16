@@ -3,8 +3,9 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace MainApplication.Storages.Converter;
+
 /// <summary>
-/// Manages the time conversion
+///     Manages the time conversion
 /// </summary>
 public class DateTimeConverter : JsonConverter<DateTime>
 {

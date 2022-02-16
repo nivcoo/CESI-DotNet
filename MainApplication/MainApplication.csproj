@@ -7,26 +7,30 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Tests" />
+        <Folder Include="Tests" />
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Update="Localization\Language.fr-FR.resx">
-        <Generator>PublicResXFileCodeGenerator</Generator>
-        <LastGenOutput>fr_FR.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Localization\Language.resx">
-        <Generator>PublicResXFileCodeGenerator</Generator>
-        <LastGenOutput>Language.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
+        <EmbeddedResource Update="Localization\Language.fr-FR.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>fr_FR.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Localization\Language.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>Language.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Localization\Language.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>Language.resx</DependentUpon>
-      </Compile>
+        <Compile Update="Localization\Language.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Language.resx</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\CryptoSoft\CryptoSoft.csproj" />
     </ItemGroup>
 
 </Project>

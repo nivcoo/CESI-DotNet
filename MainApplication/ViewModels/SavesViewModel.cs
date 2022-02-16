@@ -1,68 +1,81 @@
+using System.Collections.ObjectModel;
 using MainApplication.Handlers;
 using MainApplication.Localization;
 using MainApplication.Objects;
-using MainApplication.Services;
-using System.Collections.ObjectModel;
 
 namespace MainApplication.ViewModels;
 
 public class SavesViewModel : BaseViewModel
 {
+    private CommandHandler? _deleteSaveButtonEvent;
+
+    private Action<Action>? _dispatchUiAction;
+
+    private CommandHandler? _pauseAllSavesEvent;
+
+    private CommandHandler? _pauseSaveButtonEvent;
+
+    private CommandHandler? _resumeAllSavesEvent;
+
+    private CommandHandler? _resumeSaveButtonEvent;
+
+    private Action<string>? _savePageErrorAction;
+
+
+    private CommandHandler? _startAllSavesEvent;
+
+    private CommandHandler? _startSaveButtonEvent;
+
+    public SavesViewModel()
+    {
+        Saves = new ObservableCollection<Save>();
+        UpdateSavesList();
+    }
 
 
     public ObservableCollection<Save> Saves { get; }
 
-    private CommandHandler? _startSaveButtonEvent;
-
     public CommandHandler StartSaveButtonEvent
     {
-        get { return _startSaveButtonEvent ??= _startSaveButtonEvent = new CommandHandler(StartSaveEvent, CanStartSave); }
+        get
+        {
+            return _startSaveButtonEvent ??= _startSaveButtonEvent = new CommandHandler(StartSaveEvent, CanStartSave);
+        }
     }
-
-    private CommandHandler? _pauseSaveButtonEvent;
 
     public CommandHandler PauseSaveButtonEvent
     {
         get { return _pauseSaveButtonEvent ??= _pauseSaveButtonEvent = new CommandHandler(PauseSaveEvent); }
     }
 
-    private CommandHandler? _deleteSaveButtonEvent;
-
     public CommandHandler DeleteSaveButtonEvent
     {
         get { return _deleteSaveButtonEvent ??= _deleteSaveButtonEvent = new CommandHandler(DeleteSaveEvent); }
     }
 
-    private CommandHandler? _resumeSaveButtonEvent;
-
     public CommandHandler ResumeSaveButtonEvent
     {
-        get { return _resumeSaveButtonEvent ??= _resumeSaveButtonEvent = new CommandHandler(ResumeSaveEvent, CanStartSave); }
+        get
+        {
+            return _resumeSaveButtonEvent ??=
+                _resumeSaveButtonEvent = new CommandHandler(ResumeSaveEvent, CanStartSave);
+        }
     }
-
-
-    private CommandHandler? _startAllSavesEvent;
 
     public CommandHandler StartAllSavesEvent
     {
         get { return _startAllSavesEvent ??= _startAllSavesEvent = new CommandHandler(StartAllSaves, CanStartSave); }
     }
 
-    private CommandHandler? _resumeAllSavesEvent;
-
     public CommandHandler ResumeAllSavesEvent
     {
         get { return _resumeAllSavesEvent ??= _resumeAllSavesEvent = new CommandHandler(ResumeAllSaves, CanStartSave); }
     }
 
-    private CommandHandler? _pauseAllSavesEvent;
-
     public CommandHandler PauseAllSavesEvent
     {
         get { return _pauseAllSavesEvent ??= _pauseAllSavesEvent = new CommandHandler(PauseAllSaves); }
     }
-
-    private Action<string>? _savePageErrorAction;
 
     public Action<string>? SavePageErrorAction
     {
@@ -70,21 +83,15 @@ public class SavesViewModel : BaseViewModel
         set => SetField(ref _savePageErrorAction, value, nameof(SavePageErrorAction));
     }
 
-    private Action<Action>? _dispatchUiAction;
-
-    public Action<Action>? DispatchUiAction { 
-        get => _dispatchUiAction; 
-        set { 
-            _dispatchUiAction = value; 
-            if(value != null)
-                EasySaveService.DispatchUiAction = value; 
-        }
-    }
-
-    public SavesViewModel()
+    public Action<Action>? DispatchUiAction
     {
-        Saves = new ObservableCollection<Save>();
-        UpdateSavesList();
+        get => _dispatchUiAction;
+        set
+        {
+            _dispatchUiAction = value;
+            if (value != null)
+                EasySaveService.DispatchUiAction = value;
+        }
     }
 
     public void UpdateSavesList()
@@ -114,7 +121,6 @@ public class SavesViewModel : BaseViewModel
         if (args is not Save save)
             return;
         SaveService.StartSave(save);
-
     }
 
     private void ResumeSaveEvent(object? args)
@@ -122,7 +128,6 @@ public class SavesViewModel : BaseViewModel
         if (args is not Save save)
             return;
         SaveService.SetStateOfSave(save, false);
-
     }
 
     private void PauseSaveEvent(object? args)
@@ -130,7 +135,6 @@ public class SavesViewModel : BaseViewModel
         if (args is not Save save)
             return;
         SaveService.SetStateOfSave(save, true);
-
     }
 
     private void DeleteSaveEvent(object? args)
@@ -146,15 +150,16 @@ public class SavesViewModel : BaseViewModel
     {
         if (origin is not CommandHandler ch)
             return true;
-        bool canStart = !EasySaveService.JobApplicationIsRunning(ch);
-        string message = string.Empty;
+        var canStart = !EasySaveService.JobApplicationIsRunning(ch);
+        var message = string.Empty;
         if (!canStart)
             message = Language.ERROR_JOB_APPLICATION_RUNNING;
         SendSaveError(message);
         return canStart;
     }
 
-    public void SendSaveError(string message) {
+    public void SendSaveError(string message)
+    {
         SavePageErrorAction?.Invoke(message);
     }
 }
