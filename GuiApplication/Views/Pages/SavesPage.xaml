@@ -46,10 +46,10 @@
             <Button Content="{Binding ElementName=savesPage, Path=ButtonResumeAllSavesTextBlock}" Command="{Binding ElementName=savesPage, Path=DataContext.ResumeAllSavesEvent}" />
         </StackPanel>
 
-        <GridView SelectionMode="None" Grid.Row="3" Margin="0,20,0,0" x:Name="GridViewSave" ItemsSource="{Binding Saves}" >
+        <GridView SelectionMode="None" Grid.Row="3" Margin="0,20,-25,0" x:Name="GridViewSave" ItemsSource="{Binding Saves}" >
             <GridView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Width="450" Background="{ThemeResource SystemAltHighColor}">
+                    <Grid CornerRadius="10" Width="400" Background="{ThemeResource SystemAltHighColor}">
                         <StackPanel Margin="20">
 
                             <TextBlock TextAlignment="Center" Text="{Binding Name}" FontWeight="Bold" FontSize="18"/>

@@ -1,5 +1,7 @@
 ﻿
+using System.Collections.ObjectModel;
 using System.Globalization;
+using MainApplication.Handlers;
 using MainApplication.Localization;
 using MainApplication.Objects;
 using MainApplication.Objects.Enums;
@@ -10,7 +12,23 @@ namespace MainApplication.ViewModels;
 public class HomeViewModel : BaseViewModel
 {
 
+    public ObservableCollection<string> EncryptExtensions { get; }
 
+    public ObservableCollection<string> PriorityFiles { get; }
+
+    private CommandHandler? _removeEncryptExtensionButtonEvent;
+
+    public CommandHandler RemoveEncryptExtensionButtonEvent
+    {
+        get { return _removeEncryptExtensionButtonEvent ??= _removeEncryptExtensionButtonEvent = new CommandHandler(RemoveEncryptExtensionEvent); }
+    }
+
+    private CommandHandler? _removePriorityFileButtonEvent;
+
+    public CommandHandler RemovePriorityFileButtonEvent
+    {
+        get { return _removePriorityFileButtonEvent ??= _removePriorityFileButtonEvent = new CommandHandler(RemovePriorityFileEvent); }
+    }
 
     public List<CultureInfo> AllCultureInfo
     {
@@ -39,6 +57,35 @@ public class HomeViewModel : BaseViewModel
         set => ConfigurationService.ChangeSaveFileType(value);
     }
 
+    public HomeViewModel() {
+        EncryptExtensions = new ObservableCollection<string>();
+
+        PriorityFiles = new ObservableCollection<string>();
+
+        UpdateEncryptExtensionsList();
+
+        UpdatePriorityFilesList();
+    }
+
+    private void RemoveEncryptExtensionEvent(object? args)
+    {
+        if (args is not string extension)
+            return;
+
+        ConfigurationService.RemoveEncryptExtension(extension);
+        EncryptExtensions.Remove(extension);
+    }
+
+    private void RemovePriorityFileEvent(object? args)
+    {
+        if (args is not string priorityFile)
+            return;
+
+        ConfigurationService.RemovePriorityFile(priorityFile);
+        PriorityFiles.Remove(priorityFile);
+    }
+
+
     public bool StartSave(string name)
     {
         return SaveService.StartSave(name);
@@ -63,6 +110,21 @@ public class HomeViewModel : BaseViewModel
     {
         return save.Progression;
     }
+
+    public void UpdateEncryptExtensionsList()
+    {
+        EncryptExtensions.Clear();
+        foreach (var extensionName in ConfigurationService.Config.EncryptExtensions)
+            EncryptExtensions.Add(extensionName);
+    }
+
+    public void UpdatePriorityFilesList()
+    {
+        PriorityFiles.Clear();
+        foreach (var fileName in ConfigurationService.Config.PriorityFiles)
+            PriorityFiles.Add(fileName);
+    }
+   
 
     public double GetProgressionOfAllSave()
     {

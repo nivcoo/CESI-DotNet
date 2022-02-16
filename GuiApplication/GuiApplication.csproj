@@ -13,6 +13,8 @@
 		<ApplicationIcon>Assets\Icons\cesi_logo.ico</ApplicationIcon>
 	</PropertyGroup>
 	<ItemGroup>
+		<None Remove="Views\Dialogs\AddEncryptExtensionDialog.xaml" />
+		<None Remove="Views\Dialogs\AddPriorityFileDialog.xaml" />
 		<None Remove="Views\Dialogs\CreateSaveDialog.xaml" />
 		<None Remove="Views\Pages\HomePage.xaml" />
 		<None Remove="Views\Pages\SavesPage.xaml" />
@@ -32,6 +34,14 @@
 	  <ProjectReference Include="..\MainApplication\MainApplication.csproj" />
 	</ItemGroup>
 	<ItemGroup>
+		<Page Update="Views\Dialogs\AddPriorityFileDialog.xaml">
+		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+		  <SubType>Designer</SubType>
+		</Page>
+		<Page Update="Views\Dialogs\AddEncryptExtensionDialog.xaml">
+		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+		  <SubType>Designer</SubType>
+		</Page>
 		<Page Update="Views\Dialogs\CreateSaveDialog.xaml">
 			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 			<SubType>Designer</SubType>

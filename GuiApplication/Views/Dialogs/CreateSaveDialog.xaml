@@ -8,13 +8,13 @@
 
     <StackPanel>
         <InfoBar Name="ErrorInfoBar" />
-        <TextBox Name="SaveName" Margin="0,12,0,0" PlaceholderText="Name" />
+        <TextBox Name="SaveName" Margin="0,12,0,0" />
         <RelativePanel Margin="0,24,0,0">
-            <Button Name="SourcePathButton" Content="Select Source Path" Click="SelectSourcePathAsync" />
+            <Button Name="SourcePathButton" Click="SelectSourcePathAsync" />
             <TextBlock Name="SourcePathText" Margin="10,5,0,0" Text=".\.." RelativePanel.RightOf="SourcePathButton" />
         </RelativePanel>
         <RelativePanel Margin="0,24,0,0">
-            <Button Name="TargetPathButton" Content="Select TargetPath Path" Click="SelectTargetPathAsync" />
+            <Button Name="TargetPathButton" Click="SelectTargetPathAsync" />
             <TextBlock Name="TargetPathText" Margin="10,5,0,0" Text=".\EasySave" RelativePanel.RightOf="TargetPathButton" />
         </RelativePanel>
         <ComboBox Name="SaveType" Margin="0,24,0,0" SelectedIndex="0" ItemsSource="{Binding SavesType}"/>
