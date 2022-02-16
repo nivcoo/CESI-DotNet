@@ -4,6 +4,7 @@ using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
+using System.Threading;
 
 namespace GuiApplication.Views.Pages;
 
@@ -33,7 +34,7 @@ public sealed partial class SavesPage : Page
         if (_saveViewModel.DispatchUiAction == null)
         {
             DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
-            _saveViewModel.DispatchUiAction = (action) => dispatcherQueue.TryEnqueue(() => { action.Invoke(); });
+            _saveViewModel.DispatchUiAction = (action) => dispatcherQueue.TryEnqueue(DispatcherQueuePriority.Low, () => { action.Invoke(); });
         }
         InitializeComponent();
 

@@ -8,6 +8,7 @@ namespace MainApplication.Storages;
 
 public class JsonStorage<T> : AStorage<T>
 {
+
     public JsonStorage(string filePath) : base(filePath)
     {
     }
@@ -23,34 +24,36 @@ public class JsonStorage<T> : AStorage<T>
 
     public override T? GetElement()
     {
-        try
+        var obj = RunMutexFunc(() =>
         {
             var text = File.ReadAllText(FilePath);
+
             if (text == "")
                 return default;
             var elementsList = JsonSerializer.Deserialize<T>(text.Trim(), _serializerOptions);
+
             return elementsList ?? default;
-        }
-        catch (Exception)
-        {
-            return default;
-        }
+        });
+
+        return (T?) obj;
+
     }
 
     public override List<T> GetAllElements()
     {
-        try
+
+        var list = RunMutexFunc(() =>
         {
             var text = File.ReadAllText(FilePath);
             if (text == "")
                 return new List<T>();
             var elementsList = JsonSerializer.Deserialize<List<T>>(text.Trim(), _serializerOptions);
             return elementsList ?? new List<T>();
-        }
-        catch (Exception)
-        {
-            return new List<T>();
-        }
+        }) as List<T>;
+
+        if (list != default)
+            return list;
+        else return new List<T>();
     }
 
     public override void WriteElement(T obj)
@@ -69,26 +72,28 @@ public class JsonStorage<T> : AStorage<T>
 
     public override void AddNewElementWithoutRewrite(T obj)
     {
-        var objects = new List<T> {obj};
-        using var fs = new FileStream(FilePath, FileMode.Open);
-        var serializeObject = SerializeObject(objects);
-        using var sw = new StreamWriter(fs);
-        if (fs.Length > 1)
-        {
-            fs.Position = fs.Seek(-1, SeekOrigin.End);
-
-            if (fs.ReadByte() == ']')
+        RunMutexAction(() => { 
+             var objects = new List<T> {obj};
+            using var fs = new FileStream(FilePath, FileMode.Open);
+            var serializeObject = SerializeObject(objects);
+            using var sw = new StreamWriter(fs);
+            if (fs.Length > 1)
             {
-                fs.SetLength(fs.Length - 4 - Environment.NewLine.Length);
-                var serializeObjectWithoutFirst = Regex.Split(serializeObject, Environment.NewLine).Skip(1);
-                serializeObject = string.Join(Environment.NewLine, serializeObjectWithoutFirst.ToArray());
-                sw.Write("  }," + Environment.NewLine);
-            }
-        }
+                fs.Position = fs.Seek(-1, SeekOrigin.End);
 
-        sw.Write(serializeObject);
-        sw.Close();
-        fs.Close();
+                if (fs.ReadByte() == ']')
+                {
+                    fs.SetLength(fs.Length - 4 - Environment.NewLine.Length);
+                    var serializeObjectWithoutFirst = Regex.Split(serializeObject, Environment.NewLine).Skip(1);
+                    serializeObject = string.Join(Environment.NewLine, serializeObjectWithoutFirst.ToArray());
+                    sw.Write("  }," + Environment.NewLine);
+                }
+            }
+
+            sw.Write(serializeObject);
+            sw.Close();
+            fs.Close();
+        });
     }
 
     public override void RemoveElement(Predicate<T> match)
@@ -121,13 +126,13 @@ public class JsonStorage<T> : AStorage<T>
 
     public override void ClearFile()
     {
-        File.WriteAllText(FilePath, string.Empty);
+        RunMutexAction(() => File.WriteAllText(FilePath, string.Empty));
     }
 
     private void SerializeAndSaveIntoFiles(object obj)
     {
         if (obj != null)
-            File.WriteAllText(FilePath, SerializeObject(obj));
+            RunMutexAction(() => File.WriteAllText(FilePath, SerializeObject(obj)));
     }
 
     private string SerializeObject(object obj)
