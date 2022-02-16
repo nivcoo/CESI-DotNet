@@ -11,12 +11,15 @@ public class Config
 {
     public string Language { get; set; }
     public SaveFileType SaveFileType { get; set; }
-    public string[] EncryptExtensions { get; set; }
+    public List<string> EncryptExtensions { get; set; }
 
-    public Config(string language, SaveFileType saveFileType, string[] encryptExtensions)
+    public List<string> PriorityFiles { get; set; }
+
+    public Config(string language, SaveFileType saveFileType, List<string> encryptExtensions, List<string> priorityFiles)
     {
         Language = language;
         SaveFileType = saveFileType;
         EncryptExtensions = encryptExtensions;
+        PriorityFiles = priorityFiles;
     }
 }

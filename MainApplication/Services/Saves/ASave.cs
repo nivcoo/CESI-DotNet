@@ -1,5 +1,6 @@
 ﻿using MainApplication.Objects;
 using MainApplication.Objects.Enums;
+using System.Diagnostics;
 
 namespace MainApplication.Services.Saves;
 
@@ -114,7 +115,7 @@ public abstract class ASave
             EndSave();
             return false;
         }
-
+        OrderFilesToCopy();
         UpdateStartSaveStatut();
         if (!CopyFiles())
         {
@@ -195,6 +196,22 @@ public abstract class ASave
     
     protected abstract bool RetrieveFilesToCopy();
 
+    private void OrderFilesToCopy()
+    {
+        var priorityFilesList = new List<SaveFile>();
+
+        var otherFilesList = new List<SaveFile>();
+
+        foreach (var file in SaveFiles) {
+
+            if (ConfigurationService.GetInstance().Config.PriorityFiles.Contains(file.FileName))
+                priorityFilesList.Add(file);
+            else
+                otherFilesList.Add(file);
+        }
+        SaveFiles = priorityFilesList.Concat(otherFilesList).ToList();
+    }
+
     /// <summary>
     /// Copy all retrieved files
     /// </summary>
@@ -229,6 +246,11 @@ public abstract class ASave
             try
             {
                 File.Copy(sourceFilePath, targetFilePath, true);
+                if (ConfigurationService.GetInstance().Config.EncryptExtensions.Contains(saveFile.FileName)) {
+                
+                    // TODO encrypt file             
+                }
+
                 BigFilesMutex.ReleaseMutex();
             }
             catch (Exception)

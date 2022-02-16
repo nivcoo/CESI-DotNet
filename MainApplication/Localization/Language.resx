@@ -276,4 +276,25 @@
   <data name="GLOBAL_SELECT_SAVE_FILE_TYPE_GUI" xml:space="preserve">
     <value>Please Select Save File Type !</value>
   </data>
+  <data name="BUTTON_CREATE_EXTENSION" xml:space="preserve">
+    <value>Add new Extension</value>
+  </data>
+  <data name="BUTTON_CREATE_PRIORITY_FILE" xml:space="preserve">
+    <value>Add new file name</value>
+  </data>
+  <data name="EXTENSION_ADD_ASK_NAME_RETRY" xml:space="preserve">
+    <value>This extension already exist !</value>
+  </data>
+  <data name="GLOBAL_ENCRYPT_EXTENSIONS_GUI" xml:space="preserve">
+    <value>List of Extensions will be Encrypted</value>
+  </data>
+  <data name="GLOBAL_PRIORITY_FILES_GUI" xml:space="preserve">
+    <value>List of all priority Files</value>
+  </data>
+  <data name="HOME_ADD_EXTENSION" xml:space="preserve">
+    <value>Add new Extension</value>
+  </data>
+  <data name="HOME_ADD_PRIORITY_FILE" xml:space="preserve">
+    <value>Add new File</value>
+  </data>
 </root>

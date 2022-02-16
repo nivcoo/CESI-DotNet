@@ -61,6 +61,24 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Add new Extension.
+        /// </summary>
+        public static string BUTTON_CREATE_EXTENSION {
+            get {
+                return ResourceManager.GetString("BUTTON_CREATE_EXTENSION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Add new file name.
+        /// </summary>
+        public static string BUTTON_CREATE_PRIORITY_FILE {
+            get {
+                return ResourceManager.GetString("BUTTON_CREATE_PRIORITY_FILE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Create new Save.
         /// </summary>
         public static string BUTTON_CREATE_SAVE {
@@ -295,6 +313,15 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à This extension already exist !.
+        /// </summary>
+        public static string EXTENSION_ADD_ASK_NAME_RETRY {
+            get {
+                return ResourceManager.GetString("EXTENSION_ADD_ASK_NAME_RETRY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Type something or type enter to back to the menu.
         /// </summary>
         public static string GLOBAL_ASK_GO_TO_MENU {
@@ -358,6 +385,15 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à List of Extensions will be Encrypted.
+        /// </summary>
+        public static string GLOBAL_ENCRYPT_EXTENSIONS_GUI {
+            get {
+                return ResourceManager.GetString("GLOBAL_ENCRYPT_EXTENSIONS_GUI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Name.
         /// </summary>
         public static string GLOBAL_NAME {
@@ -372,6 +408,15 @@ namespace MainApplication.Localization {
         public static string GLOBAL_PERFORMING_SAVE {
             get {
                 return ResourceManager.GetString("GLOBAL_PERFORMING_SAVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à List of all priority Files.
+        /// </summary>
+        public static string GLOBAL_PRIORITY_FILES_GUI {
+            get {
+                return ResourceManager.GetString("GLOBAL_PRIORITY_FILES_GUI", resourceCulture);
             }
         }
         
@@ -498,6 +543,24 @@ namespace MainApplication.Localization {
         public static string GLOBAL_WELCOME {
             get {
                 return ResourceManager.GetString("GLOBAL_WELCOME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Add new Extension.
+        /// </summary>
+        public static string HOME_ADD_EXTENSION {
+            get {
+                return ResourceManager.GetString("HOME_ADD_EXTENSION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Add new File.
+        /// </summary>
+        public static string HOME_ADD_PRIORITY_FILE {
+            get {
+                return ResourceManager.GetString("HOME_ADD_PRIORITY_FILE", resourceCulture);
             }
         }
         
