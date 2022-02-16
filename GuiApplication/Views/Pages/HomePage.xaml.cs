@@ -4,7 +4,6 @@ using MainApplication.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
-using System.Diagnostics;
 using System.Globalization;
 
 namespace GuiApplication.Views.Pages;
@@ -56,7 +55,7 @@ public sealed partial class HomePage : Page
     private void ChangeSaveFileTypeEvent(object sender, SelectionChangedEventArgs args)
     {
         ComboBox comboBox = sender as ComboBox;
-        var saveFileType = (SaveFileType) comboBox.SelectedItem;
+        var saveFileType = (SaveFileType)comboBox.SelectedItem;
         _homeViewModel.SelectedSaveFileType = saveFileType;
     }
 

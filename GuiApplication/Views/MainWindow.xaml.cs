@@ -44,11 +44,12 @@ public sealed partial class MainWindow : Window
 
     private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
-            
+
         var selectedItem = args.SelectedItem as NavigationViewItem;
         string selectedItemTag = selectedItem.Tag as string;
 
-        switch (selectedItemTag) {
+        switch (selectedItemTag)
+        {
             case "HomePage":
                 sender.Header = MainApplication.Localization.Language.PAGE_HOME_TITLE;
                 MainContentFrame.Navigate(typeof(HomePage));
@@ -58,7 +59,7 @@ public sealed partial class MainWindow : Window
                 MainContentFrame.Navigate(typeof(SavesPage));
                 break;
         }
-            
+
     }
 
     public static MainWindow GetInstance()

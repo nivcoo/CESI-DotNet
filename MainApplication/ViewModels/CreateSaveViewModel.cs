@@ -6,8 +6,6 @@ namespace MainApplication.ViewModels;
 
 public class CreateSaveViewModel : BaseViewModel
 {
-
-
     private TypeSave[] _savesType = (TypeSave[]) Enum.GetValues(typeof(TypeSave));
 
     public TypeSave[] SavesType
@@ -17,18 +15,17 @@ public class CreateSaveViewModel : BaseViewModel
     }
 
     /// <summary>
-    /// Add save with save object
+    ///     Add save with save object
     /// </summary>
     /// <param name="save"></param>
     /// <returns>true if Success</returns>
-
     public bool AddNewSave(Save save)
     {
         return SaveService.AddNewSave(save);
     }
 
     /// <summary>
-    /// Is value Uri
+    ///     Is value Uri
     /// </summary>
     /// <param name="uri"></param>
     /// <returns>uri object or null if error</returns>

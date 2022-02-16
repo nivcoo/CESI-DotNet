@@ -2,9 +2,9 @@
 
 public class SaveFile
 {
-    public readonly string Path;
     public readonly string FileName;
     public readonly long FileSize;
+    public readonly string Path;
 
     public SaveFile(string path, string fileName, long fileSize)
     {

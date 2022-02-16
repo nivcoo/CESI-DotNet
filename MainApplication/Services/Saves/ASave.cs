@@ -1,6 +1,5 @@
 ﻿using MainApplication.Objects;
 using MainApplication.Objects.Enums;
-using System.Diagnostics;
 
 namespace MainApplication.Services.Saves;
 
@@ -9,24 +8,17 @@ public abstract class ASave
     private readonly EasySaveService _easySaveServiceService = EasySaveService.GetInstance();
     private readonly LogService _logService = LogService.GetInstance();
     private readonly SaveService _saveService = SaveService.GetInstance();
-    
+
     private readonly Mutex BigFilesMutex;
-
-    public Task<bool>? SaveTask;
-
-
-    public CancellationTokenSource? TaskTokenSource { get; set; }
-
-    public CancellationToken TaskToken { get; set; }
-
-    protected Save Save { get; }
-
-    protected List<SaveFile> SaveFiles;
 
     protected bool DeleteFilesBeforeCopy = false;
     public bool PausedTask;
 
     public bool Running;
+
+    protected List<SaveFile> SaveFiles;
+
+    public Task<bool>? SaveTask;
 
     protected ASave(Save save)
     {
@@ -36,13 +28,21 @@ public abstract class ASave
         Save = save;
     }
 
-    public void Init() {
+
+    public CancellationTokenSource? TaskTokenSource { get; set; }
+
+    public CancellationToken TaskToken { get; set; }
+
+    protected Save Save { get; }
+
+    public void Init()
+    {
         InitTask();
         SaveFiles = new List<SaveFile>();
     }
 
-    public void CancelTask() {
-
+    public void CancelTask()
+    {
         try
         {
             if (TaskTokenSource != null)
@@ -50,13 +50,11 @@ public abstract class ASave
         }
         catch (ObjectDisposedException)
         {
-
         }
     }
 
     private void InitTask()
     {
-
         Running = false;
         PausedTask = false;
         CancelTask();
@@ -64,26 +62,26 @@ public abstract class ASave
         TaskTokenSource = new CancellationTokenSource();
         TaskToken = TaskTokenSource.Token;
         SaveTask = new Task<bool>(RunSave, TaskToken);
-        
     }
-    
+
     /// <summary>
-    /// Get all files in folder recursively
+    ///     Get all files in folder recursively
     /// </summary>
     /// <param name="path"></param>
     /// <returns>List of files</returns>
     protected static string[] GetAllFolderFiles(Uri path)
     {
-        return Directory.Exists(path.LocalPath) ? Directory.GetFiles(path.LocalPath, "*.*", SearchOption.AllDirectories) : Array.Empty<string>();
+        return Directory.Exists(path.LocalPath)
+            ? Directory.GetFiles(path.LocalPath, "*.*", SearchOption.AllDirectories)
+            : Array.Empty<string>();
     }
 
     /// <summary>
-    /// Delete not empty folder
+    ///     Delete not empty folder
     /// </summary>
     /// <param name="folderPath"></param>
     private static void DeleteFolderWithFiles(Uri folderPath)
     {
-        
         if (!Directory.Exists(folderPath.LocalPath))
             return;
 
@@ -102,7 +100,7 @@ public abstract class ASave
     }
 
     /// <summary>
-    /// Run current save
+    ///     Run current save
     /// </summary>
     /// <returns>true if Success</returns>
     private bool RunSave()
@@ -115,6 +113,7 @@ public abstract class ASave
             EndSave();
             return false;
         }
+
         OrderFilesToCopy();
         UpdateStartSaveStatut();
         if (!CopyFiles())
@@ -127,25 +126,23 @@ public abstract class ASave
         return true;
     }
 
-    private void EndSave() {
+    private void EndSave()
+    {
         ChangeSaveState(State.End);
         InitTask();
     }
-    
+
     /// <summary>
-    /// Reset all default values
+    ///     Reset all default values
     /// </summary>
     private void ResetSaveValues()
     {
         SaveFiles = new List<SaveFile>();
-        ExecuteActionOnUIThread(() =>
-        {
-            Save.ResetValues();
-        });
+        ExecuteActionOnUIThread(() => { Save.ResetValues(); });
     }
 
     /// <summary>
-    /// Update save into storage
+    ///     Update save into storage
     /// </summary>
     private void UpdateSaveStatut()
     {
@@ -156,11 +153,10 @@ public abstract class ASave
             Save.UpdateProgression();
         });
         UpdateSaveStorage();
-
     }
 
     /// <summary>
-    /// Update save default values into storage
+    ///     Update save default values into storage
     /// </summary>
     private void UpdateStartSaveStatut()
     {
@@ -174,26 +170,23 @@ public abstract class ASave
     }
 
     /// <summary>
-    /// Change state of save (End, Active)
+    ///     Change state of save (End, Active)
     /// </summary>
     /// <param name="state"></param>
     private void ChangeSaveState(State state)
     {
-        ExecuteActionOnUIThread(() =>
-        {
-            Save.State = state;
-        });
+        ExecuteActionOnUIThread(() => { Save.State = state; });
         UpdateSaveStorage();
     }
 
     /// <summary>
-    /// Update save into storage
+    ///     Update save into storage
     /// </summary>
     private void UpdateSaveStorage()
     {
         _saveService.UpdateSaveStorage(Save);
     }
-    
+
     protected abstract bool RetrieveFilesToCopy();
 
     private void OrderFilesToCopy()
@@ -202,18 +195,17 @@ public abstract class ASave
 
         var otherFilesList = new List<SaveFile>();
 
-        foreach (var file in SaveFiles) {
-
+        foreach (var file in SaveFiles)
             if (ConfigurationService.GetInstance().Config.PriorityFiles.Contains(file.FileName))
                 priorityFilesList.Add(file);
             else
                 otherFilesList.Add(file);
-        }
+
         SaveFiles = priorityFilesList.Concat(otherFilesList).ToList();
     }
 
     /// <summary>
-    /// Copy all retrieved files
+    ///     Copy all retrieved files
     /// </summary>
     /// <returns>true if Success</returns>
     private bool CopyFiles()
@@ -239,50 +231,51 @@ public abstract class ASave
 
 
             var megaBytes = (double) saveFile.FileSize / 1000000;
-
-            if (megaBytes >= 10)
+            var isBigFile = megaBytes >= 10;
+            if (isBigFile)
                 BigFilesMutex.WaitOne(300000);
-
+            long timeToEncypt = -1;
             try
             {
-                File.Copy(sourceFilePath, targetFilePath, true);
-                if (ConfigurationService.GetInstance().Config.EncryptExtensions.Contains(saveFile.FileName)) {
-                
-                    // TODO encrypt file             
-                }
-
-                BigFilesMutex.ReleaseMutex();
+                if (ConfigurationService.GetInstance().Config.EncryptExtensions
+                    .Contains(Path.GetExtension(saveFile.FileName)))
+                    timeToEncypt = CryptoSoft.CryptoSoft.EncryptFile(sourceFilePath, targetFilePath,
+                        "IO7LHYO8");
+                else
+                    File.Copy(sourceFilePath, targetFilePath, true);
             }
             catch (Exception)
             {
                 // ignored
             }
+
+            if (isBigFile)
+                BigFilesMutex.ReleaseMutex();
             while (PausedTask && !IsCancelled())
             {
             }
-            if (IsCancelled()) {
+
+            if (IsCancelled())
+            {
                 TaskTokenSource?.Dispose();
                 return false;
             }
-            
+
             UpdateSaveStatut();
             var sourceFileInfo = new FileInfo(sourceFilePath);
             var finalTimestamp = ToolService.GetTimestamp();
             var time = finalTimestamp - actualTimestamp;
 
-            
+
             _logService.InsertLog(new Log(Save.Name, new Uri(sourceFilePath), new Uri(targetFilePath),
-                        sourceFileInfo.Length, time, 0, DateTime.Now));
-   
-           
-            
+                sourceFileInfo.Length, time, timeToEncypt, DateTime.Now));
         }
 
         return true;
     }
 
-    public bool IsCancelled() {
-
+    public bool IsCancelled()
+    {
         return TaskTokenSource is {IsCancellationRequested: true};
     }
 
@@ -291,12 +284,8 @@ public abstract class ASave
         var uiThread = _easySaveServiceService.DispatchUiAction;
 
         if (uiThread == null)
-        {
             action.Invoke();
-        }
         else
-        {
             uiThread.Invoke(action.Invoke);
-        }
     }
 }

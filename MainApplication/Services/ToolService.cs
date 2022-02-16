@@ -8,9 +8,9 @@ internal class ToolService
     {
         return Instance;
     }
-    
+
     /// <summary>
-    /// Is value Uri
+    ///     Is value Uri
     /// </summary>
     /// <param name="uri"></param>
     /// <returns>uri object or null if error</returns>
@@ -27,9 +27,9 @@ internal class ToolService
             return null;
         }
     }
-    
+
     /// <summary>
-    /// Check if object is present into enum
+    ///     Check if object is present into enum
     /// </summary>
     /// <param name="obj"></param>
     /// <typeparam name="T"></typeparam>
@@ -42,7 +42,7 @@ internal class ToolService
     }
 
     /// <summary>
-    /// Convert string to integer and integer to enum
+    ///     Convert string to integer and integer to enum
     /// </summary>
     /// <param name="choiceString"></param>
     /// <typeparam name="T"></typeparam>
@@ -61,9 +61,9 @@ internal class ToolService
             return default;
         }
     }
-    
+
     /// <summary>
-    /// Get current timestamp
+    ///     Get current timestamp
     /// </summary>
     /// <returns>timestamp</returns>
     public static long GetTimestamp()
@@ -72,7 +72,7 @@ internal class ToolService
     }
 
     /// <summary>
-    /// Convert bytes to string
+    ///     Convert bytes to string
     /// </summary>
     /// <param name="fileHash"></param>
     /// <returns>string</returns>
@@ -82,7 +82,7 @@ internal class ToolService
     }
 
     /// <summary>
-    /// Compare two file with hash
+    ///     Compare two file with hash
     /// </summary>
     /// <param name="file1"></param>
     /// <param name="file2"></param>

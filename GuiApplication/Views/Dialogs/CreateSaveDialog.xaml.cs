@@ -1,13 +1,13 @@
-﻿using Microsoft.UI.Xaml;
+﻿using MainApplication.Objects;
+using MainApplication.Objects.Enums;
+using MainApplication.ViewModels;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
+using System.Threading.Tasks;
+using Windows.Storage;
 using Windows.Storage.Pickers;
 using WinRT.Interop;
-using MainApplication.ViewModels;
-using Windows.Storage;
-using System.Threading.Tasks;
-using MainApplication.Objects;
-using MainApplication.Objects.Enums;
 
 namespace GuiApplication.Views.Dialogs;
 
@@ -44,11 +44,11 @@ public sealed partial class CreateSaveDialog : Page
     }
 
     private async void SelectTargetPathAsync(object sender, RoutedEventArgs e)
-    { 
+    {
 
         var folder = await GetFolderFromFolderPicker();
         if (folder == null)
-         return;
+            return;
         var folderName = folder.Path + @"\EasySave";
         TargetPath = new Uri(folderName);
         TargetPathText.Text = folderName;
@@ -78,7 +78,7 @@ public sealed partial class CreateSaveDialog : Page
             return;
         }
 
-        if(_createSaveViewModel.AlreadySaveWithSameName(saveName) != null)
+        if (_createSaveViewModel.AlreadySaveWithSameName(saveName) != null)
         {
             ErrorInfoBar.Message = MainApplication.Localization.Language.CREATE_SAVE_ASK_NAME_RETRY;
             ErrorInfoBar.Severity = InfoBarSeverity.Error;
@@ -87,10 +87,10 @@ public sealed partial class CreateSaveDialog : Page
             return;
         }
 
-        TypeSave saveTypeEnum = (TypeSave) saveType;
+        TypeSave saveTypeEnum = (TypeSave)saveType;
 
         Save save = new(saveName, SourcePath, TargetPath, saveTypeEnum, State.End, 0, 0, 0, 0);
-        
+
         _createSaveViewModel.AddNewSave(save);
 
     }

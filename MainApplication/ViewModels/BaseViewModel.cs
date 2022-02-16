@@ -1,12 +1,11 @@
-﻿
-using MainApplication.Services;
+﻿using MainApplication.Handlers;
 using MainApplication.Objects;
-using MainApplication.Handlers;
+using MainApplication.Services;
 
 namespace MainApplication.ViewModels;
 
 /// <summary>
-/// The base and generic viewmodel for the application 
+///     The base and generic viewmodel for the application
 /// </summary>
 public class BaseViewModel : INPChanged
 {
