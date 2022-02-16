@@ -8,8 +8,11 @@ public abstract class ASave
     private readonly EasySaveService _easySaveServiceService = EasySaveService.GetInstance();
     private readonly LogService _logService = LogService.GetInstance();
     private readonly SaveService _saveService = SaveService.GetInstance();
+    
+    private readonly Mutex BigFilesMutex;
 
     public Task<bool>? SaveTask;
+
 
     public CancellationTokenSource? TaskTokenSource { get; set; }
 
@@ -26,6 +29,7 @@ public abstract class ASave
 
     protected ASave(Save save)
     {
+        BigFilesMutex = new Mutex();
         Init();
         SaveFiles = new List<SaveFile>();
         Save = save;
@@ -149,8 +153,9 @@ public abstract class ASave
             Save.NbFilesLeftToDo -= 1;
             Save.FilesAlreadyDone += 1;
             Save.UpdateProgression();
-            UpdateSaveStorage();
         });
+        UpdateSaveStorage();
+
     }
 
     /// <summary>
@@ -163,8 +168,8 @@ public abstract class ASave
             Save.TotalFilesToCopy = SaveFiles.Count;
             Save.NbFilesLeftToDo = SaveFiles.Count;
             Save.TotalFilesSize = SaveFiles.Sum(saveFile => saveFile.FileSize);
-            UpdateSaveStorage();
         });
+        UpdateSaveStorage();
     }
 
     /// <summary>
@@ -176,8 +181,8 @@ public abstract class ASave
         ExecuteActionOnUIThread(() =>
         {
             Save.State = state;
-            UpdateSaveStorage();
         });
+        UpdateSaveStorage();
     }
 
     /// <summary>
@@ -214,9 +219,17 @@ public abstract class ASave
             var fileName = saveFile.FileName;
             var sourceFilePath = Path.Combine(sourceFolder, fileName);
             var targetFilePath = Path.Combine(targetFolder, fileName);
+
+
+            var megaBytes = (double) saveFile.FileSize / 1000000;
+
+            if (megaBytes >= 10)
+                BigFilesMutex.WaitOne(300000);
+
             try
             {
                 File.Copy(sourceFilePath, targetFilePath, true);
+                BigFilesMutex.ReleaseMutex();
             }
             catch (Exception)
             {
@@ -234,11 +247,12 @@ public abstract class ASave
             var sourceFileInfo = new FileInfo(sourceFilePath);
             var finalTimestamp = ToolService.GetTimestamp();
             var time = finalTimestamp - actualTimestamp;
-            ExecuteActionOnUIThread(() =>
-            {
-                _logService.InsertLog(new Log(Save.Name, new Uri(sourceFilePath), new Uri(targetFilePath),
-                sourceFileInfo.Length, time, 0, DateTime.Now));
-            });
+
+            
+            _logService.InsertLog(new Log(Save.Name, new Uri(sourceFilePath), new Uri(targetFilePath),
+                        sourceFileInfo.Length, time, 0, DateTime.Now));
+   
+           
             
         }
 

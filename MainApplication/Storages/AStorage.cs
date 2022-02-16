@@ -6,9 +6,12 @@ public abstract class AStorage<T>
 {
     protected string FilePath { get; set; }
 
+    private readonly Mutex EditFilesMutex;
+
     protected AStorage(string filePath)
     {
         FilePath = filePath;
+        EditFilesMutex = new Mutex();
     }
 
     /// <summary>
@@ -70,5 +73,41 @@ public abstract class AStorage<T>
     public static implicit operator AStorage<T>(JsonStorage<Config> v)
     {
         throw new NotImplementedException();
+    }
+
+    protected void RunMutexAction(Action action)
+    {
+        try
+        {
+            EditFilesMutex.WaitOne(30000);
+            action.Invoke();
+        }
+        catch (Exception)
+        {
+        }
+        finally
+        {
+            EditFilesMutex.ReleaseMutex();
+        }
+    }
+
+    protected object? RunMutexFunc(Func<object?> func)
+    {
+        try
+        {
+            EditFilesMutex.WaitOne(30000);
+            var rtn = Task.Run(() => func.Invoke());
+            rtn.Wait();
+            return rtn.Result;
+        }
+        catch (Exception)
+        {
+        }
+        finally
+        {
+            EditFilesMutex.ReleaseMutex();
+        }
+        return default;
+
     }
 }
