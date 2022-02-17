@@ -86,7 +86,6 @@ public class JsonStorage<T> : AStorage<T>
                     sw.Write("  }," + Environment.NewLine);
                 }
             }
-
             sw.Write(serializeObject);
             sw.Close();
             fs.Close();
