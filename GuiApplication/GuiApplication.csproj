@@ -20,7 +20,6 @@
 		<None Remove="Views\Pages\LogsPage.xaml" />
 		<None Remove="Views\Pages\SavesPage.xaml" />
 	</ItemGroup>
-
 	<ItemGroup>
 		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0" />
 		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.194" />
