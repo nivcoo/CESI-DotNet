@@ -17,6 +17,7 @@
 		<None Remove="Views\Dialogs\AddPriorityFileDialog.xaml" />
 		<None Remove="Views\Dialogs\CreateSaveDialog.xaml" />
 		<None Remove="Views\Pages\HomePage.xaml" />
+		<None Remove="Views\Pages\LogsPage.xaml" />
 		<None Remove="Views\Pages\SavesPage.xaml" />
 	</ItemGroup>
 
@@ -45,6 +46,10 @@
 		<Page Update="Views\Dialogs\CreateSaveDialog.xaml">
 			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="Views\Pages\LogsPage.xaml">
+		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+		  <SubType>Designer</SubType>
 		</Page>
 		<Page Update="Views\Pages\SavesPage.xaml">
 			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>

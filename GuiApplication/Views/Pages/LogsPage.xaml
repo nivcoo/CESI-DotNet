@@ -1,0 +1,65 @@
+﻿<Page Name="logsPage"
+    x:Class="GuiApplication.Views.Pages.LogsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <ScrollViewer ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+
+            <StackPanel CornerRadius="10" Grid.Row="1" Margin="0,15,0,0" Padding="20" Orientation="Vertical" Background="{ThemeResource SystemAltHighColor}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Name="WelcomeTextBox"/>
+                </StackPanel>
+
+                <GridView SelectionMode="None" x:Name="GridViewEncryptExtensions" ItemsSource="{Binding LogFiles}" >
+                    <GridView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <StackPanel Orientation="Horizontal" CornerRadius="5">
+                                    <Button ToolTipService.ToolTip="{Binding FilePath}" Width="160" FontWeight="Bold" Content="{Binding FileName}" Command="{Binding ElementName=logsPage, Path=DataContext.OpenLogButtonEvent}"
+                                    CommandParameter="{Binding}">
+                                        <Button.Resources>
+                                            <ResourceDictionary>
+                                                <ResourceDictionary.ThemeDictionaries>
+                                                    <ResourceDictionary x:Key="Light">
+                                                        <SolidColorBrush x:Key="ButtonBackground" Color="{ThemeResource SystemAccentColor}"/>
+                                                        <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="{ThemeResource SystemAccentColorLight1}"/>
+                                                        <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
+                                                        <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
+                                                    </ResourceDictionary>
+                                                </ResourceDictionary.ThemeDictionaries>
+                                            </ResourceDictionary>
+                                        </Button.Resources>
+                                    </Button>
+
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsWrapGrid MaximumRowsOrColumns="7" Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+                </GridView>
+                
+
+
+
+            </StackPanel>
+
+        </Grid>
+    </ScrollViewer>
+
+</Page>

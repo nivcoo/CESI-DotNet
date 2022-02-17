@@ -12,9 +12,30 @@ internal sealed class LogService
     private static readonly LogService Instance = new();
     private readonly ConfigurationService _configurationService = ConfigurationService.GetInstance();
 
+    private readonly string _logsFolderPath;
     private string? _logsPath;
 
     private AStorage<Log>? _storage;
+
+    public LogService()
+    {
+        _logsFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"data\logs\";
+    }
+
+    public List<LogFile> GetAllLogFiles()
+    {
+
+        var listOfFiles = Directory.Exists(_logsFolderPath)
+            ? Directory.GetFiles(_logsFolderPath)
+            : Array.Empty<string>();
+        var listOfLogFile = new List<LogFile>();
+        foreach (var file in listOfFiles)
+        {
+            listOfLogFile.Add(new LogFile(Path.GetFileName(file), Path.GetFullPath(file)));
+
+        }
+        return listOfLogFile;
+    }
 
     private void LoadLogsFile()
     {
@@ -22,12 +43,12 @@ internal sealed class LogService
         var date = dateTime.ToString("yyyy-MM-dd");
         if (_configurationService.Config.SaveFileType == SaveFileType.XML)
         {
-            _logsPath = AppDomain.CurrentDomain.BaseDirectory + @"data\logs\" + date + ".log.xml";
+            _logsPath = _logsFolderPath + date + ".log.xml";
             _storage = new JsonStorage<Log>(_logsPath);
         }
         else
         {
-            _logsPath = AppDomain.CurrentDomain.BaseDirectory + @"data\logs\" + date + ".log.json";
+            _logsPath = _logsFolderPath + date + ".log.json";
             _storage = new JsonStorage<Log>(_logsPath);
         }
 

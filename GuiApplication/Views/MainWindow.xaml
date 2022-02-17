@@ -19,8 +19,10 @@
             <NavigationView.MenuItems>
                 <NavigationViewItem Name="PageHomeNavigationItem" Tag="HomePage" Icon="Home" IsSelected="True" />
                 <NavigationViewItem Name="PageSavesNavigationItem" Tag="SavesPage" Icon="Save" />
+                <NavigationViewItem Name="PageLogsNavigationItem" Tag="LogsPage" Icon="Document" />
             </NavigationView.MenuItems>
-            <Frame Margin="30"  Padding="25,20,25,0" CornerRadius="10" Background="{ThemeResource SolidBackgroundFillColorBase}" x:Name="MainContentFrame" />
+
+            <Frame Margin="25" CornerRadius="10" Padding="25,15,25,25" Background="{ThemeResource SolidBackgroundFillColorBase}" Name="MainContentFrame"/>
         </NavigationView>
     </Grid>
 

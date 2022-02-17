@@ -20,10 +20,10 @@ public sealed partial class MainWindow : Window
     {
         GetAppWindowAndPresenter();
         InitializeComponent();
-        _presenter.IsResizable = false;
+        //_presenter.IsResizable = false;
         _apw.Resize(new Windows.Graphics.SizeInt32 { Width = 1600, Height = 900 });
         _apw.Title = "EasySave";
-        _presenter.IsMaximizable = false;
+        //_presenter.IsMaximizable = false;
         InitTexts();
     }
 
@@ -31,6 +31,8 @@ public sealed partial class MainWindow : Window
     {
         PageHomeNavigationItem.Content = MainApplication.Localization.Language.PAGE_NAVIGATION_HOME_TITLE;
         PageSavesNavigationItem.Content = MainApplication.Localization.Language.PAGE_NAVIGATION_SAVES_TITLE;
+
+        PageLogsNavigationItem.Content = MainApplication.Localization.Language.PAGE_NAVIGATION_LOGS_TITLE;
     }
 
     public void GetAppWindowAndPresenter()
@@ -57,6 +59,11 @@ public sealed partial class MainWindow : Window
             case "SavesPage":
                 sender.Header = MainApplication.Localization.Language.PAGE_SAVES_TITLE;
                 MainContentFrame.Navigate(typeof(SavesPage));
+                break;
+
+            case "LogsPage":
+                sender.Header = MainApplication.Localization.Language.PAGE_LOGS_TITLE;
+                MainContentFrame.Navigate(typeof(LogsPage));
                 break;
         }
 
