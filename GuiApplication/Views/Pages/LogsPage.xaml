@@ -10,17 +10,10 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
 
 
-            <StackPanel CornerRadius="10" Grid.Row="1" Margin="0,15,0,0" Padding="20" Orientation="Vertical" Background="{ThemeResource SystemAltHighColor}">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Name="WelcomeTextBox"/>
-                </StackPanel>
+            <StackPanel CornerRadius="10" Grid.Row="1" Margin="0,15,0,0" Padding="25,20,20,5" Orientation="Vertical" Background="{ThemeResource SystemAltHighColor}">
 
                 <GridView SelectionMode="None" x:Name="GridViewEncryptExtensions" ItemsSource="{Binding LogFiles}" >
                     <GridView.ItemTemplate>
