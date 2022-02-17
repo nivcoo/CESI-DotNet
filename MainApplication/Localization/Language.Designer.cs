@@ -61,6 +61,60 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Add new Extension.
+        /// </summary>
+        public static string BUTTON_CREATE_EXTENSION {
+            get {
+                return ResourceManager.GetString("BUTTON_CREATE_EXTENSION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Add new file name.
+        /// </summary>
+        public static string BUTTON_CREATE_PRIORITY_FILE {
+            get {
+                return ResourceManager.GetString("BUTTON_CREATE_PRIORITY_FILE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Create new Save.
+        /// </summary>
+        public static string BUTTON_CREATE_SAVE {
+            get {
+                return ResourceManager.GetString("BUTTON_CREATE_SAVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Pause all Saves.
+        /// </summary>
+        public static string BUTTON_PAUSE_ALL_SAVES {
+            get {
+                return ResourceManager.GetString("BUTTON_PAUSE_ALL_SAVES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Resume all Saves.
+        /// </summary>
+        public static string BUTTON_RESUME_ALL_SAVES {
+            get {
+                return ResourceManager.GetString("BUTTON_RESUME_ALL_SAVES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Start all Saves.
+        /// </summary>
+        public static string BUTTON_START_ALL_SAVES {
+            get {
+                return ResourceManager.GetString("BUTTON_START_ALL_SAVES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Add a Save.
         /// </summary>
         public static string CHOICE_DESC_CREATE {
@@ -120,6 +174,15 @@ namespace MainApplication.Localization {
         public static string CHOICE_DISPLAY {
             get {
                 return ResourceManager.GetString("CHOICE_DISPLAY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à You have to complete all input !.
+        /// </summary>
+        public static string CREATE_COMPLETE_ALL_INPUTS {
+            get {
+                return ResourceManager.GetString("CREATE_COMPLETE_ALL_INPUTS", resourceCulture);
             }
         }
         
@@ -214,11 +277,47 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Select Source Path.
+        /// </summary>
+        public static string CREATE_SAVE_SELECT_SOURCE {
+            get {
+                return ResourceManager.GetString("CREATE_SAVE_SELECT_SOURCE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Select Target Path.
+        /// </summary>
+        public static string CREATE_SAVE_SELECT_TARGET {
+            get {
+                return ResourceManager.GetString("CREATE_SAVE_SELECT_TARGET", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Your Save has been successfully created!.
         /// </summary>
         public static string CREATE_SAVE_SUCCESS {
             get {
                 return ResourceManager.GetString("CREATE_SAVE_SUCCESS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à One job Application is running, please stop them to run save(s) !.
+        /// </summary>
+        public static string ERROR_JOB_APPLICATION_RUNNING {
+            get {
+                return ResourceManager.GetString("ERROR_JOB_APPLICATION_RUNNING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à This extension already exist !.
+        /// </summary>
+        public static string EXTENSION_ADD_ASK_NAME_RETRY {
+            get {
+                return ResourceManager.GetString("EXTENSION_ADD_ASK_NAME_RETRY", resourceCulture);
             }
         }
         
@@ -250,6 +349,15 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Cancel.
+        /// </summary>
+        public static string GLOBAL_CANCEL {
+            get {
+                return ResourceManager.GetString("GLOBAL_CANCEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à You cannot remove running save..
         /// </summary>
         public static string GLOBAL_CANNOT_REMOVE_RUNNING_SAVE {
@@ -259,11 +367,29 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Create.
+        /// </summary>
+        public static string GLOBAL_CREATE {
+            get {
+                return ResourceManager.GetString("GLOBAL_CREATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Done..
         /// </summary>
         public static string GLOBAL_DONE {
             get {
                 return ResourceManager.GetString("GLOBAL_DONE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à List of Extensions will be Encrypted.
+        /// </summary>
+        public static string GLOBAL_ENCRYPT_EXTENSIONS_GUI {
+            get {
+                return ResourceManager.GetString("GLOBAL_ENCRYPT_EXTENSIONS_GUI", resourceCulture);
             }
         }
         
@@ -282,6 +408,24 @@ namespace MainApplication.Localization {
         public static string GLOBAL_PERFORMING_SAVE {
             get {
                 return ResourceManager.GetString("GLOBAL_PERFORMING_SAVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à List of all priority Files.
+        /// </summary>
+        public static string GLOBAL_PRIORITY_FILES_GUI {
+            get {
+                return ResourceManager.GetString("GLOBAL_PRIORITY_FILES_GUI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Progression.
+        /// </summary>
+        public static string GLOBAL_PROGRESSION {
+            get {
+                return ResourceManager.GetString("GLOBAL_PROGRESSION", resourceCulture);
             }
         }
         
@@ -331,6 +475,24 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Please Select Language !.
+        /// </summary>
+        public static string GLOBAL_SELECT_LANGUAGE_GUI {
+            get {
+                return ResourceManager.GetString("GLOBAL_SELECT_LANGUAGE_GUI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Please Select Save File Type !.
+        /// </summary>
+        public static string GLOBAL_SELECT_SAVE_FILE_TYPE_GUI {
+            get {
+                return ResourceManager.GetString("GLOBAL_SELECT_SAVE_FILE_TYPE_GUI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à The language selected is : en-US.
         /// </summary>
         public static string GLOBAL_SELECTED_LANGUAGE {
@@ -367,7 +529,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Type.
+        ///   Recherche une chaîne localisée semblable à Type of Save.
         /// </summary>
         public static string GLOBAL_TYPE {
             get {
@@ -381,6 +543,78 @@ namespace MainApplication.Localization {
         public static string GLOBAL_WELCOME {
             get {
                 return ResourceManager.GetString("GLOBAL_WELCOME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Add new Extension.
+        /// </summary>
+        public static string HOME_ADD_EXTENSION {
+            get {
+                return ResourceManager.GetString("HOME_ADD_EXTENSION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Add new File.
+        /// </summary>
+        public static string HOME_ADD_PRIORITY_FILE {
+            get {
+                return ResourceManager.GetString("HOME_ADD_PRIORITY_FILE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Home EasySave.
+        /// </summary>
+        public static string PAGE_HOME_TITLE {
+            get {
+                return ResourceManager.GetString("PAGE_HOME_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à List of Logs.
+        /// </summary>
+        public static string PAGE_LOGS_TITLE {
+            get {
+                return ResourceManager.GetString("PAGE_LOGS_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Home Page.
+        /// </summary>
+        public static string PAGE_NAVIGATION_HOME_TITLE {
+            get {
+                return ResourceManager.GetString("PAGE_NAVIGATION_HOME_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à List of Logs.
+        /// </summary>
+        public static string PAGE_NAVIGATION_LOGS_TITLE {
+            get {
+                return ResourceManager.GetString("PAGE_NAVIGATION_LOGS_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Saves Page.
+        /// </summary>
+        public static string PAGE_NAVIGATION_SAVES_TITLE {
+            get {
+                return ResourceManager.GetString("PAGE_NAVIGATION_SAVES_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Saves Manager.
+        /// </summary>
+        public static string PAGE_SAVES_TITLE {
+            get {
+                return ResourceManager.GetString("PAGE_SAVES_TITLE", resourceCulture);
             }
         }
     }
