@@ -7,6 +7,5 @@ if (isAnotherInstanceOpen)
     Console.WriteLine("Only one instance of this app is allowed.");
     return;
 }
-
 var main = new HomeView();
 
