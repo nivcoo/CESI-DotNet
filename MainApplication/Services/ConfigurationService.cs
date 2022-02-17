@@ -27,7 +27,6 @@ internal sealed class ConfigurationService
         Directory.CreateDirectory(Path.GetDirectoryName(_configPath) ?? string.Empty);
         if (!File.Exists(_configPath))
             File.CreateText(_configPath).Close();
-
         var config = _storage.GetElement();
         if (config == default)
             SaveCurrentConfig();
