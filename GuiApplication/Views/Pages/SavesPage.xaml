@@ -13,7 +13,7 @@
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*" ></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -22,7 +22,7 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="1" Grid.Column="1">
-            <InfoBar Name="SaveInfoBar" Margin="0,0,20,20" />
+            <InfoBar Name="SaveInfoBar" Margin="0,10,20,20" />
         </StackPanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Button Content="{Binding ElementName=savesPage, Path=ButtonCreateSaveTextBlock}" Click="CreateSave_OpenDialog">
@@ -55,11 +55,11 @@
                             <TextBlock TextAlignment="Center" Text="{Binding Name}" FontWeight="Bold" FontSize="18"/>
                             <StackPanel Margin="0,20,0,0">
                                 <TextBlock Text="{Binding ElementName=savesPage, Path=SaveSourcePathTextBlock}" FontSize="15" FontWeight="Bold"/>
-                                <TextBlock Text="{Binding SourcePath.LocalPath}"/>
+                                <TextBlock Text="{Binding SourcePath.LocalPath}" ToolTipService.ToolTip="{Binding TargetPath.LocalPath}"/>
                             </StackPanel>
                             <StackPanel Margin="0,20,0,0">
                                 <TextBlock Text="{Binding ElementName=savesPage, Path=SaveTargetPathTextBlock}" FontSize="15" FontWeight="Bold"/>
-                                <TextBlock Text="{Binding TargetPath.LocalPath}"/>
+                                <TextBlock Text="{Binding TargetPath.LocalPath}" ToolTipService.ToolTip="{Binding TargetPath.LocalPath}"/>
                             </StackPanel>
 
                             <StackPanel Margin="0,20,0,0">
