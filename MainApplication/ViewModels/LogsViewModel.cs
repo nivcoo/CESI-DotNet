@@ -35,7 +35,6 @@ public class LogsViewModel : BaseViewModel
     {
         if (args is not LogFile logFile)
             return;
-
         if (File.Exists(logFile.FilePath)) Process.Start("notepad.exe", logFile.FilePath);
     }
 }
