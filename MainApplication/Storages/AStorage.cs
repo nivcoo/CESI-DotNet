@@ -107,7 +107,6 @@ public abstract class AStorage<T>
         {
             EditFilesMutex.ReleaseMutex();
         }
-
         return default;
     }
 }
