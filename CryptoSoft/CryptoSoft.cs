@@ -2,7 +2,6 @@
 
 public static class CryptoSoft
 {
-
     /// <summary>
     /// Get current timestamp
     /// </summary>
