@@ -1,6 +1,7 @@
 ﻿using MainApplication.Objects;
 using MainApplication.Objects.Enums;
 using MainApplication.Storages;
+using System.Diagnostics;
 
 namespace MainApplication.Services;
 
@@ -12,6 +13,8 @@ internal sealed class LogService
     private static readonly LogService Instance = new();
     private readonly ConfigurationService _configurationService = ConfigurationService.GetInstance();
 
+
+    private readonly string localPath;
     private readonly string _logsFolderPath;
     private string? _logsPath;
 
@@ -19,18 +22,20 @@ internal sealed class LogService
 
     public LogService()
     {
-        _logsFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"data\logs\";
+        localPath = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"\CesiEasySave\");
+        _logsFolderPath = Path.Join(localPath, @"data\logs\");
     }
 
     public List<LogFile> GetAllLogFiles()
     {
-
+        Debug.WriteLine(_logsFolderPath);
         var listOfFiles = Directory.Exists(_logsFolderPath)
             ? Directory.GetFiles(_logsFolderPath)
             : Array.Empty<string>();
         var listOfLogFile = new List<LogFile>();
         foreach (var file in listOfFiles)
         {
+            
             listOfLogFile.Add(new LogFile(Path.GetFileName(file), Path.GetFullPath(file)));
 
         }

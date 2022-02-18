@@ -4,16 +4,19 @@
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-  IgnorableNamespaces="uap rescap">
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+  xmlns:uap4="http://schemas.microsoft.com/appx/manifest/uap/windows10/4"
+  IgnorableNamespaces="uap rescap mp uap3 uap4">
 
   <Identity
-    Name="7f8604b4-969c-4d75-9cf9-911744af95a7"
-    Publisher="CN=Nicolas"
-    Version="1.0.0.0" />
+    Name="34261nivcoo.Cesi-EasySave"
+    Publisher="CN=3492C66B-3409-4EAF-8741-F87EDED40BAB"
+    Version="2.0.20.0" />
 
   <Properties>
-    <DisplayName>EasySave GUI</DisplayName>
-    <PublisherDisplayName>Nicolas</PublisherDisplayName>
+    <DisplayName>Cesi-EasySave</DisplayName>
+    <PublisherDisplayName>nivcoo</PublisherDisplayName>
     <Logo>Assets\Icons\cesi_logo.png</Logo>
   </Properties>
 
@@ -31,8 +34,8 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="EasySave GUI"
-        Description="EasySave GUI"
+        DisplayName="Cesi-EasySave"
+        Description="EasySave"
         BackgroundColor="transparent"
         Square150x150Logo="Assets\Icons\cesi_logo.png"
         Square44x44Logo="Assets\Icons\cesi_logo.png">
@@ -45,7 +48,10 @@
     </Application>
   </Applications>
 
-  <Capabilities>
-    <rescap:Capability Name="runFullTrust" />
-  </Capabilities>
+    <Capabilities>
+	    <rescap:Capability Name="runFullTrust" />
+    </Capabilities>
+
+  <mp:PhoneIdentity PhoneProductId="eba9666b-1f98-489f-a591-83b018a5210a" PhonePublisherId="eba9666b-1f98-489f-a591-83b018a5210a"/>
+
 </Package>

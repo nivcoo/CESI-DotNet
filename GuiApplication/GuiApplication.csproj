@@ -11,6 +11,18 @@
 		<UseWinUI>true</UseWinUI>
 		<EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
 		<ApplicationIcon>Assets\Icons\cesi_logo.ico</ApplicationIcon>
+		<GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+		<AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+		<PackageCertificateThumbprint>C1D853E9483B3EEA1DF115D5730D42ACFA6867D4</PackageCertificateThumbprint>
+		<AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+		<AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+		<AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+		<GenerateTestArtifacts>True</GenerateTestArtifacts>
+		<AppxBundle>Never</AppxBundle>
+		<AppxBundlePlatforms>x86|x64|arm64</AppxBundlePlatforms>
+		<AppInstallerUri>C:\Users\nico6\Desktop\GuiApplication_1.0.0.0_x64_Test</AppInstallerUri>
+		<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+		<GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Remove="Views\Dialogs\AddEncryptExtensionDialog.xaml" />
