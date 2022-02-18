@@ -17,6 +17,8 @@ internal sealed class SaveService
 
     private readonly string _savesPath;
 
+    private readonly string localPath;
+
     private readonly IDictionary<Save, ASave> _saveTasks;
 
     private readonly AStorage<Save> _storage;
@@ -27,18 +29,20 @@ internal sealed class SaveService
 
     private SaveService()
     {
+        localPath = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"\CesiEasySave\");
+
         SelectedCultureInfo = CultureInfo.CurrentCulture;
         _saveTasks = new Dictionary<Save, ASave>();
 
 
         if (_configurationService.Config.SaveFileType == SaveFileType.XML)
         {
-            _savesPath = AppDomain.CurrentDomain.BaseDirectory + @"data\saves.xml";
+            _savesPath = Path.Join(localPath, @"\data\saves.xml");
             _storage = new JsonStorage<Save>(_savesPath);
         }
         else
         {
-            _savesPath = AppDomain.CurrentDomain.BaseDirectory + @"data\saves.json";
+            _savesPath = localPath + @"\data\saves.json";
             _storage = new JsonStorage<Save>(_savesPath);
         }
 

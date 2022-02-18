@@ -1,12 +1,15 @@
 ﻿using MainApplication.Objects;
 using MainApplication.Objects.Enums;
 using MainApplication.Storages;
+using System.Diagnostics;
 
 namespace MainApplication.Services;
 
 internal sealed class ConfigurationService
 {
     private static readonly ConfigurationService Instance = new();
+
+    private readonly string localPath;
 
     private string? _configPath;
 
@@ -16,17 +19,23 @@ internal sealed class ConfigurationService
 
     public ConfigurationService()
     {
+        localPath = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"\CesiEasySave\");
+        Debug.WriteLine(localPath);
+        if (!Directory.Exists(localPath))
+            Directory.CreateDirectory(localPath);
         Config = new Config("en-US", SaveFileType.JSON, new List<string>(), new List<string>());
         LoadConfigFile();
     }
 
     private void LoadConfigFile()
     {
-        _configPath = AppDomain.CurrentDomain.BaseDirectory + @"data\config.json";
-        _storage = new JsonStorage<Config>(_configPath);
+        _configPath = localPath + @"\data\config.json";
+
         Directory.CreateDirectory(Path.GetDirectoryName(_configPath) ?? string.Empty);
         if (!File.Exists(_configPath))
             File.CreateText(_configPath).Close();
+        _storage = new JsonStorage<Config>(_configPath);
+
         var config = _storage.GetElement();
         if (config == default)
             SaveCurrentConfig();
