@@ -17,5 +17,5 @@ echo $1 > VERSION
 git add VERSION
 git commit -m "chore: bump version to $1"
 git tag v$1
-git push
+git push -f
 git push --tags
