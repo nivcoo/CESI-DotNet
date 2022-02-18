@@ -32,7 +32,6 @@ public class SavesViewModel : BaseViewModel
         UpdateSavesList();
     }
 
-
     public ObservableCollection<Save> Saves { get; }
 
     public CommandHandler StartSaveButtonEvent
