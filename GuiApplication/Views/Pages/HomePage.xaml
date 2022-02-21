@@ -39,14 +39,18 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock FontWeight="Bold" Name="StatsTextBox"/>
                     </StackPanel>
-                    <StackPanel Grid.Row="1" Margin="0,20,0,0" Orientation="Horizontal">
-                        <TextBlock Width="100" Margin="0,5,0,0" Name="StatsListSavesTextBox"/>
-                        <TextBlock Margin="20,5,0,0" Text="{Binding StatSavesNumber}"/>
-                    </StackPanel>
 
-                    <StackPanel Grid.Row="2" Margin="0,15,0,0" Orientation="Horizontal">
-                        <TextBlock Width="100" Margin="0,5,0,0" Name="StatsListLogsTextBox"/>
-                        <TextBlock Margin="20,5,0,0" Text="{Binding StatLogsNumber}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Grid.Column="0" Margin="0,20,0,0" Orientation="Vertical">
+                            <TextBlock Margin="0,5,0,0" Name="StatsListSavesTextBox"/>
+                            <TextBlock Margin="0,15,0,0" Name="StatsListLogsTextBox"/>
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Margin="0,20,0,0" Orientation="Vertical">
+                            <TextBlock Margin="20,5,0,0" Text="{Binding StatLogsNumber}"/>
+                            <TextBlock Margin="20,15,0,0" Text="{Binding StatSavesNumber}"/>
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
 
