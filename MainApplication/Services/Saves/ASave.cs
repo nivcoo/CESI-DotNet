@@ -6,7 +6,7 @@ namespace MainApplication.Services.Saves;
 public abstract class ASave
 {
     private readonly ConfigurationService _configurationService = ConfigurationService.GetInstance();
-    private readonly EasySaveService _easySaveServiceService = EasySaveService.GetInstance();
+    private readonly EasySaveService _easySaveService = EasySaveService.GetInstance();
     private readonly LogService _logService = LogService.GetInstance();
     private readonly SaveService _saveService = SaveService.GetInstance();
 
@@ -255,6 +255,8 @@ public abstract class ASave
 
             if (isBigFile)
                 BigFilesMutex.ReleaseMutex();
+
+            CheckJobApplication();
             while (PausedTask && !IsCancelled())
             {
             }
@@ -278,6 +280,25 @@ public abstract class ASave
         return true;
     }
 
+    private void CheckJobApplication()
+    {
+        if(_easySaveService.JobApplicationIsRunning(ResumePausedSave))
+        {
+            ExecuteActionOnUIThread(() =>
+            {
+                _saveService.SetStateOfSave(Save, true);
+            });
+        }
+    }
+
+    private void ResumePausedSave()
+    {
+        ExecuteActionOnUIThread(() =>
+        {
+            _saveService.SetStateOfSave(Save, false);
+        });
+    }
+
     public bool IsCancelled()
     {
         return TaskTokenSource is {IsCancellationRequested: true};
@@ -285,7 +306,7 @@ public abstract class ASave
 
     public void ExecuteActionOnUIThread(Action action)
     {
-        var uiThread = _easySaveServiceService.DispatchUiAction;
+        var uiThread = _easySaveService.DispatchUiAction;
 
         if (uiThread == null)
             action.Invoke();

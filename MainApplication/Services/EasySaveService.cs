@@ -43,15 +43,14 @@ internal class EasySaveService
         _configurationService.SaveCurrentConfig();
     }
 
-
-    internal bool JobApplicationIsRunning(CommandHandler origin)
+    internal bool JobApplicationIsRunning(Action action)
     {
         var process = Array.Find(Process.GetProcesses(),
             (process) => _jobApplicationProcess.Contains(process.ProcessName));
         if (process == null)
             return false;
         process.EnableRaisingEvents = true;
-        process.Exited += (object? sender, EventArgs e) => DispatchUiAction?.Invoke(origin.RaiseCanExecuteChanged);
+        process.Exited += (object? sender, EventArgs e) => DispatchUiAction?.Invoke(action);
 
 
         return true;
