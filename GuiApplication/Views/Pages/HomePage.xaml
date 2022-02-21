@@ -17,7 +17,7 @@
 
             <Grid CornerRadius="10" Grid.Row="0" Margin="0,15,0,0" Padding="20" Background="{ThemeResource SystemAltHighColor}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
                     <ColumnDefinition Width="2*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Orientation="Vertical">
