@@ -149,7 +149,7 @@ public class SavesViewModel : BaseViewModel
     {
         if (origin is not CommandHandler ch)
             return true;
-        var canStart = !EasySaveService.JobApplicationIsRunning(ch);
+        var canStart = !EasySaveService.JobApplicationIsRunning(ch.RaiseCanExecuteChanged);
         var message = string.Empty;
         if (!canStart)
             message = Language.ERROR_JOB_APPLICATION_RUNNING;
