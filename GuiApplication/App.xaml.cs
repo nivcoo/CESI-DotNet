@@ -1,7 +1,8 @@
 ﻿using GuiApplication.Views;
 using Microsoft.UI.Xaml;
 using System;
-using System.Threading;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace GuiApplication;
 
@@ -9,11 +10,15 @@ public partial class App : Application
 {
     public App()
     {
-        using var mutex = new Mutex(false, "easysave Application");
-        bool isAnotherInstanceOpen = !mutex.WaitOne(TimeSpan.Zero);
-        if (isAnotherInstanceOpen)
+
+        Process proc = Process.GetCurrentProcess();
+        int count = new List<Process>(Process.GetProcesses()).FindAll(p =>
+            p.ProcessName == proc.ProcessName).Count;
+
+        if (count > 1)
         {
             Environment.Exit(0);
+            Process.GetCurrentProcess().Kill();
             return;
         }
 
