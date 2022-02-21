@@ -6,24 +6,19 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid x:Name="LayoutRoot">
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
 
-        <NavigationView x:Name="MainNavigationView" SelectionChanged="NavigationView_SelectionChanged" Grid.Row="1" Header="This is Heade Text"  PaneDisplayMode="Left" OpenPaneLength="250"  IsSettingsVisible="False" IsBackButtonVisible="Collapsed">
-            <NavigationView.Resources>
-                <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="{ThemeResource SolidBackgroundFillColorBase}"/>
-            </NavigationView.Resources>
+    <NavigationView x:Name="MainNavigationView" SelectionChanged="NavigationView_SelectionChanged" Grid.Row="1" Header="This is Heade Text"  PaneDisplayMode="Left" OpenPaneLength="250"  IsSettingsVisible="False" IsBackButtonVisible="Collapsed">
+        <NavigationView.Resources>
+            <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="{ThemeResource SolidBackgroundFillColorBase}"/>
+        </NavigationView.Resources>
 
-            <NavigationView.MenuItems>
-                <NavigationViewItem Name="PageHomeNavigationItem" Tag="HomePage" Icon="Home" IsSelected="True" />
-                <NavigationViewItem Name="PageSavesNavigationItem" Tag="SavesPage" Icon="Save" />
-                <NavigationViewItem Name="PageLogsNavigationItem" Tag="LogsPage" Icon="Document" />
-            </NavigationView.MenuItems>
+        <NavigationView.MenuItems>
+            <NavigationViewItem Name="PageHomeNavigationItem" Tag="HomePage" Icon="Home" IsSelected="True" />
+            <NavigationViewItem Name="PageSavesNavigationItem" Tag="SavesPage" Icon="Save" />
+            <NavigationViewItem Name="PageLogsNavigationItem" Tag="LogsPage" Icon="Document" />
+        </NavigationView.MenuItems>
 
-            <Frame Margin="25" CornerRadius="10" Padding="25,15,25,25" Background="{ThemeResource SolidBackgroundFillColorBase}" Name="MainContentFrame"/>
-        </NavigationView>
-    </Grid>
+        <Frame Margin="25" CornerRadius="10" Padding="25,15,25,25" Background="{ThemeResource SolidBackgroundFillColorBase}" Name="MainContentFrame"/>
+    </NavigationView>
 
 </Window>
