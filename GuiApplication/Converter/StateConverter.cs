@@ -11,6 +11,12 @@ public class StateConverter : IValueConverter
     {
         State state = (State)Enum.Parse(typeof(State), value.ToString());
         string param = parameter.ToString();
+        if (param == "runningRing")
+        {
+            if (state == State.Active)
+                return true;
+            return false;
+        }
         switch (state)
         {
             case State.Active:
