@@ -12,7 +12,7 @@
   <Identity
     Name="34261nivcoo.Cesi-EasySave"
     Publisher="CN=3492C66B-3409-4EAF-8741-F87EDED40BAB"
-    Version="2.0.20.0" />
+    Version="2.0.21.0" />
 
   <Properties>
     <DisplayName>Cesi-EasySave</DisplayName>
@@ -52,6 +52,6 @@
 	    <rescap:Capability Name="runFullTrust" />
     </Capabilities>
 
-  <mp:PhoneIdentity PhoneProductId="eba9666b-1f98-489f-a591-83b018a5210a" PhonePublisherId="eba9666b-1f98-489f-a591-83b018a5210a"/>
+  <mp:PhoneIdentity PhoneProductId="eba9666b-1f98-489f-a591-83b018a5210a" PhonePublisherId="e5b44317-b17e-417e-bb02-a1ad9517e419"/>
 
 </Package>
