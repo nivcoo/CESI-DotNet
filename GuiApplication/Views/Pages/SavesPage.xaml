@@ -18,13 +18,12 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="1" Grid.Column="1">
+        <StackPanel Grid.Row="0" Grid.Column="1">
             <InfoBar Name="SaveInfoBar" Margin="0,10,20,20" />
         </StackPanel>
-        <StackPanel Grid.Row="2" Orientation="Horizontal">
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
             <Button Content="{Binding ElementName=savesPage, Path=ButtonCreateSaveTextBlock}" Click="CreateSave_OpenDialog">
                 <Button.Resources>
                     <ResourceDictionary>
@@ -46,7 +45,7 @@
             <Button Content="{Binding ElementName=savesPage, Path=ButtonResumeAllSavesTextBlock}" Command="{Binding ElementName=savesPage, Path=DataContext.ResumeAllSavesEvent}" />
         </StackPanel>
 
-        <GridView SelectionMode="None" Grid.Row="3" Margin="0,20,-25,0" x:Name="GridViewSave" ItemsSource="{Binding Saves}" >
+        <GridView SelectionMode="None" Grid.Row="2" Margin="0,20,-25,0" x:Name="GridViewSave" ItemsSource="{Binding Saves}" >
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <Grid CornerRadius="10" Width="400" Background="{ThemeResource SystemAltHighColor}">

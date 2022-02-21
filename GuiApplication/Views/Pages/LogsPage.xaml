@@ -13,7 +13,7 @@
             </Grid.RowDefinitions>
 
 
-            <StackPanel CornerRadius="10" Grid.Row="1" Margin="0,15,0,0" Padding="25,20,20,5" Orientation="Vertical" Background="{ThemeResource SystemAltHighColor}">
+            <StackPanel CornerRadius="10" Grid.Row="0" Margin="0,15,0,0" Padding="25,20,20,5" Orientation="Vertical" Background="{ThemeResource SystemAltHighColor}">
 
                 <GridView SelectionMode="None" x:Name="GridViewEncryptExtensions" ItemsSource="{Binding LogFiles}" >
                     <GridView.ItemTemplate>
