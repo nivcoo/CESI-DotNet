@@ -12,27 +12,47 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
-        
+
+
+            <Grid CornerRadius="10" Grid.Row="0" Margin="0,15,0,0" Padding="20" Background="{ThemeResource SystemAltHighColor}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontWeight="Bold" Name="WelcomeTextBox"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Margin="0,20,0,0" Orientation="Horizontal">
+                        <TextBlock Margin="0,5,0,0" Name="SelectLanguageTextBox"/>
+                        <ComboBox Margin="20,0,0,0" Name="LanguageComboBox" ItemsSource="{Binding AllCultureInfo}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" Margin="0,15,0,0" Orientation="Horizontal">
+                        <TextBlock Margin="0,5,0,0" Name="SelectSaveFileTypeTextBox"/>
+                        <ComboBox Margin="20,0,0,0" Name="SaveFileTypeComboBox" ItemsSource="{Binding SaveFileTypes}"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontWeight="Bold" Name="StatsTextBox"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Margin="0,20,0,0" Orientation="Horizontal">
+                        <TextBlock Width="100" Margin="0,5,0,0" Name="StatsListSavesTextBox"/>
+                        <TextBlock Margin="20,5,0,0" Text="{Binding StatSavesNumber}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" Margin="0,15,0,0" Orientation="Horizontal">
+                        <TextBlock Width="100" Margin="0,5,0,0" Name="StatsListLogsTextBox"/>
+                        <TextBlock Margin="20,5,0,0" Text="{Binding StatLogsNumber}"/>
+                    </StackPanel>
+                </StackPanel>
+
+            </Grid>
 
             <StackPanel CornerRadius="10" Grid.Row="1" Margin="0,15,0,0" Padding="20" Orientation="Vertical" Background="{ThemeResource SystemAltHighColor}">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Name="WelcomeTextBox"/>
-                </StackPanel>
-                <StackPanel Grid.Row="1" Margin="0,20,0,0" Orientation="Horizontal">
-                    <TextBlock Margin="0,5,0,0" Name="SelectLanguageTextBox"/>
-                    <ComboBox Margin="20,0,0,0" Name="LanguageComboBox" ItemsSource="{Binding AllCultureInfo}"/>
-                </StackPanel>
-
-                <StackPanel Grid.Row="2" Margin="0,15,0,0" Orientation="Horizontal">
-                    <TextBlock Margin="0,5,0,0" Name="SelectSaveFileTypeTextBox"/>
-                    <ComboBox Margin="20,0,0,0" Name="SaveFileTypeComboBox" ItemsSource="{Binding SaveFileTypes}"/>
-                </StackPanel>
-            </StackPanel>
-
-            <StackPanel CornerRadius="10" Grid.Row="3" Margin="0,15,0,0" Padding="20" Orientation="Vertical" Background="{ThemeResource SystemAltHighColor}">
                 <TextBlock Margin="0,5,0,0" Name="EncryptExtensionsTextBox" FontWeight="SemiBold"/>
                 <Button Margin="0,5,0,0" Name="ButtonAddExtensionTextBlock" Click="AddEncryptExtension_OpenDialog">
                     <Button.Resources>
@@ -86,7 +106,7 @@
                     </GridView>
                 </StackPanel>
             </StackPanel>
-            <StackPanel CornerRadius="10" Grid.Row="4" Margin="0,15,0,0" Padding="20" Orientation="Vertical" Background="{ThemeResource SystemAltHighColor}">
+            <StackPanel CornerRadius="10" Grid.Row="2" Margin="0,15,0,0" Padding="20" Orientation="Vertical" Background="{ThemeResource SystemAltHighColor}">
                 <TextBlock Margin="0,5,0,0" Name="PriorityFilesTextBox" FontWeight="SemiBold"/>
                 <Button Margin="0,5,0,0" Name="ButtonAddFileTextBlock" Click="AddPriorityFile_OpenDialog">
                     <Button.Resources>

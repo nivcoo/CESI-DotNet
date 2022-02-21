@@ -39,6 +39,13 @@ public sealed partial class HomePage : Page
         ButtonAddExtensionTextBlock.Content = MainApplication.Localization.Language.HOME_ADD_EXTENSION;
 
         ButtonAddFileTextBlock.Content = MainApplication.Localization.Language.HOME_ADD_PRIORITY_FILE;
+
+
+        StatsTextBox.Text = MainApplication.Localization.Language.STATS_GLOBAL_MESSAGES;
+        StatsListSavesTextBox.Text = MainApplication.Localization.Language.STATS_COUNT_SAVES;
+        StatsListLogsTextBox.Text = MainApplication.Localization.Language.STATS_COUNT_LOGS;
+
+
     }
 
     private void ChangeCultureEvent(object sender, SelectionChangedEventArgs args)
