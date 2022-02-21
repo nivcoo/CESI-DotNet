@@ -297,4 +297,13 @@
   <data name="PAGE_NAVIGATION_LOGS_TITLE" xml:space="preserve">
     <value>Liste des Logs</value>
   </data>
+  <data name="STATS_COUNT_LOGS" xml:space="preserve">
+    <value>Nombre de Logs</value>
+  </data>
+  <data name="STATS_COUNT_SAVES" xml:space="preserve">
+    <value>Nombre de Sauvegardes</value>
+  </data>
+  <data name="STATS_GLOBAL_MESSAGES" xml:space="preserve">
+    <value>Statistique Globales</value>
+  </data>
 </root>

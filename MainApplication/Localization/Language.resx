@@ -303,4 +303,13 @@
   <data name="PAGE_NAVIGATION_LOGS_TITLE" xml:space="preserve">
     <value>List of Logs</value>
   </data>
+  <data name="STATS_COUNT_LOGS" xml:space="preserve">
+    <value>Logs Number</value>
+  </data>
+  <data name="STATS_COUNT_SAVES" xml:space="preserve">
+    <value>Saves Number</value>
+  </data>
+  <data name="STATS_GLOBAL_MESSAGES" xml:space="preserve">
+    <value>Global Statistics</value>
+  </data>
 </root>

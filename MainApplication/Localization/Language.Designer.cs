@@ -617,5 +617,32 @@ namespace MainApplication.Localization {
                 return ResourceManager.GetString("PAGE_SAVES_TITLE", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Logs Number.
+        /// </summary>
+        public static string STATS_COUNT_LOGS {
+            get {
+                return ResourceManager.GetString("STATS_COUNT_LOGS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Saves Number.
+        /// </summary>
+        public static string STATS_COUNT_SAVES {
+            get {
+                return ResourceManager.GetString("STATS_COUNT_SAVES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Global Statistics.
+        /// </summary>
+        public static string STATS_GLOBAL_MESSAGES {
+            get {
+                return ResourceManager.GetString("STATS_GLOBAL_MESSAGES", resourceCulture);
+            }
+        }
     }
 }

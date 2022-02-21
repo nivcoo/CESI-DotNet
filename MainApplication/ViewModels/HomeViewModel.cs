@@ -74,6 +74,16 @@ public class HomeViewModel : BaseViewModel
         set => ConfigurationService.ChangeSaveFileType(value);
     }
 
+    public int StatSavesNumber 
+    {
+        get => SaveService.GetSaves().Count;
+    }
+
+    public int StatLogsNumber
+    {
+        get => LogService.GetAllLogFiles().Count;
+    }
+
     private void RemoveEncryptExtensionEvent(object? args)
     {
         if (args is not string extension)
