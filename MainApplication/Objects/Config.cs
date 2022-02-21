@@ -20,6 +20,7 @@ public class Config
     }
 
     public string Language { get; set; }
+    
     public FileType SavesFileType { get; set; }
 
     public FileType LogsFileType { get; set; }
