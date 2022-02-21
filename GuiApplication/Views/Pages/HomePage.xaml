@@ -30,8 +30,13 @@
                     </StackPanel>
 
                     <StackPanel Grid.Row="2" Margin="0,15,0,0" Orientation="Horizontal">
-                        <TextBlock Margin="0,5,0,0" Name="SelectSaveFileTypeTextBox"/>
-                        <ComboBox Margin="20,0,0,0" Name="SaveFileTypeComboBox" ItemsSource="{Binding SaveFileTypes}"/>
+                        <TextBlock Margin="0,5,0,0" Name="SelectSavesFileTypeTextBox"/>
+                        <ComboBox Margin="20,0,0,0" Name="SavesFileTypeComboBox" ItemsSource="{Binding FileTypes}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" Margin="0,15,0,0" Orientation="Horizontal">
+                        <TextBlock Margin="0,5,0,0" Name="SelectLogsFileTypeTextBox"/>
+                        <ComboBox Margin="20,0,0,0" Name="LogsFileTypeComboBox" ItemsSource="{Binding FileTypes}"/>
                     </StackPanel>
                 </StackPanel>
 
@@ -48,8 +53,8 @@
                         </StackPanel>
 
                         <StackPanel Grid.Column="1" Margin="0,20,0,0" Orientation="Vertical">
-                            <TextBlock Margin="20,5,0,0" Text="{Binding StatLogsNumber}"/>
-                            <TextBlock Margin="20,15,0,0" Text="{Binding StatSavesNumber}"/>
+                            <TextBlock Margin="20,5,0,0" Text="{Binding StatSavesNumber}"/>
+                            <TextBlock Margin="20,15,0,0" Text="{Binding StatLogsNumber}"/>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>

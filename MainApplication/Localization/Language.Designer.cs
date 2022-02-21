@@ -484,7 +484,16 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Please Select Save File Type !.
+        ///   Recherche une chaîne localisée semblable à Please Select Logs File Type !.
+        /// </summary>
+        public static string GLOBAL_SELECT_LOGS_FILE_TYPE_GUI {
+            get {
+                return ResourceManager.GetString("GLOBAL_SELECT_LOGS_FILE_TYPE_GUI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Please Select Saves File Type !.
         /// </summary>
         public static string GLOBAL_SELECT_SAVE_FILE_TYPE_GUI {
             get {

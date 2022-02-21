@@ -22,7 +22,7 @@ internal sealed class LogService
 
     public LogService()
     {
-        localPath = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"\CesiEasySave\");
+        localPath = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"\Cesi-EasySave\");
         _logsFolderPath = Path.Join(localPath, @"data\logs\");
     }
 
@@ -32,48 +32,42 @@ internal sealed class LogService
         var listOfFiles = Directory.Exists(_logsFolderPath)
             ? Directory.GetFiles(_logsFolderPath)
             : Array.Empty<string>();
-        var listOfLogFile = new List<LogFile>();
-        foreach (var file in listOfFiles)
-        {
-            
-            listOfLogFile.Add(new LogFile(Path.GetFileName(file), Path.GetFullPath(file)));
 
-        }
-        return listOfLogFile;
+        return (from file in listOfFiles where _configurationService.Config.LogsFileType == FileType.XML && Path.GetExtension(file) == ".xml" || _configurationService.Config.LogsFileType == FileType.JSON && Path.GetExtension(file) == ".json" select new LogFile(Path.GetFileName(file), Path.GetFullPath(file))).ToList();
     }
 
     private void LoadLogsFile()
-    {
-        var dateTime = DateTime.Now;
-        var date = dateTime.ToString("yyyy-MM-dd");
-        if (_configurationService.Config.SaveFileType == SaveFileType.XML)
         {
-            _logsPath = _logsFolderPath + date + ".log.xml";
-            _storage = new JsonStorage<Log>(_logsPath);
+            var dateTime = DateTime.Now;
+            var date = dateTime.ToString("yyyy-MM-dd");
+            if (_configurationService.Config.LogsFileType == FileType.XML)
+            {
+                _logsPath = _logsFolderPath + date + ".log.xml";
+                _storage = new XmlStorage<Log>(_logsPath);
+            }
+            else
+            {
+                _logsPath = _logsFolderPath + date + ".log.json";
+                _storage = new JsonStorage<Log>(_logsPath);
+            }
+
+            Directory.CreateDirectory(Path.GetDirectoryName(_logsPath) ?? string.Empty);
+            if (!File.Exists(_logsPath))
+                File.CreateText(_logsPath).Close();
         }
-        else
+
+        /// <summary>
+        /// Insert log object into storage
+        /// </summary>
+        /// <param name="log"></param>
+        public void InsertLog(Log log)
         {
-            _logsPath = _logsFolderPath + date + ".log.json";
-            _storage = new JsonStorage<Log>(_logsPath);
+            LoadLogsFile();
+            _storage?.AddNewElementWithoutRewrite(log);
         }
 
-        Directory.CreateDirectory(Path.GetDirectoryName(_logsPath) ?? string.Empty);
-        if (!File.Exists(_logsPath))
-            File.CreateText(_logsPath).Close();
+        public static LogService GetInstance()
+        {
+            return Instance;
+        }
     }
-
-    /// <summary>
-    /// Insert log object into storage
-    /// </summary>
-    /// <param name="log"></param>
-    public void InsertLog(Log log)
-    {
-        LoadLogsFile();
-        _storage?.AddNewElementWithoutRewrite(log);
-    }
-
-    public static LogService GetInstance()
-    {
-        return Instance;
-    }
-}

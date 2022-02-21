@@ -38,16 +38,14 @@ public class JsonStorage<T> : AStorage<T>
 
     public override List<T> GetAllElements()
     {
-        var list = RunMutexFunc(() =>
-        {
-            var text = File.ReadAllText(FilePath);
-            if (text == "")
-                return new List<T>();
-            var elementsList = JsonSerializer.Deserialize<List<T>>(text.Trim(), _serializerOptions);
-            return elementsList ?? new List<T>();
-        }) as List<T>;
-
-        if (list != default)
+        if (RunMutexFunc(() =>
+            {
+                var text = File.ReadAllText(FilePath);
+                if (text == "")
+                    return new List<T>();
+                var elementsList = JsonSerializer.Deserialize<List<T>>(text.Trim(), _serializerOptions);
+                return elementsList ?? new List<T>();
+            }) is List<T> list)
             return list;
         return new List<T>();
     }
@@ -120,15 +118,9 @@ public class JsonStorage<T> : AStorage<T>
         return true;
     }
 
-    public override void ClearFile()
-    {
-        RunMutexAction(() => File.WriteAllText(FilePath, string.Empty));
-    }
-
     private void SerializeAndSaveIntoFiles(object obj)
     {
-        if (obj != null)
-            RunMutexAction(() => File.WriteAllText(FilePath, SerializeObject(obj)));
+        RunMutexAction(() => File.WriteAllText(FilePath, SerializeObject(obj)));
     }
 
     private string SerializeObject(object obj)

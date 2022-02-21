@@ -4,12 +4,12 @@ namespace MainApplication.Storages;
 
 public abstract class AStorage<T>
 {
-    private readonly Mutex EditFilesMutex;
+    private readonly Mutex _editFilesMutex;
 
     protected AStorage(string filePath)
     {
         FilePath = filePath;
-        EditFilesMutex = new Mutex();
+        _editFilesMutex = new Mutex();
     }
 
     protected string FilePath { get; set; }
@@ -65,11 +65,6 @@ public abstract class AStorage<T>
     /// <returns>true if Success</returns>
     public abstract bool EditElementBy(Predicate<T> match, T obj);
 
-    /// <summary>
-    ///     Delete content from the file
-    /// </summary>
-    public abstract void ClearFile();
-
     public static implicit operator AStorage<T>(JsonStorage<Config> v)
     {
         throw new NotImplementedException();
@@ -79,7 +74,7 @@ public abstract class AStorage<T>
     {
         try
         {
-            EditFilesMutex.WaitOne(30000);
+            _editFilesMutex.WaitOne(30000);
             action.Invoke();
         }
         catch (Exception)
@@ -87,7 +82,7 @@ public abstract class AStorage<T>
         }
         finally
         {
-            EditFilesMutex.ReleaseMutex();
+            _editFilesMutex.ReleaseMutex();
         }
     }
 
@@ -95,7 +90,7 @@ public abstract class AStorage<T>
     {
         try
         {
-            EditFilesMutex.WaitOne(30000);
+            _editFilesMutex.WaitOne(30000);
             var rtn = Task.Run(() => func.Invoke());
             rtn.Wait();
             return rtn.Result;
@@ -105,8 +100,15 @@ public abstract class AStorage<T>
         }
         finally
         {
-            EditFilesMutex.ReleaseMutex();
+            _editFilesMutex.ReleaseMutex();
         }
         return default;
+    }
+    /// <summary>
+    ///     Delete content from the file
+    /// </summary>
+    public void ClearFile()
+    {
+        RunMutexAction(() => File.WriteAllText(FilePath, string.Empty));
     }
 }

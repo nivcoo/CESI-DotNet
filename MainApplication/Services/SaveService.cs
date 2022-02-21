@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Diagnostics;
+using System.Globalization;
 using MainApplication.Objects;
 using MainApplication.Objects.Enums;
 using MainApplication.Services.Saves;
@@ -15,13 +16,13 @@ internal sealed class SaveService
 
     private readonly List<Save> _saves;
 
-    private readonly string _savesPath;
+    private string _savesPath;
 
     private readonly string localPath;
 
     private readonly IDictionary<Save, ASave> _saveTasks;
 
-    private readonly AStorage<Save> _storage;
+    private AStorage<Save> _storage;
 
     private readonly ConfigurationService _configurationService = ConfigurationService.GetInstance();
 
@@ -29,37 +30,41 @@ internal sealed class SaveService
 
     private SaveService()
     {
-        localPath = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"\CesiEasySave\");
+        localPath = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"\Cesi-EasySave\");
 
         SelectedCultureInfo = CultureInfo.CurrentCulture;
         _saveTasks = new Dictionary<Save, ASave>();
 
 
-        if (_configurationService.Config.SaveFileType == SaveFileType.XML)
-        {
-            _savesPath = Path.Join(localPath, @"\data\saves.xml");
-            _storage = new JsonStorage<Save>(_savesPath);
-        }
-        else
-        {
-            _savesPath = localPath + @"\data\saves.json";
-            _storage = new JsonStorage<Save>(_savesPath);
-        }
+     
 
         LoadSavesFile();
         _saves = new List<Save>();
         InitSavesList();
     }
 
-    private void LoadSavesFile()
+    public void LoadSavesFile()
     {
+
+        if (_configurationService.Config.SavesFileType == FileType.XML)
+        {
+            _savesPath = Path.Join(localPath, @"\data\saves.xml");
+            _storage = new XmlStorage<Save>(_savesPath);
+        }
+        else
+        {
+            _savesPath = Path.Join(localPath, @"\data\saves.json");
+            _storage = new JsonStorage<Save>(_savesPath);
+        }
         Directory.CreateDirectory(Path.GetDirectoryName(_savesPath) ?? string.Empty);
         if (!File.Exists(_savesPath))
             File.CreateText(_savesPath).Close();
     }
 
-    private void InitSavesList()
+    public void InitSavesList()
     {
+
+        _saves.Clear();
         foreach (var save in _storage.GetAllElements())
         {
             save.ResetValues();

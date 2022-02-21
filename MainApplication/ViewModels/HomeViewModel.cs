@@ -14,7 +14,7 @@ public class HomeViewModel : BaseViewModel
 
     private CommandHandler? _removePriorityFileButtonEvent;
 
-    private SaveFileType[] _saveFileTypes = (SaveFileType[]) Enum.GetValues(typeof(SaveFileType));
+    private FileType[] _fileTypes = (FileType[]) Enum.GetValues(typeof(FileType));
 
     public HomeViewModel()
     {
@@ -25,6 +25,8 @@ public class HomeViewModel : BaseViewModel
         UpdateEncryptExtensionsList();
 
         UpdatePriorityFilesList();
+
+        UpdateStats();
     }
 
     public ObservableCollection<string> EncryptExtensions { get; }
@@ -61,27 +63,44 @@ public class HomeViewModel : BaseViewModel
         set => EasySaveService.ChangeCulture(value);
     }
 
-    public SaveFileType[] SaveFileTypes
+    public FileType[] FileTypes
     {
-        get => _saveFileTypes;
-        set => SetField(ref _saveFileTypes, value, nameof(SaveFileTypes));
+        get => _fileTypes;
+        set => SetField(ref _fileTypes, value, nameof(FileTypes));
     }
 
 
-    public SaveFileType SelectedSaveFileType
+    public FileType SelectedSavesFileType
     {
-        get => ConfigurationService.Config.SaveFileType;
-        set => ConfigurationService.ChangeSaveFileType(value);
+        get => ConfigurationService.Config.SavesFileType;
+        set => ConfigurationService.ChangeSavesFileType(value);
     }
 
-    public int StatSavesNumber 
+    public FileType SelectedLogsFileType
     {
-        get => SaveService.GetSaves().Count;
+        get => ConfigurationService.Config.LogsFileType;
+        set => ConfigurationService.ChangeLogsFileType(value);
     }
 
+
+    private int _statSavesNumber;
+    public int StatSavesNumber
+    {
+        get => _statSavesNumber;
+        set => SetField(ref _statSavesNumber, value, nameof(StatSavesNumber));
+    }
+
+    private int _statLogsNumber;
     public int StatLogsNumber
     {
-        get => LogService.GetAllLogFiles().Count;
+        get => _statLogsNumber;
+        set => SetField(ref _statLogsNumber, value, nameof(StatLogsNumber));
+    }
+
+    public void UpdateStats()
+    {
+        StatSavesNumber = SaveService.GetSaves().Count;
+        StatLogsNumber = LogService.GetAllLogFiles().Count;
     }
 
     private void RemoveEncryptExtensionEvent(object? args)

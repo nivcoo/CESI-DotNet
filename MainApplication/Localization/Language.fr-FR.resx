@@ -268,7 +268,7 @@
     <value>Gestionnaire de Sauvegardes</value>
   </data>
   <data name="GLOBAL_SELECT_SAVE_FILE_TYPE_GUI" xml:space="preserve">
-    <value>Selectionnez une méthode de Sauvegarde !</value>
+    <value>Selectionnez le Type de fichier pour les Sauvegardes !</value>
   </data>
   <data name="BUTTON_CREATE_EXTENSION" xml:space="preserve">
     <value>Ajouter une Extension</value>
@@ -296,6 +296,9 @@
   </data>
   <data name="PAGE_NAVIGATION_LOGS_TITLE" xml:space="preserve">
     <value>Liste des Logs</value>
+  </data>
+  <data name="GLOBAL_SELECT_LOGS_FILE_TYPE_GUI" xml:space="preserve">
+    <value>Selectionnez le Type de fichier pour les logs !</value>
   </data>
   <data name="STATS_COUNT_LOGS" xml:space="preserve">
     <value>Nombre de Logs</value>
