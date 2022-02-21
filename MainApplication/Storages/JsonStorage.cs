@@ -28,9 +28,13 @@ public class JsonStorage<T> : AStorage<T>
 
             if (text == "")
                 return default;
-            var elementsList = JsonSerializer.Deserialize<T>(text.Trim(), _serializerOptions);
+            T? element = default;
+            try
+            {
+                element = JsonSerializer.Deserialize<T>(text.Trim(), _serializerOptions);
+            } catch { }
 
-            return elementsList ?? default;
+            return element ?? default;
         });
 
         return (T?) obj;

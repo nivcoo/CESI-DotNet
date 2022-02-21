@@ -493,6 +493,15 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Please Select Max file Size transfer simultaneous (ko).
+        /// </summary>
+        public static string GLOBAL_SELECT_MAX_FILE_SIZE_GUI {
+            get {
+                return ResourceManager.GetString("GLOBAL_SELECT_MAX_FILE_SIZE_GUI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Please Select Saves File Type !.
         /// </summary>
         public static string GLOBAL_SELECT_SAVE_FILE_TYPE_GUI {

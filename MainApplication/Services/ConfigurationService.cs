@@ -20,10 +20,9 @@ internal sealed class ConfigurationService
     public ConfigurationService()
     {
         localPath = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"\Cesi-EasySave\");
-        Debug.WriteLine(localPath);
         if (!Directory.Exists(localPath))
             Directory.CreateDirectory(localPath);
-        Config = new Config("en-US", FileType.JSON, FileType.JSON, new List<string>(), new List<string>());
+        Config = new Config("en-US", FileType.JSON, FileType.JSON, new List<string>(), new List<string>(), 100);
         LoadConfigFile();
     }
 
@@ -45,7 +44,8 @@ internal sealed class ConfigurationService
 
     public void SaveCurrentConfig()
     {
-        if (Config != null) _storage?.WriteElement(Config);
+        if (Config != null)
+            _storage?.WriteElement(Config);
     }
 
     internal void ChangeSavesFileType(FileType savesFileType)
@@ -71,6 +71,12 @@ internal sealed class ConfigurationService
     public bool AlreadyEncryptExtensionWithSameName(string extensionName)
     {
         return Config.EncryptExtensions.Contains(extensionName);
+    }
+
+    internal void ChangeMaxFileSize(double maxFileSize)
+    {
+        Config.MaxFileSize = maxFileSize;
+        SaveCurrentConfig();
     }
 
     public bool AlreadyPriorityFileWithSameName(string fileName)

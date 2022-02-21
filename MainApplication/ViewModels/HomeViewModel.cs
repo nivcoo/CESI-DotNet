@@ -69,6 +69,12 @@ public class HomeViewModel : BaseViewModel
         set => SetField(ref _fileTypes, value, nameof(FileTypes));
     }
 
+    public double MaxFileSize
+    {
+        get => ConfigurationService.Config.MaxFileSize;
+        set => ConfigurationService.ChangeMaxFileSize(value);
+    }
+
 
     public FileType SelectedSavesFileType
     {

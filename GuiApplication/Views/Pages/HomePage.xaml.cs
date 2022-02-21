@@ -4,6 +4,7 @@ using MainApplication.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
+using System.Diagnostics;
 using System.Globalization;
 
 namespace GuiApplication.Views.Pages;
@@ -27,6 +28,7 @@ public sealed partial class HomePage : Page
 
         LogsFileTypeComboBox.SelectedItem = _homeViewModel.SelectedLogsFileType;
         LogsFileTypeComboBox.SelectionChanged += ChangeLogsFileTypeEvent;
+
     }
 
     private void InitTexts()
@@ -35,6 +37,9 @@ public sealed partial class HomePage : Page
         SelectLanguageTextBox.Text = MainApplication.Localization.Language.GLOBAL_SELECT_LANGUAGE_GUI;
         SelectSavesFileTypeTextBox.Text = MainApplication.Localization.Language.GLOBAL_SELECT_SAVE_FILE_TYPE_GUI;
         SelectLogsFileTypeTextBox.Text = MainApplication.Localization.Language.GLOBAL_SELECT_LOGS_FILE_TYPE_GUI;
+        SelectMaxFileSizeTextBox.Text = MainApplication.Localization.Language.GLOBAL_SELECT_MAX_FILE_SIZE_GUI;
+
+
         EncryptExtensionsTextBox.Text = MainApplication.Localization.Language.GLOBAL_ENCRYPT_EXTENSIONS_GUI;
 
         PriorityFilesTextBox.Text = MainApplication.Localization.Language.GLOBAL_PRIORITY_FILES_GUI;
@@ -115,6 +120,18 @@ public sealed partial class HomePage : Page
         if (result == ContentDialogResult.Primary)
             _homeViewModel.UpdatePriorityFilesList();
 
+    }
+
+    public void MaxFileSizeNumberBox_ValueChanged(NumberBox sender,
+                                            NumberBoxValueChangedEventArgs args)
+    {
+
+        if (double.IsNaN(args.NewValue) || args.NewValue <= 0)
+        {
+            sender.Value = sender.Minimum;
+        } else {
+            _homeViewModel.MaxFileSize = args.NewValue;
+        }
     }
 }
 

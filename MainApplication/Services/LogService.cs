@@ -1,7 +1,6 @@
 ﻿using MainApplication.Objects;
 using MainApplication.Objects.Enums;
 using MainApplication.Storages;
-using System.Diagnostics;
 
 namespace MainApplication.Services;
 
@@ -28,7 +27,6 @@ internal sealed class LogService
 
     public List<LogFile> GetAllLogFiles()
     {
-        Debug.WriteLine(_logsFolderPath);
         var listOfFiles = Directory.Exists(_logsFolderPath)
             ? Directory.GetFiles(_logsFolderPath)
             : Array.Empty<string>();
