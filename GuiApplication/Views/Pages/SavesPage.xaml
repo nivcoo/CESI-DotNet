@@ -109,6 +109,8 @@
                                     CommandParameter="{Binding}">
                                     <SymbolIcon Symbol="Play"/>
                                 </Button>
+
+                                <ProgressRing Margin="20,0,0,0" IsActive="{Binding State, Converter={StaticResource StateConverter}, ConverterParameter=runningRing}" />
                             </StackPanel>
 
                         </StackPanel>
