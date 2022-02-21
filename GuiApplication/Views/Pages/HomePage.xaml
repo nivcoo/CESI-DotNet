@@ -90,7 +90,7 @@
                                 <Grid CornerRadius="5" Background="{ThemeResource SystemAccentColor}">
                                     <StackPanel Orientation="Horizontal" Padding="10">
                                         <TextBlock TextAlignment="Center" ToolTipService.ToolTip="{Binding}" Margin="0,3,10,0" Width="96" Text="{Binding}" Foreground="White" FontWeight="Bold"/>
-                                        <Button Command="{Binding ElementName=homePage, Path=DataContext.RemoveEncryptExtensionButtonEvent}"
+                                        <Button Command="{Binding ElementName=homeTitle, Path=DataContext.RemoveEncryptExtensionButtonEvent}"
                                         CommandParameter="{Binding}">
                                             <Viewbox MaxHeight="15" MaxWidth="15">
                                                 <SymbolIcon Symbol="Delete"/>
