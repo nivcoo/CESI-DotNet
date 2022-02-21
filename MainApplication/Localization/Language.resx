@@ -315,4 +315,7 @@
   <data name="STATS_GLOBAL_MESSAGES" xml:space="preserve">
     <value>Global Statistics</value>
   </data>
+  <data name="GLOBAL_SELECT_MAX_FILE_SIZE_GUI" xml:space="preserve">
+    <value>Please Select Max file Size transfer simultaneous (ko)</value>
+  </data>
 </root>

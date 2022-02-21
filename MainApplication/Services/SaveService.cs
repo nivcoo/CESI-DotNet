@@ -34,10 +34,6 @@ internal sealed class SaveService
 
         SelectedCultureInfo = CultureInfo.CurrentCulture;
         _saveTasks = new Dictionary<Save, ASave>();
-
-
-     
-
         LoadSavesFile();
         _saves = new List<Save>();
         InitSavesList();

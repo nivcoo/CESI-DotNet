@@ -5,9 +5,12 @@ namespace MainApplication.Services.Saves;
 
 public abstract class ASave
 {
+    private readonly ConfigurationService _configurationService = ConfigurationService.GetInstance();
     private readonly EasySaveService _easySaveServiceService = EasySaveService.GetInstance();
     private readonly LogService _logService = LogService.GetInstance();
     private readonly SaveService _saveService = SaveService.GetInstance();
+
+    private readonly double _maxFileSizeSimultaneous = 100;
 
     private readonly Mutex BigFilesMutex;
 
@@ -22,6 +25,7 @@ public abstract class ASave
 
     protected ASave(Save save)
     {
+        _maxFileSizeSimultaneous = _configurationService.Config.MaxFileSize;
         BigFilesMutex = new Mutex();
         Init();
         SaveFiles = new List<SaveFile>();
@@ -230,8 +234,8 @@ public abstract class ASave
             var targetFilePath = Path.Combine(targetFolder, fileName);
 
 
-            var megaBytes = (double) saveFile.FileSize / 1000000;
-            var isBigFile = megaBytes >= 10;
+            var megaBytes = (double) saveFile.FileSize / 1000;
+            var isBigFile = megaBytes >= _maxFileSizeSimultaneous;
             if (isBigFile)
                 BigFilesMutex.WaitOne(300000);
             long timeToEncypt = -1;
