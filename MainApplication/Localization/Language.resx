@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GLOBAL_SELECT_LANGUAGE" xml:space="preserve">
-    <value>Please Select Language (en-US, fr-FR):</value>
+    <value>Please select a sanguage (en-US, fr-FR):</value>
   </data>
   <data name="GLOBAL_SELECTED_LANGUAGE" xml:space="preserve">
     <value>The language selected is : en-US</value>
@@ -127,16 +127,16 @@
     <value>Welcome to EasySave !</value>
   </data>
   <data name="GLOBAL_SELECT_CHOICE" xml:space="preserve">
-    <value>Your Choice:</value>
+    <value>Your selection  :</value>
   </data>
   <data name="GLOBAL_SELECT_CHOICE_RETRY" xml:space="preserve">
-    <value>Incorrect Choice.</value>
+    <value>Invalid choice.</value>
   </data>
   <data name="GLOBAL_ASK_SAVE_NAME" xml:space="preserve">
-    <value>Please enter name of Save or "cancel" to cancel:</value>
+    <value>Please type the name of a save or "cancel" to cancel :</value>
   </data>
   <data name="GLOBAL_ASK_SAVE_NAME_OR_ALL" xml:space="preserve">
-    <value>Please enter name of Save or "all" to run all Saves or "cancel" to cancel:</value>
+    <value>Please type the name of a save,  "all" to start all the saves or "cancel" to cancel :</value>
   </data>
   <data name="GLOBAL_SAVE_NAME_NOT_EXIST" xml:space="preserve">
     <value>This save doesn't exist.</value>
@@ -145,10 +145,10 @@
     <value>This save is already running.</value>
   </data>
   <data name="GLOBAL_CANNOT_REMOVE_RUNNING_SAVE" xml:space="preserve">
-    <value>You cannot remove running save.</value>
+    <value>You cannot remove a running save.</value>
   </data>
   <data name="GLOBAL_PERFORMING_SAVE" xml:space="preserve">
-    <value>Performing Save...</value>
+    <value>Saving......</value>
   </data>
   <data name="GLOBAL_DONE" xml:space="preserve">
     <value>Done.</value>
@@ -169,85 +169,85 @@
     <value>Target</value>
   </data>
   <data name="CHOICE_DISPLAY" xml:space="preserve">
-    <value>Possible Actions List:</value>
+    <value>Possible actions list :</value>
   </data>
   <data name="CHOICE_DESC_CREATE" xml:space="preserve">
-    <value>Add a Save</value>
+    <value>Add a save</value>
   </data>
   <data name="CHOICE_DESC_END" xml:space="preserve">
-    <value>Stop Application</value>
+    <value>Stop the application</value>
   </data>
   <data name="CHOICE_DESC_REMOVE" xml:space="preserve">
-    <value>Remove a Save</value>
+    <value>Remove a save</value>
   </data>
   <data name="CHOICE_DESC_SHOW_LIST" xml:space="preserve">
-    <value>Show Save List</value>
+    <value>Show the save list</value>
   </data>
   <data name="CHOICE_DESC_START" xml:space="preserve">
-    <value>Run one or multiple Save(s)</value>
+    <value>Run one or multiple save(s)</value>
   </data>
   <data name="CHOICE_DESC_STOP" xml:space="preserve">
-    <value>Stop one or multiple Save(s)</value>
+    <value>Stop one or multiple save(s)</value>
   </data>
   <data name="CREATE_SAVE_ASK_NAME" xml:space="preserve">
-    <value>Type a name to the Save or "cancel" to cancel:</value>
+    <value>Type the save's name  or "cancel" to cancel :</value>
   </data>
   <data name="CREATE_SAVE_ASK_NAME_RETRY" xml:space="preserve">
-    <value>A save already has this name.</value>
+    <value>A save already exists with this name.</value>
   </data>
   <data name="CREATE_SAVE_ASK_SOURCE_URI" xml:space="preserve">
-    <value>Type the Save path or "cancel" to cancel:</value>
+    <value>Type the save path or "cancel" to cancel :</value>
   </data>
   <data name="CREATE_SAVE_ASK_SOURCE_URI_RETRY" xml:space="preserve">
     <value>The path is incorrect.</value>
   </data>
   <data name="CREATE_SAVE_ASK_TARGET_URI" xml:space="preserve">
-    <value>Type the Save write path or "cancel" to cancel:</value>
+    <value>Type the target path or "cancel" to cancel:</value>
   </data>
   <data name="CREATE_SAVE_ASK_TARGET_URI_RETRY" xml:space="preserve">
     <value>The path is incorrect.</value>
   </data>
   <data name="CREATE_SAVE_ASK_TYPE" xml:space="preserve">
-    <value>Type backup type ( 1 - Complete | 2 - Differential ) or "cancel" to cancel:</value>
+    <value>Type the kind of save you want ( 1 - Complete | 2 - Differential ) or "cancel" to cancel:</value>
   </data>
   <data name="CREATE_SAVE_ASK_TYPE_RETRY" xml:space="preserve">
-    <value>This backup type doesn't exist.</value>
+    <value>This kind of save  doesn't exist.</value>
   </data>
   <data name="CREATE_SAVE_ERROR" xml:space="preserve">
-    <value>An error occurred while creating your Save!</value>
+    <value>An error occurred while creating your Save !</value>
   </data>
   <data name="CREATE_SAVE_SUCCESS" xml:space="preserve">
-    <value>Your Save has been successfully created!</value>
+    <value>Your save has been successfully created !</value>
   </data>
   <data name="GLOBAL_ASK_GO_TO_MENU" xml:space="preserve">
-    <value>Type something or type enter to back to the menu</value>
+    <value>Type "enter" or anything to go back to the menu</value>
   </data>
   <data name="CREATE_SAVE_REACH_LIMIT" xml:space="preserve">
-    <value>You have reached the limit of 5 saves.</value>
+    <value>You have reached the limit of 5 saves. If you want to create more saves, please update your software.</value>
   </data>
   <data name="BUTTON_CREATE_SAVE" xml:space="preserve">
-    <value>Create new Save</value>
+    <value>Create a new save</value>
   </data>
   <data name="BUTTON_PAUSE_ALL_SAVES" xml:space="preserve">
-    <value>Pause all Saves</value>
+    <value>Pause all the active saves</value>
   </data>
   <data name="BUTTON_RESUME_ALL_SAVES" xml:space="preserve">
-    <value>Resume all Saves</value>
+    <value>Resume all the paused saves</value>
   </data>
   <data name="BUTTON_START_ALL_SAVES" xml:space="preserve">
-    <value>Start all Saves</value>
+    <value>Start all the saves</value>
   </data>
   <data name="CREATE_COMPLETE_ALL_INPUTS" xml:space="preserve">
-    <value>You have to complete all input !</value>
+    <value>You have to fill the fom !</value>
   </data>
   <data name="CREATE_SAVE_SELECT_SOURCE" xml:space="preserve">
-    <value>Select Source Path</value>
+    <value>Select a source path</value>
   </data>
   <data name="CREATE_SAVE_SELECT_TARGET" xml:space="preserve">
-    <value>Select Target Path</value>
+    <value>Select a target path</value>
   </data>
   <data name="ERROR_JOB_APPLICATION_RUNNING" xml:space="preserve">
-    <value>One job Application is running, please stop them to run save(s) !</value>
+    <value>A blocking application is running, please close it to start a save, or resume any paused save</value>
   </data>
   <data name="GLOBAL_CANCEL" xml:space="preserve">
     <value>Cancel</value>
@@ -259,7 +259,7 @@
     <value>Progression</value>
   </data>
   <data name="GLOBAL_SELECT_LANGUAGE_GUI" xml:space="preserve">
-    <value>Please Select Language !</value>
+    <value>Please select a sanguage !</value>
   </data>
   <data name="PAGE_HOME_TITLE" xml:space="preserve">
     <value>Home EasySave</value>
@@ -268,34 +268,34 @@
     <value>Home Page</value>
   </data>
   <data name="PAGE_NAVIGATION_SAVES_TITLE" xml:space="preserve">
-    <value>Saves Page</value>
+    <value>Saves Manager</value>
   </data>
   <data name="PAGE_SAVES_TITLE" xml:space="preserve">
     <value>Saves Manager</value>
   </data>
   <data name="GLOBAL_SELECT_SAVE_FILE_TYPE_GUI" xml:space="preserve">
-    <value>Please Select Saves File Type !</value>
+    <value>Please select a saves sile type !</value>
   </data>
   <data name="BUTTON_CREATE_EXTENSION" xml:space="preserve">
-    <value>Add new Extension</value>
+    <value>Add a new extension</value>
   </data>
   <data name="BUTTON_CREATE_PRIORITY_FILE" xml:space="preserve">
-    <value>Add new file name</value>
+    <value>Add a new file name</value>
   </data>
   <data name="EXTENSION_ADD_ASK_NAME_RETRY" xml:space="preserve">
-    <value>This extension already exist !</value>
+    <value>This extension already exists !</value>
   </data>
   <data name="GLOBAL_ENCRYPT_EXTENSIONS_GUI" xml:space="preserve">
-    <value>List of Extensions will be Encrypted</value>
+    <value>List of the extensions that will be encrypted</value>
   </data>
   <data name="GLOBAL_PRIORITY_FILES_GUI" xml:space="preserve">
-    <value>List of all priority Files</value>
+    <value>List of the priority files</value>
   </data>
   <data name="HOME_ADD_EXTENSION" xml:space="preserve">
-    <value>Add new Extension</value>
+    <value>Add a new extension</value>
   </data>
   <data name="HOME_ADD_PRIORITY_FILE" xml:space="preserve">
-    <value>Add new File</value>
+    <value>Add a new File</value>
   </data>
   <data name="PAGE_LOGS_TITLE" xml:space="preserve">
     <value>List of Logs</value>
@@ -304,18 +304,18 @@
     <value>List of Logs</value>
   </data>
   <data name="GLOBAL_SELECT_LOGS_FILE_TYPE_GUI" xml:space="preserve">
-    <value>Please Select Logs File Type !</value>
+    <value>Please select a log file type !</value>
   </data>
   <data name="STATS_COUNT_LOGS" xml:space="preserve">
-    <value>Logs Number</value>
+    <value>Logs :</value>
   </data>
   <data name="STATS_COUNT_SAVES" xml:space="preserve">
-    <value>Saves Number</value>
+    <value>Saves :</value>
   </data>
   <data name="STATS_GLOBAL_MESSAGES" xml:space="preserve">
     <value>Global Statistics</value>
   </data>
   <data name="GLOBAL_SELECT_MAX_FILE_SIZE_GUI" xml:space="preserve">
-    <value>Please Select Max file Size transfer simultaneous (ko)</value>
+    <value>Please select the max file size for simultaneous transfer (ko)</value>
   </data>
 </root>

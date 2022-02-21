@@ -61,7 +61,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Add new Extension.
+        ///   Recherche une chaîne localisée semblable à Add a new extension.
         /// </summary>
         public static string BUTTON_CREATE_EXTENSION {
             get {
@@ -70,7 +70,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Add new file name.
+        ///   Recherche une chaîne localisée semblable à Add a new file name.
         /// </summary>
         public static string BUTTON_CREATE_PRIORITY_FILE {
             get {
@@ -79,7 +79,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Create new Save.
+        ///   Recherche une chaîne localisée semblable à Create a new save.
         /// </summary>
         public static string BUTTON_CREATE_SAVE {
             get {
@@ -88,7 +88,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Pause all Saves.
+        ///   Recherche une chaîne localisée semblable à Pause all the active saves.
         /// </summary>
         public static string BUTTON_PAUSE_ALL_SAVES {
             get {
@@ -97,7 +97,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Resume all Saves.
+        ///   Recherche une chaîne localisée semblable à Resume all the paused saves.
         /// </summary>
         public static string BUTTON_RESUME_ALL_SAVES {
             get {
@@ -106,7 +106,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Start all Saves.
+        ///   Recherche une chaîne localisée semblable à Start all the saves.
         /// </summary>
         public static string BUTTON_START_ALL_SAVES {
             get {
@@ -115,7 +115,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Add a Save.
+        ///   Recherche une chaîne localisée semblable à Add a save.
         /// </summary>
         public static string CHOICE_DESC_CREATE {
             get {
@@ -124,7 +124,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Stop Application.
+        ///   Recherche une chaîne localisée semblable à Stop the application.
         /// </summary>
         public static string CHOICE_DESC_END {
             get {
@@ -133,7 +133,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Remove a Save.
+        ///   Recherche une chaîne localisée semblable à Remove a save.
         /// </summary>
         public static string CHOICE_DESC_REMOVE {
             get {
@@ -142,7 +142,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Show Save List.
+        ///   Recherche une chaîne localisée semblable à Show the save list.
         /// </summary>
         public static string CHOICE_DESC_SHOW_LIST {
             get {
@@ -151,7 +151,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Run one or multiple Save(s).
+        ///   Recherche une chaîne localisée semblable à Run one or multiple save(s).
         /// </summary>
         public static string CHOICE_DESC_START {
             get {
@@ -160,7 +160,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Stop one or multiple Save(s).
+        ///   Recherche une chaîne localisée semblable à Stop one or multiple save(s).
         /// </summary>
         public static string CHOICE_DESC_STOP {
             get {
@@ -169,7 +169,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Possible Actions List:.
+        ///   Recherche une chaîne localisée semblable à Possible actions list :.
         /// </summary>
         public static string CHOICE_DISPLAY {
             get {
@@ -178,7 +178,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à You have to complete all input !.
+        ///   Recherche une chaîne localisée semblable à You have to fill the fom !.
         /// </summary>
         public static string CREATE_COMPLETE_ALL_INPUTS {
             get {
@@ -187,7 +187,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Type a name to the Save or &quot;cancel&quot; to cancel:.
+        ///   Recherche une chaîne localisée semblable à Type the save&apos;s name  or &quot;cancel&quot; to cancel :.
         /// </summary>
         public static string CREATE_SAVE_ASK_NAME {
             get {
@@ -196,7 +196,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à A save already has this name..
+        ///   Recherche une chaîne localisée semblable à A save already exists with this name..
         /// </summary>
         public static string CREATE_SAVE_ASK_NAME_RETRY {
             get {
@@ -205,7 +205,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Type the Save path or &quot;cancel&quot; to cancel:.
+        ///   Recherche une chaîne localisée semblable à Type the save path or &quot;cancel&quot; to cancel :.
         /// </summary>
         public static string CREATE_SAVE_ASK_SOURCE_URI {
             get {
@@ -223,7 +223,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Type the Save write path or &quot;cancel&quot; to cancel:.
+        ///   Recherche une chaîne localisée semblable à Type the target path or &quot;cancel&quot; to cancel:.
         /// </summary>
         public static string CREATE_SAVE_ASK_TARGET_URI {
             get {
@@ -241,7 +241,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Type backup type ( 1 - Complete | 2 - Differential ) or &quot;cancel&quot; to cancel:.
+        ///   Recherche une chaîne localisée semblable à Type the kind of save you want ( 1 - Complete | 2 - Differential ) or &quot;cancel&quot; to cancel:.
         /// </summary>
         public static string CREATE_SAVE_ASK_TYPE {
             get {
@@ -250,7 +250,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à This backup type doesn&apos;t exist..
+        ///   Recherche une chaîne localisée semblable à This kind of save  doesn&apos;t exist..
         /// </summary>
         public static string CREATE_SAVE_ASK_TYPE_RETRY {
             get {
@@ -259,7 +259,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à An error occurred while creating your Save!.
+        ///   Recherche une chaîne localisée semblable à An error occurred while creating your Save !.
         /// </summary>
         public static string CREATE_SAVE_ERROR {
             get {
@@ -268,7 +268,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à You have reached the limit of 5 saves..
+        ///   Recherche une chaîne localisée semblable à You have reached the limit of 5 saves. If you want to create more saves, please update your software..
         /// </summary>
         public static string CREATE_SAVE_REACH_LIMIT {
             get {
@@ -277,7 +277,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Select Source Path.
+        ///   Recherche une chaîne localisée semblable à Select a source path.
         /// </summary>
         public static string CREATE_SAVE_SELECT_SOURCE {
             get {
@@ -286,7 +286,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Select Target Path.
+        ///   Recherche une chaîne localisée semblable à Select a target path.
         /// </summary>
         public static string CREATE_SAVE_SELECT_TARGET {
             get {
@@ -295,7 +295,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Your Save has been successfully created!.
+        ///   Recherche une chaîne localisée semblable à Your save has been successfully created !.
         /// </summary>
         public static string CREATE_SAVE_SUCCESS {
             get {
@@ -304,7 +304,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à One job Application is running, please stop them to run save(s) !.
+        ///   Recherche une chaîne localisée semblable à A blocking application is running, please close it to start a save, or resume any paused save.
         /// </summary>
         public static string ERROR_JOB_APPLICATION_RUNNING {
             get {
@@ -313,7 +313,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à This extension already exist !.
+        ///   Recherche une chaîne localisée semblable à This extension already exists !.
         /// </summary>
         public static string EXTENSION_ADD_ASK_NAME_RETRY {
             get {
@@ -322,7 +322,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Type something or type enter to back to the menu.
+        ///   Recherche une chaîne localisée semblable à Type &quot;enter&quot; or anything to go back to the menu.
         /// </summary>
         public static string GLOBAL_ASK_GO_TO_MENU {
             get {
@@ -331,7 +331,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Please enter name of Save or &quot;cancel&quot; to cancel:.
+        ///   Recherche une chaîne localisée semblable à Please type the name of a save or &quot;cancel&quot; to cancel :.
         /// </summary>
         public static string GLOBAL_ASK_SAVE_NAME {
             get {
@@ -340,7 +340,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Please enter name of Save or &quot;all&quot; to run all Saves or &quot;cancel&quot; to cancel:.
+        ///   Recherche une chaîne localisée semblable à Please type the name of a save,  &quot;all&quot; to start all the saves or &quot;cancel&quot; to cancel :.
         /// </summary>
         public static string GLOBAL_ASK_SAVE_NAME_OR_ALL {
             get {
@@ -358,7 +358,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à You cannot remove running save..
+        ///   Recherche une chaîne localisée semblable à You cannot remove a running save..
         /// </summary>
         public static string GLOBAL_CANNOT_REMOVE_RUNNING_SAVE {
             get {
@@ -385,7 +385,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à List of Extensions will be Encrypted.
+        ///   Recherche une chaîne localisée semblable à List of the extensions that will be encrypted.
         /// </summary>
         public static string GLOBAL_ENCRYPT_EXTENSIONS_GUI {
             get {
@@ -403,7 +403,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Performing Save....
+        ///   Recherche une chaîne localisée semblable à Saving.......
         /// </summary>
         public static string GLOBAL_PERFORMING_SAVE {
             get {
@@ -412,7 +412,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à List of all priority Files.
+        ///   Recherche une chaîne localisée semblable à List of the priority files.
         /// </summary>
         public static string GLOBAL_PRIORITY_FILES_GUI {
             get {
@@ -448,7 +448,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Your Choice:.
+        ///   Recherche une chaîne localisée semblable à Your selection  :.
         /// </summary>
         public static string GLOBAL_SELECT_CHOICE {
             get {
@@ -457,7 +457,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Incorrect Choice..
+        ///   Recherche une chaîne localisée semblable à Invalid choice..
         /// </summary>
         public static string GLOBAL_SELECT_CHOICE_RETRY {
             get {
@@ -466,7 +466,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Please Select Language (en-US, fr-FR):.
+        ///   Recherche une chaîne localisée semblable à Please select a sanguage (en-US, fr-FR):.
         /// </summary>
         public static string GLOBAL_SELECT_LANGUAGE {
             get {
@@ -475,7 +475,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Please Select Language !.
+        ///   Recherche une chaîne localisée semblable à Please select a sanguage !.
         /// </summary>
         public static string GLOBAL_SELECT_LANGUAGE_GUI {
             get {
@@ -484,7 +484,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Please Select Logs File Type !.
+        ///   Recherche une chaîne localisée semblable à Please select a log file type !.
         /// </summary>
         public static string GLOBAL_SELECT_LOGS_FILE_TYPE_GUI {
             get {
@@ -493,7 +493,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Please Select Max file Size transfer simultaneous (ko).
+        ///   Recherche une chaîne localisée semblable à Please select the max file size for simultaneous transfer (ko).
         /// </summary>
         public static string GLOBAL_SELECT_MAX_FILE_SIZE_GUI {
             get {
@@ -502,7 +502,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Please Select Saves File Type !.
+        ///   Recherche une chaîne localisée semblable à Please select a saves sile type !.
         /// </summary>
         public static string GLOBAL_SELECT_SAVE_FILE_TYPE_GUI {
             get {
@@ -565,7 +565,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Add new Extension.
+        ///   Recherche une chaîne localisée semblable à Add a new extension.
         /// </summary>
         public static string HOME_ADD_EXTENSION {
             get {
@@ -574,7 +574,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Add new File.
+        ///   Recherche une chaîne localisée semblable à Add a new File.
         /// </summary>
         public static string HOME_ADD_PRIORITY_FILE {
             get {
@@ -619,7 +619,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Saves Page.
+        ///   Recherche une chaîne localisée semblable à Saves Manager.
         /// </summary>
         public static string PAGE_NAVIGATION_SAVES_TITLE {
             get {
@@ -637,7 +637,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Logs Number.
+        ///   Recherche une chaîne localisée semblable à Logs :.
         /// </summary>
         public static string STATS_COUNT_LOGS {
             get {
@@ -646,7 +646,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Saves Number.
+        ///   Recherche une chaîne localisée semblable à Saves :.
         /// </summary>
         public static string STATS_COUNT_SAVES {
             get {
