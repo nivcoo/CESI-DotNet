@@ -1,125 +1,107 @@
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Text.RegularExpressions;
-using MainApplication.Storages.NamingPolicies;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace MainApplication.Storages;
 
+public class XmlStorage<T> : AStorage<T>
+
 {
-    public class XMLStorage<T> : AStorage<T>
-    
+    public XmlStorage(string filePath) : base(filePath)
     {
-        public XMLStorage(String filePath) : base(filePath)
-        {
-        }
+    }
 
-        public override GetElement()
+    public override T? GetElement()
+    {
+        var obj = RunMutexFunc(() =>
         {
-              var obj = RunMutexFunc(() =>
-        {
-            var text = File.ReadAllText(FilePath);
-
-            if (text == "")
-                return default;
-                    var elementsList = xmlSerializer.Deserialize<List<T>>(text.Trim(), _serializerOptions);
-
+            var serializer = new XmlSerializer(typeof(T));
+            using Stream reader = new FileStream(FilePath, FileMode.Open);
+            var elementsList = (T?)serializer.Deserialize(reader);
             return elementsList ?? default;
         });
 
-        return (T?) obj;
-        }
+        return (T?)obj;
+    }
 
-        public override List<T> GetAllElements()
+    public override List<T> GetAllElements()
+    {
+        if (RunMutexFunc(() =>
         {
-            var list = RunMutexFunc(() =>
-        {
-            var text = File.ReadAllText(FilePath);
-            if (text == "")
-                return new List<T>();
-            var elementsList = xmlSerializer.Deserialize<List<T>>(text.Trim(), _serializerOptions);
-            return elementsList ?? new List<T>();
-        }) as List<T>;
+            using Stream reader = new FileStream(FilePath, FileMode.Open);
+            var serializer = new XmlSerializer(typeof(List<T>));
+            var elementsList = new List<T>();
+            try
+            {
+                elementsList = (List<T>?)serializer.Deserialize(reader);
+            } catch { }
 
-        if (list != default)
+
+            return elementsList;
+        }) is List<T> list)
             return list;
         return new List<T>();
-        }
+    }
 
-        public override Void WriteElement(T obj)
-        {
-             if (obj != null)
-            SerializeAndSaveIntoFiles(obj);
-        }
+    public override void WriteElement(T obj)
+    {
+        var serializer = new XmlSerializer(typeof(T));
+        if (obj != null)
+            SerializeAndSaveIntoFiles(serializer, obj);
+    }
 
-        public override Void AddNewElement(T obj)
-        {
-             var elementsList = GetAllElements();
+    public override void AddNewElement(T obj)
+    {
+        var elementsList = GetAllElements();
         elementsList.Add(obj);
-        SerializeAndSaveIntoFiles(elementsList);
-        }
+        var serializer = new XmlSerializer(typeof(List<T>));
+        SerializeAndSaveIntoFiles(serializer, elementsList);
+    }
 
-        public override Void AddNewElementWithoutRewrite(T obj)
-        {
-            //voir pout le XML si ca fontionne 
-          /*   RunMutexAction(() =>
-        {
-            var objects = new List<T> {obj};
-            using var fs = new FileStream(FilePath, FileMode.Open);
-            var serializeObject = SerializeObject(objects);
-            using var sw = new StreamWriter(fs);
-            if (fs.Length > 1)
-            {
-                fs.Position = fs.Seek(-1, SeekOrigin.End);
+    public override void AddNewElementWithoutRewrite(T obj)
+    {
+        AddNewElement(obj);
+    }
 
-                if (fs.ReadByte() == ']')
-                {
-                    fs.SetLength(fs.Length - 4 - Environment.NewLine.Length);
-                    var serializeObjectWithoutFirst = Regex.Split(serializeObject, Environment.NewLine).Skip(1);
-                    serializeObject = string.Join(Environment.NewLine, serializeObjectWithoutFirst.ToArray());
-                    sw.Write("  }," + Environment.NewLine);
-                }
-            }
-            sw.Write(serializeObject);
-            sw.Close();
-            fs.Close();
-        });*/
-        }
-
-        public override Void RemoveElement(Predicate<T> match)
-        {
-                 var elementsList = GetAllElements();
+    public override void RemoveElement(Predicate<T> match)
+    {
+        var elementsList = GetAllElements();
         var element = elementsList.Find(match);
         if (element == null)
             return;
         elementsList.Remove(element);
-        SerializeAndSaveIntoFiles(elementsList);
-        }
+        var serializer = new XmlSerializer(typeof(List<T>));
+        SerializeAndSaveIntoFiles(serializer, elementsList);
+    }
 
-        public override GetElementBy(Predicate<T> match)
-        {
-            var elementsList = GetAllElements();
+    public override T? GetElementBy(Predicate<T> match)
+    {
+        var elementsList = GetAllElements();
         return elementsList.Find(match);
-        }
+    }
 
-        public override Boolean EditElementBy(Predicate<T> match, T obj)
-        {
-              var elementsList = GetAllElements();
+    public override bool EditElementBy(Predicate<T> match, T obj)
+    {
+        var elementsList = GetAllElements();
         var selected = elementsList.Find(match);
         if (selected == null)
             return false;
         elementsList.Remove(selected);
         elementsList.Add(obj);
-        SerializeAndSaveIntoFiles(elementsList);
+        var serializer = new XmlSerializer(typeof(List<T>));
+        SerializeAndSaveIntoFiles(serializer, elementsList);
         return true;
-        }
-
-        public override Void ClearFile()
-        {
-           RunMutexAction(() => File.WriteAllText(FilePath, string.Empty));
-        }
-        private string SerializeObject(object obj)
-    {
-        return xmlSerializer.Serialize(obj, _serializerOptions);
     }
+
+    private void SerializeAndSaveIntoFiles(XmlSerializer serializer, object obj)
+    {
+        RunMutexAction(() =>
+        {
+            using var writer = new StreamWriter(FilePath);
+            using var xmlWriter = XmlWriter.Create(writer, new XmlWriterSettings { Indent = true });
+            serializer.Serialize(xmlWriter, obj);
+            xmlWriter.Close();
+            writer.Close();
+
+        });
     }
 }

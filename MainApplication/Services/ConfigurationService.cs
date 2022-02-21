@@ -19,11 +19,11 @@ internal sealed class ConfigurationService
 
     public ConfigurationService()
     {
-        localPath = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"\CesiEasySave\");
+        localPath = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"\Cesi-EasySave\");
         Debug.WriteLine(localPath);
         if (!Directory.Exists(localPath))
             Directory.CreateDirectory(localPath);
-        Config = new Config("en-US", SaveFileType.JSON, new List<string>(), new List<string>());
+        Config = new Config("en-US", FileType.JSON, FileType.JSON, new List<string>(), new List<string>());
         LoadConfigFile();
     }
 
@@ -48,12 +48,20 @@ internal sealed class ConfigurationService
         if (Config != null) _storage?.WriteElement(Config);
     }
 
-    internal void ChangeSaveFileType(SaveFileType saveFileType)
+    internal void ChangeSavesFileType(FileType savesFileType)
     {
-        Config.SaveFileType = saveFileType;
+        SaveService ss = SaveService.GetInstance();
+        Config.SavesFileType = savesFileType;
+        ss.LoadSavesFile();
+        ss.InitSavesList();
         SaveCurrentConfig();
     }
 
+    internal void ChangeLogsFileType(FileType logsFileType)
+    {
+        Config.LogsFileType = logsFileType;
+        SaveCurrentConfig();
+    }
 
     public static ConfigurationService GetInstance()
     {

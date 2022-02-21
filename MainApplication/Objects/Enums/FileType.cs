@@ -1,6 +1,6 @@
 namespace MainApplication.Objects.Enums;
 
-public enum SaveFileType
+public enum FileType
 {
     XML,
     JSON

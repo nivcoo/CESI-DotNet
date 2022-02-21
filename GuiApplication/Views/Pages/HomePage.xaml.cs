@@ -22,16 +22,19 @@ public sealed partial class HomePage : Page
         LanguageComboBox.SelectedItem = _homeViewModel.SelectedCultureInfo;
         LanguageComboBox.SelectionChanged += ChangeCultureEvent;
 
-        SaveFileTypeComboBox.SelectedItem = _homeViewModel.SelectedSaveFileType;
-        SaveFileTypeComboBox.SelectionChanged += ChangeSaveFileTypeEvent;
+        SavesFileTypeComboBox.SelectedItem = _homeViewModel.SelectedSavesFileType;
+        SavesFileTypeComboBox.SelectionChanged += ChangeSavesFileTypeEvent;
+
+        LogsFileTypeComboBox.SelectedItem = _homeViewModel.SelectedLogsFileType;
+        LogsFileTypeComboBox.SelectionChanged += ChangeLogsFileTypeEvent;
     }
 
     private void InitTexts()
     {
         WelcomeTextBox.Text = MainApplication.Localization.Language.GLOBAL_WELCOME;
         SelectLanguageTextBox.Text = MainApplication.Localization.Language.GLOBAL_SELECT_LANGUAGE_GUI;
-        SelectSaveFileTypeTextBox.Text = MainApplication.Localization.Language.GLOBAL_SELECT_SAVE_FILE_TYPE_GUI;
-
+        SelectSavesFileTypeTextBox.Text = MainApplication.Localization.Language.GLOBAL_SELECT_SAVE_FILE_TYPE_GUI;
+        SelectLogsFileTypeTextBox.Text = MainApplication.Localization.Language.GLOBAL_SELECT_LOGS_FILE_TYPE_GUI;
         EncryptExtensionsTextBox.Text = MainApplication.Localization.Language.GLOBAL_ENCRYPT_EXTENSIONS_GUI;
 
         PriorityFilesTextBox.Text = MainApplication.Localization.Language.GLOBAL_PRIORITY_FILES_GUI;
@@ -59,11 +62,20 @@ public sealed partial class HomePage : Page
         InitTexts();
     }
 
-    private void ChangeSaveFileTypeEvent(object sender, SelectionChangedEventArgs args)
+    private void ChangeSavesFileTypeEvent(object sender, SelectionChangedEventArgs args)
     {
         ComboBox comboBox = sender as ComboBox;
-        var saveFileType = (SaveFileType)comboBox.SelectedItem;
-        _homeViewModel.SelectedSaveFileType = saveFileType;
+        var saveFileType = (FileType)comboBox.SelectedItem;
+        _homeViewModel.SelectedSavesFileType = saveFileType;
+        _homeViewModel.UpdateStats();
+    }
+
+    private void ChangeLogsFileTypeEvent(object sender, SelectionChangedEventArgs args)
+    {
+        ComboBox comboBox = sender as ComboBox;
+        var saveFileType = (FileType)comboBox.SelectedItem;
+        _homeViewModel.SelectedLogsFileType = saveFileType;
+        _homeViewModel.UpdateStats();
     }
 
     private async void AddEncryptExtension_OpenDialog(object sender, RoutedEventArgs e)

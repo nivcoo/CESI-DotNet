@@ -1,5 +1,7 @@
 ﻿using MainApplication.Handlers;
 using MainApplication.Objects.Enums;
+using System.Text.Json.Serialization;
+using System.Xml.Serialization;
 
 namespace MainApplication.Objects;
 
@@ -19,6 +21,20 @@ public class Save : INPChanged
 
     private int _totalFilesToCopy;
 
+    private Save()
+    {
+        Name = "";
+        SourcePath = new Uri(@"C:\EasySave");
+        TargetPath = new Uri(@"C:\EasySave");
+        Type = TypeSave.Complete;
+        State = State.End;
+        TotalFilesToCopy = 0;
+        TotalFilesSize = 0;
+        NbFilesLeftToDo = 0;
+        Progression = 0;
+    }
+
+    [JsonConstructor]
     public Save(string name, Uri sourcePath, Uri targetPath, TypeSave type, State state, int totalFilesToCopy,
         long totalFilesSize, int nbFilesLeftToDo, double progression)
     {
@@ -33,12 +49,27 @@ public class Save : INPChanged
         Progression = progression;
     }
 
-    public string Name { get; }
+    public string Name { get; set; }
 
+    [XmlIgnore]
     public Uri SourcePath { get; set; }
 
+    [XmlAttribute("SourcePath")]
+    public string SourcePathString
+    {
+        get => SourcePath.ToString();
+        set => SourcePath  = new Uri(value);
+    }
+
+    [XmlIgnore]
     public Uri TargetPath { get; set; }
 
+    [XmlAttribute("TargetPath")]
+    public string TargetPathString
+    {
+        get => TargetPath.ToString();
+        set => TargetPath = new Uri(value);
+    }
     public TypeSave Type { get; set; }
 
     public State State

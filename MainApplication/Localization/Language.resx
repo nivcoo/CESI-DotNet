@@ -274,7 +274,7 @@
     <value>Saves Manager</value>
   </data>
   <data name="GLOBAL_SELECT_SAVE_FILE_TYPE_GUI" xml:space="preserve">
-    <value>Please Select Save File Type !</value>
+    <value>Please Select Saves File Type !</value>
   </data>
   <data name="BUTTON_CREATE_EXTENSION" xml:space="preserve">
     <value>Add new Extension</value>
@@ -302,6 +302,9 @@
   </data>
   <data name="PAGE_NAVIGATION_LOGS_TITLE" xml:space="preserve">
     <value>List of Logs</value>
+  </data>
+  <data name="GLOBAL_SELECT_LOGS_FILE_TYPE_GUI" xml:space="preserve">
+    <value>Please Select Logs File Type !</value>
   </data>
   <data name="STATS_COUNT_LOGS" xml:space="preserve">
     <value>Logs Number</value>
