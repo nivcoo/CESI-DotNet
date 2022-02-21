@@ -15,50 +15,50 @@ public abstract class AStorage<T>
     protected string FilePath { get; set; }
 
     /// <summary>
-    ///     Get stored element
+    ///     Get an element that's been stored
     /// </summary>
     /// <returns></returns>
     public abstract T? GetElement();
 
     /// <summary>
-    ///     Get list of all stored elements
+    ///     Get the list of all the elements that've been stored
     /// </summary>
     /// <returns></returns>
     public abstract List<T> GetAllElements();
 
     /// <summary>
-    ///     Write element into storage
+    ///     Write the current element into storage
     /// </summary>
     /// <param name="obj"></param>
     public abstract void WriteElement(T obj);
 
     /// <summary>
-    ///     Add new element into storage
+    ///     Add a new element into storage
     /// </summary>
     /// <param name="obj"></param>
     public abstract void AddNewElement(T obj);
 
     /// <summary>
-    ///     Add element into file without rewrite it
+    ///     Add an element into file without rewrite all the file
     /// </summary>
     /// <param name="obj"></param>
     public abstract void AddNewElementWithoutRewrite(T obj);
 
     /// <summary>
-    ///     Delete element of file
+    ///     Delete an element from the file
     /// </summary>
     /// <param name="match"></param>
     public abstract void RemoveElement(Predicate<T> match);
 
     /// <summary>
-    ///     Get element by match
+    ///     Get a matching element
     /// </summary>
     /// <param name="match"></param>
     /// <returns>element or null if not found</returns>
     public abstract T? GetElementBy(Predicate<T> match);
 
     /// <summary>
-    ///     Edit element bu match
+    ///     Edit a matching elmement 
     /// </summary>
     /// <param name="match"></param>
     /// <param name="obj"></param>
@@ -66,7 +66,7 @@ public abstract class AStorage<T>
     public abstract bool EditElementBy(Predicate<T> match, T obj);
 
     /// <summary>
-    ///     Delete content of file
+    ///     Delete content from the file
     /// </summary>
     public abstract void ClearFile();
 
