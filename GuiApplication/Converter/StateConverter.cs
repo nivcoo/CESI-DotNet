@@ -22,18 +22,15 @@ public class StateConverter : IValueConverter
             case State.Active:
                 if (param == "pause")
                     return Visibility.Visible;
-                else
-                    return Visibility.Collapsed;
+                break;
             case State.Pause:
                 if (param == "resume" || param == "play")
                     return Visibility.Visible;
-                else
-                    return Visibility.Collapsed;
+                break;
             case State.End:
-                if (param == "pause" || param == "resume")
-                    return Visibility.Collapsed;
-                else
+                if (param != "pause" && param != "resume")
                     return Visibility.Visible;
+                break;
         }
         return Visibility.Collapsed;
     }
