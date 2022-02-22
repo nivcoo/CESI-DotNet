@@ -1,8 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Globalization;
-using MainApplication.Handlers;
 using MainApplication.Localization;
-using MainApplication.Objects;
 
 namespace MainApplication.Services;
 

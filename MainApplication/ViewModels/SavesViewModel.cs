@@ -26,13 +26,9 @@ public class SavesViewModel : BaseViewModel
 
     private CommandHandler? _startSaveButtonEvent;
 
-    public SavesViewModel()
-    {
-        Saves = new ObservableCollection<Save>();
-        UpdateSavesList();
-    }
 
-    public ObservableCollection<Save> Saves { get; }
+
+    public ObservableCollection<Save> Saves { get => SaveService.GetSaves(); }
 
     public CommandHandler StartSaveButtonEvent
     {
@@ -93,13 +89,6 @@ public class SavesViewModel : BaseViewModel
         }
     }
 
-    public void UpdateSavesList()
-    {
-        Saves.Clear();
-        foreach (var save in SaveService.GetSaves())
-            Saves.Add(save);
-    }
-
     private void StartAllSaves(object? args)
     {
         SaveService.StartAllSaves();
@@ -142,7 +131,6 @@ public class SavesViewModel : BaseViewModel
             return;
 
         SaveService.RemoveSave(save);
-        Saves.Remove(save);
     }
 
     private bool CanStartSave(object? origin)

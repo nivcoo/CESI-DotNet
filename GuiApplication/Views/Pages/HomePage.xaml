@@ -34,14 +34,16 @@
                         <ComboBox Margin="20,0,0,0" Name="SavesFileTypeComboBox" ItemsSource="{Binding FileTypes}"/>
                     </StackPanel>
 
+                    
+
                     <StackPanel Grid.Row="2" Margin="0,15,0,0" Orientation="Horizontal">
                         <TextBlock Margin="0,5,0,0" Name="SelectLogsFileTypeTextBox"/>
                         <ComboBox Margin="20,0,0,0" Name="LogsFileTypeComboBox" ItemsSource="{Binding FileTypes}"/>
                     </StackPanel>
 
-                    <StackPanel Grid.Row="2" Margin="0,15,0,0" Orientation="Horizontal">
+                    <StackPanel Grid.Row="2" Margin="0,15,0,0" Orientation="Horizontal" >
                         <TextBlock Margin="0,5,0,0" Name="SelectMaxFileSizeTextBox"/>
-                        <NumberBox Margin="20,0,0,0" SpinButtonPlacementMode="Inline" Minimum="1" Maximum="999999999" SmallChange="10" ValueChanged="MaxFileSizeNumberBox_ValueChanged" Value="{Binding MaxFileSize, Mode=TwoWay}" />
+                        <NumberBox BackgroundSizing="OuterBorderEdge" Background="Red" SelectionHighlightColor="Red" Margin="20,0,0,0" SpinButtonPlacementMode="Inline" Minimum="1" Maximum="999999999" SmallChange="10" ValueChanged="MaxFileSizeNumberBox_ValueChanged" Value="{Binding MaxFileSize}" />
                     </StackPanel>
                 </StackPanel>
 
@@ -71,14 +73,10 @@
                 <Button Margin="0,5,0,0" Name="ButtonAddExtensionTextBlock" Click="AddEncryptExtension_OpenDialog">
                     <Button.Resources>
                         <ResourceDictionary>
-                            <ResourceDictionary.ThemeDictionaries>
-                                <ResourceDictionary x:Key="Light">
-                                    <SolidColorBrush x:Key="ButtonBackground" Color="#27ae60"/>
-                                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#2bb865"/>
-                                    <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
-                                    <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
-                                </ResourceDictionary>
-                            </ResourceDictionary.ThemeDictionaries>
+                            <SolidColorBrush x:Key="ButtonBackground" Color="#27ae60"/>
+                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#2bb865"/>
+                            <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
+                            <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
                         </ResourceDictionary>
                     </Button.Resources>
 
@@ -97,14 +95,11 @@
                                             </Viewbox>
                                             <Button.Resources>
                                                 <ResourceDictionary>
-                                                    <ResourceDictionary.ThemeDictionaries>
-                                                        <ResourceDictionary x:Key="Light">
-                                                            <SolidColorBrush x:Key="ButtonBackground" Color="#e74c3c"/>
-                                                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#ed5c4c"/>
-                                                            <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
-                                                            <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
-                                                        </ResourceDictionary>
-                                                    </ResourceDictionary.ThemeDictionaries>
+                                                    <SolidColorBrush x:Key="ButtonBackground" Color="#e74c3c"/>
+                                                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#ed5c4c"/>
+                                                    <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
+                                                    <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
+
                                                 </ResourceDictionary>
                                             </Button.Resources>
                                         </Button>
@@ -125,14 +120,10 @@
                 <Button Margin="0,5,0,0" Name="ButtonAddFileTextBlock" Click="AddPriorityFile_OpenDialog">
                     <Button.Resources>
                         <ResourceDictionary>
-                            <ResourceDictionary.ThemeDictionaries>
-                                <ResourceDictionary x:Key="Light">
-                                    <SolidColorBrush x:Key="ButtonBackground" Color="#27ae60"/>
-                                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#2bb865"/>
-                                    <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
-                                    <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
-                                </ResourceDictionary>
-                            </ResourceDictionary.ThemeDictionaries>
+                            <SolidColorBrush x:Key="ButtonBackground" Color="#27ae60"/>
+                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#2bb865"/>
+                            <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
+                            <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
                         </ResourceDictionary>
                     </Button.Resources>
 
@@ -151,14 +142,10 @@
                                             </Viewbox>
                                             <Button.Resources>
                                                 <ResourceDictionary>
-                                                    <ResourceDictionary.ThemeDictionaries>
-                                                        <ResourceDictionary x:Key="Light">
-                                                            <SolidColorBrush x:Key="ButtonBackground" Color="#e74c3c"/>
-                                                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#ed5c4c"/>
-                                                            <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
-                                                            <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
-                                                        </ResourceDictionary>
-                                                    </ResourceDictionary.ThemeDictionaries>
+                                                    <SolidColorBrush x:Key="ButtonBackground" Color="#e74c3c"/>
+                                                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#ed5c4c"/>
+                                                    <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
+                                                    <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
                                                 </ResourceDictionary>
                                             </Button.Resources>
                                         </Button>

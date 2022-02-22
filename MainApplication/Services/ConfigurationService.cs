@@ -50,6 +50,9 @@ internal sealed class ConfigurationService
 
     internal void ChangeSavesFileType(FileType savesFileType)
     {
+        
+        if (savesFileType == Config.SavesFileType)
+            return;
         SaveService ss = SaveService.GetInstance();
         Config.SavesFileType = savesFileType;
         ss.LoadSavesFile();

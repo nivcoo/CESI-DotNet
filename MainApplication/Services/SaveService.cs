@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Globalization;
 using MainApplication.Objects;
 using MainApplication.Objects.Enums;
@@ -14,7 +15,7 @@ internal sealed class SaveService
 {
     private static readonly SaveService Instance = new();
 
-    private readonly List<Save> _saves;
+    private readonly ObservableCollection<Save> _saves;
 
     private string _savesPath;
 
@@ -35,7 +36,9 @@ internal sealed class SaveService
         SelectedCultureInfo = CultureInfo.CurrentCulture;
         _saveTasks = new Dictionary<Save, ASave>();
         LoadSavesFile();
-        _saves = new List<Save>();
+        _saves = new ObservableCollection<Save>();
+        _savesPath = Path.Join(localPath, @"\data\saves.json");
+        _storage = new JsonStorage<Save>(_savesPath);
         InitSavesList();
     }
 
@@ -72,7 +75,7 @@ internal sealed class SaveService
     ///     Get all saves
     /// </summary>
     /// <returns>Save List</returns>
-    public List<Save> GetSaves()
+    public ObservableCollection<Save> GetSaves()
     {
         return _saves;
     }
@@ -233,7 +236,7 @@ internal sealed class SaveService
     /// <returns>Save object</returns>
     public Save? AlreadySaveWithSameName(string? name)
     {
-        return _saves.Find(save => save.Name == name);
+        return _saves.ToList().Find(save => save.Name == name);
     }
 
     public static SaveService GetInstance()
