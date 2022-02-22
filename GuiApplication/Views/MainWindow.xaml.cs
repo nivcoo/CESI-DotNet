@@ -1,5 +1,6 @@
 ﻿using GuiApplication.Views.Pages;
 using Microsoft.UI;
+using Microsoft.UI.Dispatching;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -13,18 +14,29 @@ public sealed partial class MainWindow : Window
     private static readonly MainWindow Instance = new();
     public IntPtr HWnd;
     private AppWindow _apw;
-    private OverlappedPresenter _presenter;
+
+    public new DispatcherQueue DispatcherQueue;
+
+    public NavigationView CurrentNavigationView;
 
 
     public MainWindow()
     {
         GetAppWindowAndPresenter();
         InitializeComponent();
-        //_presenter.IsResizable = false;
         _apw.Resize(new Windows.Graphics.SizeInt32 { Width = 1600, Height = 900 });
         _apw.Title = "EasySave";
-        //_presenter.IsMaximizable = false;
         InitTexts();
+
+        SetUIThread();
+
+
+        CurrentNavigationView = MainNavigationView;
+    }
+
+    public void SetUIThread()
+    {
+        DispatcherQueue = DispatcherQueue.GetForCurrentThread();
     }
 
     public void InitTexts()
@@ -40,7 +52,6 @@ public sealed partial class MainWindow : Window
         HWnd = WindowNative.GetWindowHandle(this);
         WindowId myWndId = Win32Interop.GetWindowIdFromWindow(HWnd);
         _apw = AppWindow.GetFromWindowId(myWndId);
-        _presenter = _apw.Presenter as OverlappedPresenter;
     }
 
 

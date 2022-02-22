@@ -4,7 +4,6 @@ using MainApplication.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
-using System.Diagnostics;
 using System.Globalization;
 
 namespace GuiApplication.Views.Pages;
@@ -13,12 +12,14 @@ public sealed partial class HomePage : Page
 {
 
     private readonly HomeViewModel _homeViewModel = new();
+    private readonly MainWindow _mainWindow;
 
 
     public HomePage()
     {
         DataContext = _homeViewModel;
         InitializeComponent();
+        _mainWindow = MainWindow.GetInstance();
         InitTexts();
         LanguageComboBox.SelectedItem = _homeViewModel.SelectedCultureInfo;
         LanguageComboBox.SelectionChanged += ChangeCultureEvent;
@@ -53,6 +54,7 @@ public sealed partial class HomePage : Page
         StatsListSavesTextBox.Text = MainApplication.Localization.Language.STATS_COUNT_SAVES;
         StatsListLogsTextBox.Text = MainApplication.Localization.Language.STATS_COUNT_LOGS;
 
+        _mainWindow.CurrentNavigationView.Header = MainApplication.Localization.Language.PAGE_HOME_TITLE;
 
     }
 
@@ -62,8 +64,7 @@ public sealed partial class HomePage : Page
         var language = comboBox.SelectedItem as CultureInfo;
         _homeViewModel.SelectedCultureInfo = language;
 
-        MainWindow.GetInstance().InitTexts();
-
+        _mainWindow.InitTexts();
         InitTexts();
     }
 

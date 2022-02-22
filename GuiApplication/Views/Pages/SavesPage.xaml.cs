@@ -30,11 +30,8 @@ public sealed partial class SavesPage : Page
     {
         DataContext = _saveViewModel;
 
-        if (_saveViewModel.DispatchUiAction == null)
-        {
-            DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
-            _saveViewModel.DispatchUiAction = (action) => dispatcherQueue.TryEnqueue(DispatcherQueuePriority.Low, () => { action.Invoke(); });
-        }
+        _saveViewModel.DispatchUiAction = (action) => MainWindow.GetInstance().DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Low, () => { action.Invoke(); });
+
         InitializeComponent();
 
         InitTexts();
@@ -66,11 +63,9 @@ public sealed partial class SavesPage : Page
             DefaultButton = ContentDialogButton.Primary,
             Content = content
         };
-        dialog.XamlRoot = this.Content.XamlRoot;
+        dialog.XamlRoot = Content.XamlRoot;
         dialog.PrimaryButtonClick += content.CreateButtonEvent;
         var result = await dialog.ShowAsync();
-        if (result == ContentDialogResult.Primary)
-            _saveViewModel.UpdateSavesList();
 
     }
     private void SaveError(string errorMessage)

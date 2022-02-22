@@ -6,6 +6,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    
+
     <ScrollViewer ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
         <Grid>
             <Grid.RowDefinitions>
@@ -24,14 +26,10 @@
                                     CommandParameter="{Binding}">
                                         <Button.Resources>
                                             <ResourceDictionary>
-                                                <ResourceDictionary.ThemeDictionaries>
-                                                    <ResourceDictionary x:Key="Light">
-                                                        <SolidColorBrush x:Key="ButtonBackground" Color="{ThemeResource SystemAccentColor}"/>
-                                                        <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="{ThemeResource SystemAccentColorLight1}"/>
-                                                        <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
-                                                        <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
-                                                    </ResourceDictionary>
-                                                </ResourceDictionary.ThemeDictionaries>
+                                                <SolidColorBrush x:Key="ButtonBackground" Color="{ThemeResource SystemAccentColor}"/>
+                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="{ThemeResource SystemAccentColorLight1}"/>
+                                                <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
+                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
                                             </ResourceDictionary>
                                         </Button.Resources>
                                     </Button>
