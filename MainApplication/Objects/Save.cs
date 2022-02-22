@@ -112,7 +112,10 @@ public class Save : INPChanged
         TotalFilesToCopy = 0;
         Progression = 0;
     }
-
+/// <summary>
+/// Shows the progression of the save
+/// </summary>
+///
     public void UpdateProgression()
     {
         Progression = TotalFilesToCopy == 0 ? 0 : (TotalFilesToCopy - NbFilesLeftToDo) * 100 / TotalFilesToCopy;
