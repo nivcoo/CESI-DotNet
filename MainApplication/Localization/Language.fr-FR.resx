@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GLOBAL_SELECT_LANGUAGE" xml:space="preserve">
-    <value>Selectionnez un Langage (en-US, fr-FR) :</value>
+    <value>Selectionnez un langage (en-US, fr-FR) :</value>
   </data>
   <data name="GLOBAL_SELECTED_LANGUAGE" xml:space="preserve">
     <value>La langue choisie est : fr-FR</value>
@@ -127,10 +127,10 @@
     <value>Nom</value>
   </data>
   <data name="GLOBAL_ASK_SAVE_NAME" xml:space="preserve">
-    <value>Entrez le nom d'une Sauvegarde ou "cancel" pour annuler :</value>
+    <value>Entrez le nom d'une sauvegarde ou "cancel" pour annuler :</value>
   </data>
   <data name="GLOBAL_ASK_SAVE_NAME_OR_ALL" xml:space="preserve">
-    <value>Entrez le nom d'une Sauvegarde ou "all" pour lancer toutes les sauvegardes ou "cancel" pour annuler :</value>
+    <value>Entrez le nom d'une sauvegarde ou "all" pour lancer toutes les sauvegardes ou "cancel" pour annuler :</value>
   </data>
   <data name="GLOBAL_SAVE_NAME_NOT_EXIST" xml:space="preserve">
     <value>Aucune sauvegarde n'existe avec ce nom !</value>
@@ -154,7 +154,7 @@
     <value>Bienvenue dans EasySave !</value>
   </data>
   <data name="CHOICE_DISPLAY" xml:space="preserve">
-    <value>Liste des Actions Possible :</value>
+    <value>Liste des actions possible :</value>
   </data>
   <data name="CHOICE_DESC_SHOW_LIST" xml:space="preserve">
     <value>Afficher la liste des sauvegardes</value>
@@ -187,7 +187,7 @@
     <value>Une sauvegarde comporte déjà ce nom.</value>
   </data>
   <data name="GLOBAL_SAVE_ALREADY_RUN" xml:space="preserve">
-    <value>La Save est déjà lancée !</value>
+    <value>La sauvegarde est déjà lancée !</value>
   </data>
   <data name="CREATE_SAVE_ASK_SOURCE_URI" xml:space="preserve">
     <value>Donnez le chemin d'accès à la sauvegarde ou "cancel" pour annuler :</value>
@@ -208,7 +208,7 @@
     <value>Ce type de sauvegarde n'existe pas.</value>
   </data>
   <data name="GLOBAL_TYPE" xml:space="preserve">
-    <value>Type de Sauvegarde</value>
+    <value>Type de sauvegarde</value>
   </data>
   <data name="GLOBAL_ASK_GO_TO_MENU" xml:space="preserve">
     <value>Écrivez ou appuyez sur entrée pour revenir au menu.</value>
@@ -226,25 +226,25 @@
     <value>La limite de 5 sauvegardes est dépassée.</value>
   </data>
   <data name="BUTTON_CREATE_SAVE" xml:space="preserve">
-    <value>Créer une Sauvegarde</value>
+    <value>Créer une sauvegarde</value>
   </data>
   <data name="BUTTON_PAUSE_ALL_SAVES" xml:space="preserve">
-    <value>Stopper toutes les Sauvegardes</value>
+    <value>Stopper toutes les sauvegardes</value>
   </data>
   <data name="BUTTON_RESUME_ALL_SAVES" xml:space="preserve">
-    <value>Relancer toutes les Sauvegardes</value>
+    <value>Relancer toutes les sauvegardes</value>
   </data>
   <data name="BUTTON_START_ALL_SAVES" xml:space="preserve">
-    <value>Lancer toutes les Sauvegardes</value>
+    <value>Lancer toutes les sauvegardes</value>
   </data>
   <data name="CREATE_COMPLETE_ALL_INPUTS" xml:space="preserve">
     <value>Vous devez compléter tous les champs !</value>
   </data>
   <data name="CREATE_SAVE_SELECT_SOURCE" xml:space="preserve">
-    <value>Sélectionner la Source</value>
+    <value>Sélectionner la source</value>
   </data>
   <data name="CREATE_SAVE_SELECT_TARGET" xml:space="preserve">
-    <value>Séléctionner la Destination</value>
+    <value>Séléctionner la destination</value>
   </data>
   <data name="ERROR_JOB_APPLICATION_RUNNING" xml:space="preserve">
     <value>Une application métier est lancée, vous devez la stopper pour lancer une sauvegarde</value>
@@ -253,7 +253,7 @@
     <value>Progression</value>
   </data>
   <data name="GLOBAL_SELECT_LANGUAGE_GUI" xml:space="preserve">
-    <value>Selectionnez un Langage !</value>
+    <value>Selectionnez un langage !</value>
   </data>
   <data name="PAGE_HOME_TITLE" xml:space="preserve">
     <value>Accueil EasySave</value>
@@ -262,16 +262,16 @@
     <value>Page d'Accueil</value>
   </data>
   <data name="PAGE_NAVIGATION_SAVES_TITLE" xml:space="preserve">
-    <value>Page des Sauvegardes</value>
+    <value>Page des sauvegardes</value>
   </data>
   <data name="PAGE_SAVES_TITLE" xml:space="preserve">
-    <value>Gestionnaire de Sauvegardes</value>
+    <value>Gestionnaire de sauvegardes</value>
   </data>
   <data name="GLOBAL_SELECT_SAVE_FILE_TYPE_GUI" xml:space="preserve">
-    <value>Selectionnez le Type de fichier pour les Sauvegardes !</value>
+    <value>Selectionnez le type de fichier pour les sauvegardes !</value>
   </data>
   <data name="BUTTON_CREATE_EXTENSION" xml:space="preserve">
-    <value>Ajouter une Extension</value>
+    <value>Ajouter une extension</value>
   </data>
   <data name="BUTTON_CREATE_PRIORITY_FILE" xml:space="preserve">
     <value>Ajouter un nom de Fichier</value>
@@ -280,34 +280,34 @@
     <value>Cette extension existe déjà !</value>
   </data>
   <data name="GLOBAL_ENCRYPT_EXTENSIONS_GUI" xml:space="preserve">
-    <value>Liste des Extensions qui seront chiffrées</value>
+    <value>Liste des extensions qui seront chiffrées</value>
   </data>
   <data name="GLOBAL_PRIORITY_FILES_GUI" xml:space="preserve">
     <value>Liste des fichiers prioritaires</value>
   </data>
   <data name="HOME_ADD_EXTENSION" xml:space="preserve">
-    <value>Ajouter une nouvelle Extension</value>
+    <value>Ajouter une nouvelle extension</value>
   </data>
   <data name="HOME_ADD_PRIORITY_FILE" xml:space="preserve">
     <value>Ajouter un nouveau fichier</value>
   </data>
   <data name="PAGE_LOGS_TITLE" xml:space="preserve">
-    <value>Liste des Logs</value>
+    <value>Liste des logs</value>
   </data>
   <data name="PAGE_NAVIGATION_LOGS_TITLE" xml:space="preserve">
-    <value>Liste des Logs</value>
+    <value>Liste des logs</value>
   </data>
   <data name="GLOBAL_SELECT_LOGS_FILE_TYPE_GUI" xml:space="preserve">
-    <value>Selectionnez le Type de fichier pour les logs !</value>
+    <value>Selectionnez le type de fichier pour les logs !</value>
   </data>
   <data name="STATS_COUNT_LOGS" xml:space="preserve">
-    <value>Nombre de Logs</value>
+    <value>Nombre de logs</value>
   </data>
   <data name="STATS_COUNT_SAVES" xml:space="preserve">
-    <value>Nombre de Sauvegardes</value>
+    <value>Nombre de sauvegardes</value>
   </data>
   <data name="STATS_GLOBAL_MESSAGES" xml:space="preserve">
-    <value>Statistique Globales</value>
+    <value>Statistique globales</value>
   </data>
   <data name="GLOBAL_SELECT_MAX_FILE_SIZE_GUI" xml:space="preserve">
     <value>Selectionnez la taille maximale de transfert simultanée (ko)</value>
