@@ -10,7 +10,6 @@ public partial class App : Application
 {
     public App()
     {
-
         Process proc = Process.GetCurrentProcess();
         int count = new List<Process>(Process.GetProcesses()).FindAll(p =>
             p.ProcessName == proc.ProcessName).Count;

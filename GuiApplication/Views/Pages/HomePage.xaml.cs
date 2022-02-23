@@ -1,6 +1,6 @@
 ﻿using GuiApplication.Views.Dialogs;
 using MainApplication.Objects.Enums;
-using MainApplication.ViewModels;
+using MainApplication.ViewModels.Home;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
@@ -11,15 +11,16 @@ namespace GuiApplication.Views.Pages;
 public sealed partial class HomePage : Page
 {
 
-    private readonly HomeViewModel _homeViewModel = new();
+    private readonly AHomeViewModel _homeViewModel;
     private readonly MainWindow _mainWindow;
 
 
     public HomePage()
     {
+        _mainWindow = MainWindow.GetInstance();
+        _homeViewModel = _mainWindow.GetHomeViewModel();
         DataContext = _homeViewModel;
         InitializeComponent();
-        _mainWindow = MainWindow.GetInstance();
         InitTexts();
         LanguageComboBox.SelectedItem = _homeViewModel.SelectedCultureInfo;
         LanguageComboBox.SelectionChanged += ChangeCultureEvent;

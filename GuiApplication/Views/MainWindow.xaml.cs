@@ -1,4 +1,5 @@
 ﻿using GuiApplication.Views.Pages;
+using MainApplication.ViewModels.Home;
 using Microsoft.UI;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Windowing;
@@ -19,6 +20,8 @@ public sealed partial class MainWindow : Window
 
     public NavigationView CurrentNavigationView;
 
+    public bool IsServer = true;
+
 
     public MainWindow()
     {
@@ -32,6 +35,13 @@ public sealed partial class MainWindow : Window
 
 
         CurrentNavigationView = MainNavigationView;
+    }
+
+    public AHomeViewModel GetHomeViewModel()
+    {
+        if(IsServer)
+            return new ServerHomeViewModel();
+        return new ClientHomeViewModel();
     }
 
     public void SetUIThread()

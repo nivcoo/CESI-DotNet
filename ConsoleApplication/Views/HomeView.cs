@@ -63,7 +63,6 @@ public class HomeView : BaseView
                 ShowSavesList();
                 break;
             case Choice.Create:
-                _savesViewModel.UpdateSavesList();
                 var saves = _savesViewModel.Saves;
                 if (saves?.Count < 5)
                 {
@@ -180,7 +179,6 @@ public class HomeView : BaseView
 
     private void ShowSavesList()
     {
-        _savesViewModel.UpdateSavesList();
         var saves = _savesViewModel.Saves;
 
         List<Tuple<string, string, string, string, string>> tuplesSaves = new();

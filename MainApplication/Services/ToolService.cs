@@ -1,4 +1,8 @@
-﻿namespace MainApplication.Services;
+﻿using MainApplication.Storages.NamingPolicies;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
+namespace MainApplication.Services;
 
 internal class ToolService
 {
@@ -120,4 +124,25 @@ internal class ToolService
 
         return file1Byte - file2Byte == 0;
     }
+
+    public static readonly JsonSerializerOptions SerializerOptions = new()
+    {
+        Converters =
+        {
+            new JsonStringEnumConverter(new ToUpperNamingPolicy())
+        },
+        WriteIndented = true
+    };
+
+    public static string SerializeObject(object obj)
+    {
+        return JsonSerializer.Serialize(obj, SerializerOptions);
+    }
+
+    public static T? DeserializeObject<T>(string obj)
+    {
+        return JsonSerializer.Deserialize<T>(obj.Trim(), SerializerOptions);
+    }
+
+    
 }

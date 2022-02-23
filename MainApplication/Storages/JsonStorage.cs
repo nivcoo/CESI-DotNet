@@ -1,20 +1,13 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
+using MainApplication.Services;
 using MainApplication.Storages.NamingPolicies;
 
 namespace MainApplication.Storages;
 
 public class JsonStorage<T> : AStorage<T>
 {
-    private readonly JsonSerializerOptions _serializerOptions = new()
-    {
-        Converters =
-        {
-            new JsonStringEnumConverter(new ToUpperNamingPolicy())
-        },
-        WriteIndented = true
-    };
 
     public JsonStorage(string filePath) : base(filePath)
     {
@@ -31,7 +24,7 @@ public class JsonStorage<T> : AStorage<T>
             T? element = default;
             try
             {
-                element = JsonSerializer.Deserialize<T>(text.Trim(), _serializerOptions);
+                element = ToolService.DeserializeObject<T>(text);
             } catch { }
 
             return element ?? default;
@@ -47,7 +40,7 @@ public class JsonStorage<T> : AStorage<T>
                 var text = File.ReadAllText(FilePath);
                 if (text == "")
                     return new List<T>();
-                var elementsList = JsonSerializer.Deserialize<List<T>>(text.Trim(), _serializerOptions);
+                var elementsList = ToolService.DeserializeObject<List<T>>(text);
                 return elementsList ?? new List<T>();
             }) is List<T> list)
             return list;
@@ -74,7 +67,7 @@ public class JsonStorage<T> : AStorage<T>
         {
             var objects = new List<T> {obj};
             using var fs = new FileStream(FilePath, FileMode.Open);
-            var serializeObject = SerializeObject(objects);
+            var serializeObject = ToolService.SerializeObject(objects);
             using var sw = new StreamWriter(fs);
             if (fs.Length > 1)
             {
@@ -124,11 +117,6 @@ public class JsonStorage<T> : AStorage<T>
 
     private void SerializeAndSaveIntoFiles(object obj)
     {
-        RunMutexAction(() => File.WriteAllText(FilePath, SerializeObject(obj)));
-    }
-
-    private string SerializeObject(object obj)
-    {
-        return JsonSerializer.Serialize(obj, _serializerOptions);
+        RunMutexAction(() => File.WriteAllText(FilePath, ToolService.SerializeObject(obj)));
     }
 }

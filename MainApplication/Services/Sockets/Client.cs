@@ -1,98 +1,82 @@
-﻿using System;
+﻿using MainApplication.Objects;
+using MainApplication.Services.Sockets.Packets;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading;
+using System.Text;
 
-namespace MainApplication.Services.Sockets
+namespace MainApplication.Services.Sockets;
+
+//Todo Add IDisposable
+public class Client : ASocket
 {
-    public class Client : IDisposable
+    public Socket? ClientSocket;
+    public Client()
     {
-        private bool closed;
-        private readonly Socket socket;
-
-        public event EventHandler Disposed;
-
-        public Client(Socket socket)
-        {
-            this.socket = socket;
-        }
-
-        public void Start()
-        {
-            socket.Send(Serializer.Serialize("Welcome to the server"));
-            Thread thread = new Thread(Listen);
-            thread.Start();
-        }
-
-        private void Listen()
-        {
-            byte[] buffer = new byte[1024];
-
-            while (!closed)
-            {
-                try
-                {
-                    int count = socket.Receive(buffer);
-                    SaveFunction(buffer, count);
-                    if (count == 0)
-                        throw new SocketException();
-                }
-                catch (SocketException)
-                {
-                    Dispose();
-                }
-            }
-        }
-
-        private void SaveFunction(byte[] bytes, int value)
-        {
-            string reception = Serializer.Deserialize(bytes, value);
-
-            string[] fonctionEtNom = reception.Split('/');
-
-            switch (fonctionEtNom[0])
-            {
-                case "Lancement":
-
-                case "Pause":
-
-                case "Reprise":
-
-                case "Arret":
-
-                case "Liste":
-
-                default: break;
-            }
-        }
-
-        #region IDISPOSABLE
-
-        private bool disposedValue;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    socket.Dispose();
-                }
-                disposedValue = true;
-            }
-        }
-
-        public void Dispose()
-        {
-            if (closed)
-                return;
-            closed = true;
-            Disposed?.Invoke(this, EventArgs.Empty);
-
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
-        }
-
-        #endregion IDISPOSABLE
+        ConnectClient();
+        SendPacket(PacketType.Server_HomePageGetConfig, new Log("rtrt", new Uri(@"C:\"), new Uri(@"C:\"), 0, 0, 0, DateTime.Now));
+        SendPacket(PacketType.Server_HomePageGetConfig, new Log("rtrt", new Uri(@"C:\"), new Uri(@"C:\"), 0, 0, 0, DateTime.Now));
     }
+
+    public void ConnectClient()
+    {
+
+        try
+        {
+            IPEndPoint remoteEP = new(IPAddress.Parse("127.0.0.1"), 55584);
+
+            ClientSocket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            try
+            {
+                ClientSocket.Connect(remoteEP);
+
+            }
+            catch { }
+
+        }
+        catch { }
+    }
+    public void ShutdownSocket()
+    {
+        if (ClientSocket == null)
+            return;
+        ClientSocket.Shutdown(SocketShutdown.Both);
+        ClientSocket.Close();
+    }
+
+    public void SendPacket(PacketType packetType, object obj)
+    {
+        if (ClientSocket == null)
+            return;
+        byte[] bytes = new byte[1024];
+        Task.Run(() => {
+            try
+            {
+                ClientSocket.Send(Encoding.UTF8.GetBytes(ToolService.SerializeObject(new PacketMessage(packetType, ToolService.SerializeObject(obj))) + "<EOF>"));
+
+
+                string? data = null;
+                while (true)
+                {
+                    int bytesRec = ClientSocket.Receive(bytes);
+                    data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                    if (data.IndexOf("<EOF>") > -1)
+                    {
+                        break;
+                    }
+                }
+
+                data = data.Replace("<EOF>", "");
+
+
+                var packetMessage = ToolService.DeserializeObject<PacketMessage>(data);
+                if (packetMessage != null)
+                {
+                    InvokeMethodFromPacketmessage(packetMessage, null);
+                }
+                
+            }
+            catch { }
+        });
+    }
+
 }

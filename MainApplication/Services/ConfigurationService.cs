@@ -1,5 +1,6 @@
 ﻿using MainApplication.Objects;
 using MainApplication.Objects.Enums;
+using MainApplication.Services.Sockets;
 using MainApplication.Storages;
 using System.Diagnostics;
 
@@ -19,6 +20,10 @@ internal sealed class ConfigurationService
 
     public ConfigurationService()
     {
+        ASocket listener = new Listener();
+        ASocket client = new Client();
+        
+
         localPath = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"\Cesi-EasySave\");
         if (!Directory.Exists(localPath))
             Directory.CreateDirectory(localPath);

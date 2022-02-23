@@ -267,7 +267,7 @@ internal sealed class SaveService
     ///     Get Number of file in specific save
     /// </summary>
     /// <returns>Number left to do, Total Number</returns>
-    public static Tuple<int, int> GetFilesInformationsOfSave(Save save)
+    public Tuple<int, int> GetFilesInformationsOfSave(Save save)
     {
         return new Tuple<int, int>(save.NbFilesLeftToDo, save.TotalFilesToCopy);
     }

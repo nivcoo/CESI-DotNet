@@ -1,79 +1,87 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MainApplication.Services.Sockets.Packets;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading;
+using System.Reflection;
+using System.Text;
 
-namespace MainApplication.Services.Sockets
+namespace MainApplication.Services.Sockets;
+
+// todo idisposable
+public class Listener : ASocket
 {
-    public class Listener : IDisposable
+
+
+    public Socket? ServerSocket;
+
+    public List<Socket> ClientsSockets;
+
+    public Listener()
     {
-        private bool closed = false;
-        private readonly Socket listenSocket;
-        private readonly List<Client> clients = new List<Client>();
+        ClientsSockets = new List<Socket>();
 
-        public Listener()
+        Task.Run(() => StartListening());
+    }
+
+    public void StartListening()
+    {
+        byte[] bytes = new byte[1024];
+
+        IPEndPoint localEndPoint = new (IPAddress.Parse("127.0.0.1"), 55584);
+        ServerSocket = new (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+        try
         {
-            listenSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        }
+            ServerSocket.Bind(localEndPoint);
+            ServerSocket.Listen(10);
 
-        public void StartListening(int port)
-        {
-            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
-            listenSocket.Bind(endPoint);
-            listenSocket.Listen(64);
-
-            Thread thread = new Thread(WaitForClient);
-            thread.Start();
-        }
-
-        private void WaitForClient()
-        {
-            while (!closed)
+            while (true)
             {
-                try
+                Console.WriteLine("Waiting for a connection...");
+                Socket clientSocket = ServerSocket.Accept();
+                Task.Run(() =>
                 {
-                    Socket clientSocket = listenSocket.Accept();
-                    Client client = new Client(clientSocket);
-                    clients.Add(client);
-
-                    client.Disposed += ((sender, e) =>
+                    ClientsSockets.Add(clientSocket);
+                    while (clientSocket.Connected)
                     {
-                        clients.Remove(sender as Client);
-                    });
+                        string? data = null;
+                        while (true)
+                        {
+                            int bytesRec = clientSocket.Receive(bytes);
+                            data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                            if (data.IndexOf("<EOF>") > -1)
+                            {
+                                break;
+                            }
+                        }
 
-                    client.Start();
-                }
-                catch { break; }
+                        data = data.Replace("<EOF>", "");
+
+
+                        var packetMessage = ToolService.DeserializeObject<PacketMessage>(data);
+                        if (packetMessage != null)
+                        {
+                            var receiveData = InvokeMethodFromPacketmessage(packetMessage, clientSocket);
+                            Console.WriteLine("Text received : {0}", receiveData);
+                        }
+                    }
+                    ClientsSockets.Remove(clientSocket);
+                });
+
+
+                
             }
+
         }
+        catch { }
 
-        #region IDISPOSABLE
+    }
 
-        private bool disposedValue;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    listenSocket.Dispose();
-                }
-                disposedValue = true;
-            }
-        }
-
-        public void Dispose()
-        {
-            while (clients.Count > 0)
-                clients[0].Dispose();
-            closed = true;
-
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
-        }
-
-        #endregion IDISPOSABLE
+    public void ShutdownSocket()
+    {
+        if (ServerSocket == null)
+            return;
+        ServerSocket.Shutdown(SocketShutdown.Both);
+        ServerSocket.Close();
     }
 }
+
