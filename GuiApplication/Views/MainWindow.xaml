@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <NavigationView Name="MainNavigationView" SelectionChanged="NavigationView_SelectionChanged" Grid.Row="1" Header="This is Heade Text"  PaneDisplayMode="Left" OpenPaneLength="250"  IsSettingsVisible="False" IsBackButtonVisible="Collapsed">
+    <NavigationView Name="MainNavigationView" SelectionChanged="NavigationView_SelectionChanged" Header="This is Heade Text"  PaneDisplayMode="Left" OpenPaneLength="250"  IsSettingsVisible="False" IsBackButtonVisible="Collapsed">
         <NavigationView.Resources>
             <ResourceDictionary>
                 <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="{ThemeResource SolidBackgroundFillColorBase}"/>

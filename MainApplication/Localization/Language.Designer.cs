@@ -88,7 +88,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Pause all the active saves.
+        ///   Recherche une chaîne localisée semblable à Pause all the actives saves.
         /// </summary>
         public static string BUTTON_PAUSE_ALL_SAVES {
             get {
@@ -466,7 +466,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Please select a sanguage (en-US, fr-FR):.
+        ///   Recherche une chaîne localisée semblable à Please select a language (en-US, fr-FR):.
         /// </summary>
         public static string GLOBAL_SELECT_LANGUAGE {
             get {
@@ -475,7 +475,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Please select a sanguage !.
+        ///   Recherche une chaîne localisée semblable à Please select a language !.
         /// </summary>
         public static string GLOBAL_SELECT_LANGUAGE_GUI {
             get {
@@ -502,7 +502,7 @@ namespace MainApplication.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Please select a saves sile type !.
+        ///   Recherche une chaîne localisée semblable à Please select a saves file type !.
         /// </summary>
         public static string GLOBAL_SELECT_SAVE_FILE_TYPE_GUI {
             get {

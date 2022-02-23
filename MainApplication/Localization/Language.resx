@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GLOBAL_SELECT_LANGUAGE" xml:space="preserve">
-    <value>Please select a sanguage (en-US, fr-FR):</value>
+    <value>Please select a language (en-US, fr-FR):</value>
   </data>
   <data name="GLOBAL_SELECTED_LANGUAGE" xml:space="preserve">
     <value>The language selected is : en-US</value>
@@ -229,7 +229,7 @@
     <value>Create a new save</value>
   </data>
   <data name="BUTTON_PAUSE_ALL_SAVES" xml:space="preserve">
-    <value>Pause all the active saves</value>
+    <value>Pause all the actives saves</value>
   </data>
   <data name="BUTTON_RESUME_ALL_SAVES" xml:space="preserve">
     <value>Resume all the paused saves</value>
@@ -259,7 +259,7 @@
     <value>Progression</value>
   </data>
   <data name="GLOBAL_SELECT_LANGUAGE_GUI" xml:space="preserve">
-    <value>Please select a sanguage !</value>
+    <value>Please select a language !</value>
   </data>
   <data name="PAGE_HOME_TITLE" xml:space="preserve">
     <value>Home EasySave</value>
@@ -274,7 +274,7 @@
     <value>Saves Manager</value>
   </data>
   <data name="GLOBAL_SELECT_SAVE_FILE_TYPE_GUI" xml:space="preserve">
-    <value>Please select a saves sile type !</value>
+    <value>Please select a saves file type !</value>
   </data>
   <data name="BUTTON_CREATE_EXTENSION" xml:space="preserve">
     <value>Add a new extension</value>
