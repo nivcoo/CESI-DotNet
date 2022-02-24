@@ -134,8 +134,10 @@ internal class ToolService
         WriteIndented = true
     };
 
-    public static string SerializeObject(object obj)
+    public static string SerializeObject(object? obj)
     {
+        if(obj == null)
+            return string.Empty;
         return JsonSerializer.Serialize(obj, SerializerOptions);
     }
 

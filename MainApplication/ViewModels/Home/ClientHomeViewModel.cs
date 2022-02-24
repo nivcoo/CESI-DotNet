@@ -1,95 +1,142 @@
 ﻿using MainApplication.Objects;
 using MainApplication.Objects.Enums;
+using MainApplication.Services.Sockets;
+using MainApplication.Services.Sockets.Packets;
+using System.Diagnostics;
 using System.Globalization;
+using System.Net.Sockets;
 
 namespace MainApplication.ViewModels.Home;
 
 public class ClientHomeViewModel : AHomeViewModel
 {
-    public override List<CultureInfo> AllCultureInfo 
-    { 
-        get => throw new NotImplementedException(); 
-        set => throw new NotImplementedException(); 
-    }
-    public override CultureInfo SelectedCultureInfo 
-    { 
-        get => throw new NotImplementedException(); 
-        set => throw new NotImplementedException(); 
-    }
-    public override double MaxFileSize 
-    { 
-        get => throw new NotImplementedException(); 
-        set => throw new NotImplementedException(); 
-    }
-    public override FileType SelectedSavesFileType 
-    { 
-        get => throw new NotImplementedException(); 
-        set => throw new NotImplementedException(); 
-    }
-    public override FileType SelectedLogsFileType 
-    { 
-        get => throw new NotImplementedException(); 
-        set => throw new NotImplementedException(); 
+    private Config _config;
+    private readonly ClientSocket? _clientSocket;
+
+
+    public ClientHomeViewModel() : base()
+    {
+        _config = ConfigurationService.Config;
+
+
+        _clientSocket = ConfigurationService.ClientSocket;
+        SetRemoteConfig();
+
+        UpdateEncryptExtensionsList();
+
+        UpdatePriorityFilesList();
+
+        UpdateStats();
     }
 
-    public override Tuple<int, int> GetFilesInformationsOfAllSave()
+    public Task<object?>? SendPacket(PacketType packetType, object? obj)
     {
-        throw new NotImplementedException();
+        return _clientSocket?.SendPacket(packetType, obj, false);
     }
 
-    public override Tuple<int, int> GetFilesInformationsOfSave(Save save)
+    public Task<object?>? SendPacket(PacketType packetType, object? obj, bool waitResult)
     {
-        throw new NotImplementedException();
+        return _clientSocket?.SendPacket(packetType, obj, waitResult);
     }
 
-    public override double GetProgressionOfAllSave()
+    public void SetRemoteConfig()
     {
-        throw new NotImplementedException();
+
+        if (SendPacket(PacketType.Server_HomePage_GetConfig, null, true)?.Result is Config remoteConfig)
+            _config = remoteConfig;
     }
 
-    public override bool IsRunningSave(string? saveName)
+    public void ChangeMaxFileSize(double maxFileSize)
     {
-        throw new NotImplementedException();
+
+        SendPacket(PacketType.Server_HomePage_ChangeMaxFileSize, maxFileSize);
+        SetRemoteConfig();
     }
 
-    public override void RemoveEncryptExtensionEvent(object? args)
+    public void ChangeSavesFileType(FileType fileType)
     {
-        throw new NotImplementedException();
+
+        SendPacket(PacketType.Server_HomePage_ChangeSavesFileType, fileType);
+        SetRemoteConfig();
     }
 
-    public override void RemovePriorityFileEvent(object? args)
+    public void ChangeLogsFileType(FileType fileType)
     {
-        throw new NotImplementedException();
+
+        SendPacket(PacketType.Server_HomePage_ChangeSavesFileType, fileType);
+        SetRemoteConfig();
     }
 
-    public override bool RemoveSave(string saveName)
+    public override double MaxFileSize
     {
-        throw new NotImplementedException();
+        get => _config.MaxFileSize;
+        set => ChangeMaxFileSize(value);
     }
 
-    public override void StartAllSaves()
+
+    public override FileType SelectedSavesFileType
     {
-        throw new NotImplementedException();
+        get => _config.SavesFileType;
+        set => ChangeSavesFileType(value);
     }
 
-    public override bool StartSave(string name)
+    public override CultureInfo SelectedCultureInfo
     {
-        throw new NotImplementedException();
+        get => EasySaveService.SelectedCultureInfo;
+        set => EasySaveService.ChangeCulture(value);
     }
 
-    public override void UpdateEncryptExtensionsList()
+    public override List<CultureInfo> AllCultureInfo
     {
-        throw new NotImplementedException();
+        get => EasySaveService.AllCultureInfo;
+        set => SetField(ref EasySaveService.AllCultureInfo, value, nameof(AllCultureInfo));
     }
 
-    public override void UpdatePriorityFilesList()
+    public override FileType SelectedLogsFileType
     {
-        throw new NotImplementedException();
+        get => _config.LogsFileType;
+        set => ChangeLogsFileType(value);
     }
 
     public override void UpdateStats()
     {
-        throw new NotImplementedException();
+        StatSavesNumber = SaveService.GetSaves().Count;
+        StatLogsNumber = LogService.GetAllLogFiles().Count;
     }
+
+    public override void RemoveEncryptExtensionEvent(object? args)
+    {
+        if (args is not string extension)
+            return;
+
+        ConfigurationService.RemoveEncryptExtension(extension);
+        EncryptExtensions.Remove(extension);
+    }
+
+
+    public override void RemovePriorityFileEvent(object? args)
+    {
+        if (args is not string priorityFile)
+            return;
+
+        ConfigurationService.RemovePriorityFile(priorityFile);
+        PriorityFiles.Remove(priorityFile);
+    }
+
+    public override void UpdateEncryptExtensionsList()
+    {
+        EncryptExtensions.Clear();
+        foreach (var extensionName in _config.EncryptExtensions)
+            EncryptExtensions.Add(extensionName);
+    }
+
+    public override void UpdatePriorityFilesList()
+    {
+        PriorityFiles.Clear();
+        foreach (var fileName in _config.PriorityFiles)
+            PriorityFiles.Add(fileName);
+    }
+
+
 }
 

@@ -20,7 +20,7 @@ public sealed partial class MainWindow : Window
 
     public NavigationView CurrentNavigationView;
 
-    public bool IsServer = true;
+    public bool IsServer = false;
 
 
     public MainWindow()

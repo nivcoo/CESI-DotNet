@@ -7,6 +7,15 @@ namespace MainApplication.ViewModels.Home;
 public class ServerHomeViewModel : AHomeViewModel
 {
 
+    public ServerHomeViewModel() : base()
+    {
+        UpdateEncryptExtensionsList();
+
+        UpdatePriorityFilesList();
+
+        UpdateStats();
+    }
+
     public override double MaxFileSize
     {
         get => ConfigurationService.Config.MaxFileSize;
@@ -64,22 +73,22 @@ public class ServerHomeViewModel : AHomeViewModel
     }
 
 
-    public override bool StartSave(string name)
+    public bool StartSave(string name)
     {
         return SaveService.StartSave(name);
     }
 
-    public override void StartAllSaves()
+    public void StartAllSaves()
     {
         SaveService.StartAllSaves();
     }
 
-    public override bool RemoveSave(string saveName)
+    public bool RemoveSave(string saveName)
     {
         return SaveService.RemoveSave(saveName);
     }
 
-    public override bool IsRunningSave(string? saveName)
+    public bool IsRunningSave(string? saveName)
     {
         return SaveService.IsRunningSave(saveName);
     }
@@ -99,17 +108,17 @@ public class ServerHomeViewModel : AHomeViewModel
     }
 
 
-    public override double GetProgressionOfAllSave()
+    public double GetProgressionOfAllSave()
     {
         return SaveService.GetProgressionOfAllSave();
     }
 
-    public override Tuple<int, int> GetFilesInformationsOfSave(Save save)
+    public Tuple<int, int> GetFilesInformationsOfSave(Save save)
     {
         return SaveService.GetFilesInformationsOfSave(save);
     }
 
-    public override Tuple<int, int> GetFilesInformationsOfAllSave()
+    public Tuple<int, int> GetFilesInformationsOfAllSave()
     {
         return SaveService.GetFilesInformationsOfAllSave();
     }

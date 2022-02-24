@@ -2,11 +2,10 @@
 using MainApplication.Objects.Enums;
 using MainApplication.Services.Sockets;
 using MainApplication.Storages;
-using System.Diagnostics;
 
 namespace MainApplication.Services;
 
-internal sealed class ConfigurationService
+internal sealed class ConfigurationService : IDisposable
 {
     private static readonly ConfigurationService Instance = new();
 
@@ -18,11 +17,19 @@ internal sealed class ConfigurationService
 
     public Config Config;
 
+    public bool IsClient = true;
+
+    public ClientSocket? ClientSocket;
+
+    public event EventHandler? Disposed;
+
+    private bool closed;
+
     public ConfigurationService()
     {
-        ASocket listener = new Listener();
-        ASocket client = new Client();
-        
+        using ASocket listener = new ServerSocket();
+        if (IsClient)
+            ClientSocket = new ClientSocket();
 
         localPath = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"\Cesi-EasySave\");
         if (!Directory.Exists(localPath))
@@ -55,7 +62,7 @@ internal sealed class ConfigurationService
 
     internal void ChangeSavesFileType(FileType savesFileType)
     {
-        
+
         if (savesFileType == Config.SavesFileType)
             return;
         SaveService ss = SaveService.GetInstance();
@@ -125,4 +132,33 @@ internal sealed class ConfigurationService
         SaveCurrentConfig();
         return true;
     }
+
+    #region IDISPOSABLE
+
+    private bool disposedValue;
+
+    public void Dispose(bool disposing)
+    {
+        if (!disposedValue)
+        {
+            if (disposing)
+            {
+                ClientSocket?.Dispose();
+            }
+            disposedValue = true;
+        }
+    }
+
+    public void Dispose()
+    {
+        if (closed)
+            return;
+        closed = true;
+        Disposed?.Invoke(this, EventArgs.Empty);
+
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
+    }
+
+    #endregion IDISPOSABLE
 }

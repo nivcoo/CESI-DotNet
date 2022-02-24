@@ -4,18 +4,19 @@ using ConsoleApplication.Libs;
 using MainApplication.Localization;
 using MainApplication.Objects.Enums;
 using MainApplication.ViewModels;
+using MainApplication.ViewModels.Home;
 
 namespace ConsoleApplication.Views;
 
 public class HomeView : BaseView
 {
-    private readonly HomeViewModel _homeViewModel;
+    private readonly ServerHomeViewModel _homeViewModel;
     private readonly SavesViewModel _savesViewModel;
     private bool _running;
 
     public HomeView()
     {
-        _homeViewModel = new HomeViewModel();
+        _homeViewModel = new ServerHomeViewModel();
         _savesViewModel = new SavesViewModel();
         _running = true;
         InitView();

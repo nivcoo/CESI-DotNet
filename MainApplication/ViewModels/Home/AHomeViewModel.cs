@@ -25,11 +25,6 @@ public abstract class AHomeViewModel : BaseViewModel
 
         PriorityFiles = new ObservableCollection<string>();
 
-        UpdateEncryptExtensionsList();
-
-        UpdatePriorityFilesList();
-
-        UpdateStats();
     }
 
     public CommandHandler RemoveEncryptExtensionButtonEvent
@@ -88,32 +83,8 @@ public abstract class AHomeViewModel : BaseViewModel
     public abstract void RemovePriorityFileEvent(object? args);
 
 
-    public abstract bool StartSave(string name);
-
-    public abstract void StartAllSaves();
-
-    public abstract bool RemoveSave(string saveName);
-
-    public abstract bool IsRunningSave(string? saveName);
-
     public abstract void UpdateEncryptExtensionsList();
 
     public abstract void UpdatePriorityFilesList();
 
-
-    public abstract double GetProgressionOfAllSave();
-
-    public abstract Tuple<int, int> GetFilesInformationsOfSave(Save save);
-
-    public abstract Tuple<int, int> GetFilesInformationsOfAllSave();
-
-    public static double GetProgressionOfSave(Save save)
-    {
-        return save.Progression;
-    }
-
-    public static bool IsCorrectLanguage(string language)
-    {
-        return LanguageCheck.CorrectLanguage(language);
-    }
 }

@@ -5,9 +5,15 @@ using System.Reflection;
 namespace MainApplication.Services.Sockets;
 
 //Todo Add IDisposable
-public abstract class ASocket
+public abstract class ASocket : IDisposable
 {
     public List<PacketData> PacketsDataList;
+
+    public Socket? Socket;
+
+    public event EventHandler? Disposed;
+
+    private bool closed;
 
     public ASocket()
     {
@@ -29,13 +35,50 @@ public abstract class ASocket
         return PacketsDataList.Single(packetData => packetData.PacketType == packetMessage.PacketType);
     }
 
-    public string? InvokeMethodFromPacketmessage(PacketMessage packetMessage, Socket? socket)
+    public object? InvokeMethodFromPacketmessage(PacketMessage packetMessage, Socket? socket)
     {
 
         var packetData = GetPacketDataByType(packetMessage);
         var receiveData = packetMessage?.Content;
-        packetData?.MethodInfo?.Invoke(packetData.Instance, new object?[] { receiveData, socket });
-        return receiveData;
+        return packetData?.MethodInfo?.Invoke(packetData.Instance, new object?[] { receiveData, socket });
 
     }
+
+    public void ShutdownSocket()
+    {
+        if (Socket == null)
+            return;
+        Socket.Shutdown(SocketShutdown.Both);
+        Socket.Close();
+    }
+
+
+    #region IDISPOSABLE
+
+    private bool disposedValue;
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposedValue)
+        {
+            if (disposing)
+            {
+                Socket?.Dispose();
+            }
+            disposedValue = true;
+        }
+    }
+
+    public void Dispose()
+    {
+        if (closed)
+            return;
+        closed = true;
+        Disposed?.Invoke(this, EventArgs.Empty);
+
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
+    }
+
+    #endregion IDISPOSABLE
 }
