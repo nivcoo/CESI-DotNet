@@ -1,4 +1,5 @@
-﻿using MainApplication.Objects.Enums;
+﻿using MainApplication.Handlers;
+using MainApplication.Objects.Enums;
 
 namespace MainApplication.Objects;
 
@@ -6,7 +7,7 @@ namespace MainApplication.Objects;
 ///     Structure of the JSON ConfigFile : /// This  handles the creation of the JSON log file, you can find the different
 ///     types of information present
 /// </summary>
-public class Config
+public class Config : INPChanged
 {
     public Config(string language, FileType savesFileType, FileType logsFileType, List<string> encryptExtensions,
         List<string> priorityFiles, double maxFileSize)
@@ -19,15 +20,42 @@ public class Config
         MaxFileSize = maxFileSize;
     }
 
-    public string Language { get; set; }
-    
-    public FileType SavesFileType { get; set; }
+    private string _language;
 
-    public FileType LogsFileType { get; set; }
+    public string Language
+    {
+        get => _language;
+        set => SetField(ref _language, value, nameof(Language));
+    }
+
+    private FileType _savesFileType;
+
+    public FileType SavesFileType
+    {
+        get => _savesFileType;
+        set => SetField(ref _savesFileType, value, nameof(SavesFileType));
+    }
+
+
+
+    private FileType _logsFileType;
+
+    public FileType LogsFileType
+    {
+        get => _logsFileType;
+        set => SetField(ref _logsFileType, value, nameof(LogsFileType));
+    }
 
     public List<string> EncryptExtensions { get; set; }
 
     public List<string> PriorityFiles { get; set; }
 
-    public double MaxFileSize { get; set; }
+    public double _maxFileSize;
+
+    public double MaxFileSize
+    {
+        get => _maxFileSize;
+        set => SetField(ref _maxFileSize, value, nameof(MaxFileSize));
+    }
+
 }

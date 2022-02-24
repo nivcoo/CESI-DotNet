@@ -1,5 +1,8 @@
-﻿using MainApplication.Objects;
+﻿using MainApplication.Localization;
+using MainApplication.Objects;
 using MainApplication.Objects.Enums;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 
 namespace MainApplication.ViewModels.Home;
@@ -14,14 +17,54 @@ public class ServerHomeViewModel : AHomeViewModel
         UpdatePriorityFilesList();
 
         UpdateStats();
+
+        ConfigurationService.Config.RegisterToEvent(NotifyPropertyChanged);
     }
+
+    private void NotifyPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+
+        switch(e.PropertyName)
+        {
+            case nameof(ConfigurationService.Config.MaxFileSize):
+                OnPropertyChanged(nameof(MaxFileSize));
+                UpdateGUI();
+                break;
+            case nameof(ConfigurationService.Config.SavesFileType):
+                OnPropertyChanged(nameof(SelectedSavesFileType));
+                UpdateGUI();
+                break;
+
+            case nameof(ConfigurationService.Config.LogsFileType):
+                OnPropertyChanged(nameof(SelectedLogsFileType));
+
+                UpdateGUI();
+                break;
+
+            case nameof(ConfigurationService.Config.Language):
+                
+                OnPropertyChanged(nameof(SelectedCultureInfo));
+                OnPropertyChanged(nameof(AllCultureInfo));
+                UpdateGUI();
+                break;
+
+        }
+    }
+    public void UpdateGUI()
+    {
+        UpdateLocalizationAction?.Invoke();
+        UpdateComboBoxAction?.Invoke();
+        UpdateStats();
+        UpdateEncryptExtensionsList();
+        UpdatePriorityFilesList();
+    }
+    
 
     public override double MaxFileSize
     {
         get => ConfigurationService.Config.MaxFileSize;
         set => ConfigurationService.ChangeMaxFileSize(value);
     }
-
 
     public override FileType SelectedSavesFileType
     {
@@ -121,6 +164,15 @@ public class ServerHomeViewModel : AHomeViewModel
     public Tuple<int, int> GetFilesInformationsOfAllSave()
     {
         return SaveService.GetFilesInformationsOfAllSave();
+    }
+    public static double GetProgressionOfSave(Save save)
+    {
+        return save.Progression;
+    }
+
+    public static bool IsCorrectLanguage(string language)
+    {
+        return LanguageCheck.CorrectLanguage(language);
     }
 
 }

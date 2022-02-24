@@ -1,4 +1,5 @@
 ﻿using GuiApplication.Views.Pages;
+using MainApplication.ViewModels;
 using MainApplication.ViewModels.Home;
 using Microsoft.UI;
 using Microsoft.UI.Dispatching;
@@ -6,13 +7,16 @@ using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using WinRT.Interop;
 
-namespace GuiApplication.Views;
+namespace GuiApplication.Views.UiWindows;
 
 public sealed partial class MainWindow : Window
 {
     private static readonly MainWindow Instance = new();
+    private readonly App App = App.Instance;
     public IntPtr HWnd;
     private AppWindow _apw;
 
@@ -20,11 +24,12 @@ public sealed partial class MainWindow : Window
 
     public NavigationView CurrentNavigationView;
 
-    public bool IsServer = false;
+    private MainWindowViewModel _mainWindowViewModel;
 
 
     public MainWindow()
     {
+        _mainWindowViewModel = new MainWindowViewModel();
         GetAppWindowAndPresenter();
         InitializeComponent();
         _apw.Resize(new Windows.Graphics.SizeInt32 { Width = 1600, Height = 900 });
@@ -39,7 +44,7 @@ public sealed partial class MainWindow : Window
 
     public AHomeViewModel GetHomeViewModel()
     {
-        if(IsServer)
+        if(App.IsServer)
             return new ServerHomeViewModel();
         return new ClientHomeViewModel();
     }
@@ -88,6 +93,28 @@ public sealed partial class MainWindow : Window
                 break;
         }
 
+    }
+
+    public void SelectSocketType(object sender, RoutedEventArgs e)
+    {
+        if (sender is RadioButton rb)
+        {
+            string socketType = rb.Tag.ToString();
+            Debug.WriteLine(socketType);
+
+            switch (socketType)
+            {
+                case "type_server":
+                    App.IsServer = true;
+                    break;
+                case "type_client":
+                    App.IsServer = false;
+                    break;
+            }
+            _mainWindowViewModel.InitSocket(App.IsServer);
+            SelectTypeView.Visibility = Visibility.Collapsed;
+            MainNavigationView.Visibility = Visibility.Visible;
+        }
     }
 
     public static MainWindow GetInstance()

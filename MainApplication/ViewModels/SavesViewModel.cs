@@ -85,7 +85,7 @@ public class SavesViewModel : BaseViewModel
         {
             _dispatchUiAction = value;
             if (value != null)
-                EasySaveService.DispatchUiAction = value;
+                UIService.DispatchUiAction = value;
         }
     }
 

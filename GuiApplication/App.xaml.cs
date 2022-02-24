@@ -1,16 +1,19 @@
-﻿using GuiApplication.Views;
+﻿using GuiApplication.Views.UiWindows;
 using Microsoft.UI.Xaml;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace GuiApplication;
 
 public partial class App : Application
 {
+
+    public static App Instance { get; private set; }
+
+    public bool IsServer = true;
+
     public App()
     {
-        Process proc = Process.GetCurrentProcess();
+        Instance = this;
+        /*Process proc = Process.GetCurrentProcess();
         int count = new List<Process>(Process.GetProcesses()).FindAll(p =>
             p.ProcessName == proc.ProcessName).Count;
 
@@ -19,17 +22,17 @@ public partial class App : Application
             Environment.Exit(0);
             Process.GetCurrentProcess().Kill();
             return;
-        }
+        }*/
 
         InitializeComponent();
     }
 
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
-        m_window = MainWindow.GetInstance();
-        m_window.Activate();
+        Window = MainWindow.GetInstance();
+        Window.Activate();
     }
 
-    private Window m_window;
+    public Window Window;
 }
 

@@ -1,4 +1,5 @@
 ﻿using GuiApplication.Views.Dialogs;
+using GuiApplication.Views.UiWindows;
 using MainApplication.ViewModels;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;

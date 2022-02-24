@@ -138,7 +138,7 @@ public class HomeView : BaseView
                 {
                     percent = save == null
                         ? _homeViewModel.GetProgressionOfAllSave()
-                        : HomeViewModel.GetProgressionOfSave(save);
+                        : ServerHomeViewModel.GetProgressionOfSave(save);
                     var (item1, totalFiles) = save == null
                         ? _homeViewModel.GetFilesInformationsOfAllSave()
                         : _homeViewModel.GetFilesInformationsOfSave(save);
@@ -169,7 +169,7 @@ public class HomeView : BaseView
         {
             Console.Write(Environment.NewLine + Language.GLOBAL_SELECT_LANGUAGE + @" ");
             language = Console.ReadLine() ?? string.Empty;
-            success = HomeViewModel.IsCorrectLanguage(language);
+            success = ServerHomeViewModel.IsCorrectLanguage(language);
         }
         
         _homeViewModel.SelectedCultureInfo = CultureInfo.GetCultureInfo(language);

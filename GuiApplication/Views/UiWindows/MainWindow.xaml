@@ -1,0 +1,47 @@
+﻿<Window
+    x:Class="GuiApplication.Views.UiWindows.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Grid>
+        <StackPanel Name="SelectTypeView" VerticalAlignment="Center" Visibility="Visible">
+
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                <RadioButtons Header="Socket type : ">
+                    <RadioButton Content="Server" Tag="type_server" Checked="SelectSocketType"/>
+                    <RadioButton Content="Client" Tag="type_client" Checked="SelectSocketType"/>
+                </RadioButtons>
+            </StackPanel>
+            
+        </StackPanel>
+        <NavigationView Name="MainNavigationView" Visibility="Collapsed" SelectionChanged="NavigationView_SelectionChanged" Header="This is Heade Text"  PaneDisplayMode="Left" OpenPaneLength="250"  IsSettingsVisible="False" IsBackButtonVisible="Collapsed">
+            <NavigationView.Resources>
+                <ResourceDictionary>
+                    <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="{ThemeResource SolidBackgroundFillColorBase}"/>
+                    <ResourceDictionary.ThemeDictionaries>
+                        <ResourceDictionary x:Key="Dark">
+
+                            <SolidColorBrush x:Key="ButtonBackground" Color="{ThemeResource SystemBaseLowColor}"/>
+                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="{ThemeResource SystemBaseMediumLowColor}"/>
+                            <SolidColorBrush x:Key="ComboBoxBackground" Color="{ThemeResource SystemBaseLowColor}"/>
+                            <SolidColorBrush x:Key="ComboBoxBackgroundPointerOver" Color="{ThemeResource SystemBaseMediumLowColor}"/>
+                            <SolidColorBrush x:Key="NumberBoxBackground" Color="{ThemeResource SystemBaseLowColor}"/>
+                            <SolidColorBrush x:Key="NumberBoxBackgroundPointerOver" Color="{ThemeResource SystemBaseMediumLowColor}"/>
+                        </ResourceDictionary>
+                    </ResourceDictionary.ThemeDictionaries>
+                </ResourceDictionary>
+            </NavigationView.Resources>
+
+            <NavigationView.MenuItems>
+                <NavigationViewItem Name="PageHomeNavigationItem" Tag="HomePage" Icon="Home" IsSelected="True" />
+                <NavigationViewItem Name="PageSavesNavigationItem" Tag="SavesPage" Icon="Save" />
+                <NavigationViewItem Name="PageLogsNavigationItem" Tag="LogsPage" Icon="Document" />
+            </NavigationView.MenuItems>
+
+            <Frame Margin="25" CornerRadius="10" Padding="25,15,25,25" Background="{ThemeResource SolidBackgroundFillColorBase}" Name="MainContentFrame"/>
+        </NavigationView>
+    </Grid>
+
+</Window>

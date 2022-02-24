@@ -1,14 +1,27 @@
 ﻿using System.Collections.ObjectModel;
 using System.Globalization;
 using MainApplication.Handlers;
-using MainApplication.Localization;
-using MainApplication.Objects;
 using MainApplication.Objects.Enums;
 
 namespace MainApplication.ViewModels.Home;
 
 public abstract class AHomeViewModel : BaseViewModel
 {
+    private Action<Action>? _dispatchUiAction;
+
+    public Action? UpdateLocalizationAction; 
+    public Action? UpdateComboBoxAction;
+    public Action<Action>? DispatchUiAction
+    {
+        get => _dispatchUiAction;
+        set
+        {
+            _dispatchUiAction = value;
+            if (value != null)
+                UIService.DispatchUiAction = value;
+        }
+    }
+
     private CommandHandler? _removeEncryptExtensionButtonEvent;
 
     private CommandHandler? _removePriorityFileButtonEvent;

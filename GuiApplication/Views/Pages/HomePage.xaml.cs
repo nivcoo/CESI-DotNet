@@ -1,6 +1,8 @@
 ﻿using GuiApplication.Views.Dialogs;
+using GuiApplication.Views.UiWindows;
 using MainApplication.Objects.Enums;
 using MainApplication.ViewModels.Home;
+using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
@@ -19,17 +21,40 @@ public sealed partial class HomePage : Page
     {
         _mainWindow = MainWindow.GetInstance();
         _homeViewModel = _mainWindow.GetHomeViewModel();
+        _homeViewModel.DispatchUiAction = (action) => _mainWindow.DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Low, () => { action.Invoke(); });
         DataContext = _homeViewModel;
         InitializeComponent();
-        InitTexts();
-        LanguageComboBox.SelectedItem = _homeViewModel.SelectedCultureInfo;
+
+        _homeViewModel.UpdateLocalizationAction += InitGlobalText;
+
+        _homeViewModel.UpdateLocalizationAction.Invoke();
+
         LanguageComboBox.SelectionChanged += ChangeCultureEvent;
 
-        SavesFileTypeComboBox.SelectedItem = _homeViewModel.SelectedSavesFileType;
         SavesFileTypeComboBox.SelectionChanged += ChangeSavesFileTypeEvent;
 
-        LogsFileTypeComboBox.SelectedItem = _homeViewModel.SelectedLogsFileType;
         LogsFileTypeComboBox.SelectionChanged += ChangeLogsFileTypeEvent;
+
+        _homeViewModel.UpdateComboBoxAction += InitComboBox;
+
+        _homeViewModel.UpdateComboBoxAction.Invoke();
+
+    }
+
+    public void InitGlobalText()
+    {
+        _mainWindow.InitTexts();
+        InitTexts();
+
+    }
+
+    public void InitComboBox()
+    {
+        LanguageComboBox.SelectedItem = _homeViewModel.SelectedCultureInfo;
+
+        SavesFileTypeComboBox.SelectedItem = _homeViewModel.SelectedSavesFileType;
+
+        LogsFileTypeComboBox.SelectedItem = _homeViewModel.SelectedLogsFileType;
 
     }
 
@@ -64,9 +89,7 @@ public sealed partial class HomePage : Page
         ComboBox comboBox = sender as ComboBox;
         var language = comboBox.SelectedItem as CultureInfo;
         _homeViewModel.SelectedCultureInfo = language;
-
-        _mainWindow.InitTexts();
-        InitTexts();
+        _homeViewModel.UpdateLocalizationAction.Invoke();
     }
 
     private void ChangeSavesFileTypeEvent(object sender, SelectionChangedEventArgs args)

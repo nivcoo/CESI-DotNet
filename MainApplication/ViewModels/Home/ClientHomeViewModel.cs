@@ -1,7 +1,10 @@
-﻿using MainApplication.Objects;
+﻿using MainApplication.Localization;
+using MainApplication.Objects;
 using MainApplication.Objects.Enums;
 using MainApplication.Services.Sockets;
+using MainApplication.Services.Sockets.Chats;
 using MainApplication.Services.Sockets.Packets;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Net.Sockets;
@@ -10,16 +13,13 @@ namespace MainApplication.ViewModels.Home;
 
 public class ClientHomeViewModel : AHomeViewModel
 {
-    private Config _config;
-    private readonly ClientSocket? _clientSocket;
+    private readonly ChatClient? _chatClient;
 
 
     public ClientHomeViewModel() : base()
     {
-        _config = ConfigurationService.Config;
 
-
-        _clientSocket = ConfigurationService.ClientSocket;
+        _chatClient = UIService.ChatClient;
         SetRemoteConfig();
 
         UpdateEncryptExtensionsList();
@@ -27,63 +27,21 @@ public class ClientHomeViewModel : AHomeViewModel
         UpdatePriorityFilesList();
 
         UpdateStats();
+
+        ConfigurationService.Config.RegisterToEvent(NotifyEasySaveServicePropertyChanged);
     }
 
-    public Task<object?>? SendPacket(PacketType packetType, object? obj)
+    private void NotifyEasySaveServicePropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        return _clientSocket?.SendPacket(packetType, obj, false);
-    }
-
-    public Task<object?>? SendPacket(PacketType packetType, object? obj, bool waitResult)
-    {
-        return _clientSocket?.SendPacket(packetType, obj, waitResult);
-    }
-
-    public void SetRemoteConfig()
-    {
-
-        if (SendPacket(PacketType.Server_HomePage_GetConfig, null, true)?.Result is Config remoteConfig)
-            _config = remoteConfig;
-    }
-
-    public void ChangeMaxFileSize(double maxFileSize)
-    {
-
-        SendPacket(PacketType.Server_HomePage_ChangeMaxFileSize, maxFileSize);
-        SetRemoteConfig();
-    }
-
-    public void ChangeSavesFileType(FileType fileType)
-    {
-
-        SendPacket(PacketType.Server_HomePage_ChangeSavesFileType, fileType);
-        SetRemoteConfig();
-    }
-
-    public void ChangeLogsFileType(FileType fileType)
-    {
-
-        SendPacket(PacketType.Server_HomePage_ChangeSavesFileType, fileType);
-        SetRemoteConfig();
-    }
-
-    public override double MaxFileSize
-    {
-        get => _config.MaxFileSize;
-        set => ChangeMaxFileSize(value);
-    }
-
-
-    public override FileType SelectedSavesFileType
-    {
-        get => _config.SavesFileType;
-        set => ChangeSavesFileType(value);
-    }
-
-    public override CultureInfo SelectedCultureInfo
-    {
-        get => EasySaveService.SelectedCultureInfo;
-        set => EasySaveService.ChangeCulture(value);
+        switch (e.PropertyName)
+        {
+            case nameof(ConfigurationService.Config.Language):
+                SetCultureInfo();
+                OnPropertyChanged(nameof(SelectedCultureInfo));
+                OnPropertyChanged(nameof(AllCultureInfo));
+                break;
+        }
+        
     }
 
     public override List<CultureInfo> AllCultureInfo
@@ -92,9 +50,76 @@ public class ClientHomeViewModel : AHomeViewModel
         set => SetField(ref EasySaveService.AllCultureInfo, value, nameof(AllCultureInfo));
     }
 
+    public void SendPacket(PacketType packetType, object? obj)
+    {
+        _chatClient?.SendPacket(packetType, obj);
+    }
+
+    public void SetRemoteConfig()
+    {
+        SendPacket(PacketType.Server_HomePage_GetConfig, null);
+    }
+
+    public void SetCultureInfo()
+    {
+        EasySaveService.SelectedCultureInfo = CultureInfo.GetCultureInfo(ConfigurationService.Config.Language);
+        Language.Culture = EasySaveService.SelectedCultureInfo;
+        UpdateLocalizationAction?.Invoke();
+        UpdateComboBoxAction?.Invoke();
+    }
+
+    public void ChangeMaxFileSize(double maxFileSize)
+    {
+
+        SendPacket(PacketType.Server_HomePage_ChangeMaxFileSize, maxFileSize);
+        ConfigurationService.Config.MaxFileSize = maxFileSize;
+    }
+
+    public void ChangeSavesFileType(FileType fileType)
+    {
+
+        SendPacket(PacketType.Server_HomePage_ChangeSavesFileType, fileType);
+        ConfigurationService.Config.SavesFileType = fileType;
+    }
+
+    public void ChangeLogsFileType(FileType fileType)
+    {
+
+        SendPacket(PacketType.Server_HomePage_ChangeLogsFileType, fileType);
+        ConfigurationService.Config.LogsFileType = fileType;
+    }
+
+    public void ChangeCulture(CultureInfo culture)
+    {
+        if (culture == EasySaveService.SelectedCultureInfo)
+            return;
+        SendPacket(PacketType.Server_HomePage_ChangeCulture, culture.Name);
+        EasySaveService.ChangeCulture(culture);
+        ConfigurationService.Config.Language = culture.Name;
+    }
+
+    public override double MaxFileSize
+    {
+        get => ConfigurationService.Config.MaxFileSize;
+        set => ChangeMaxFileSize(value);
+    }
+
+
+    public override FileType SelectedSavesFileType
+    {
+        get => ConfigurationService.Config.SavesFileType;
+        set => ChangeSavesFileType(value);
+    }
+
+    public override CultureInfo SelectedCultureInfo
+    {
+        get => EasySaveService.SelectedCultureInfo;
+        set => ChangeCulture(value);
+    }
+
     public override FileType SelectedLogsFileType
     {
-        get => _config.LogsFileType;
+        get => ConfigurationService.Config.LogsFileType;
         set => ChangeLogsFileType(value);
     }
 
@@ -126,14 +151,14 @@ public class ClientHomeViewModel : AHomeViewModel
     public override void UpdateEncryptExtensionsList()
     {
         EncryptExtensions.Clear();
-        foreach (var extensionName in _config.EncryptExtensions)
+        foreach (var extensionName in ConfigurationService.Config.EncryptExtensions)
             EncryptExtensions.Add(extensionName);
     }
 
     public override void UpdatePriorityFilesList()
     {
         PriorityFiles.Clear();
-        foreach (var fileName in _config.PriorityFiles)
+        foreach (var fileName in ConfigurationService.Config.PriorityFiles)
             PriorityFiles.Add(fileName);
     }
 

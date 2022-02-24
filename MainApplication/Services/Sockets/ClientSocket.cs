@@ -56,7 +56,6 @@ public class ClientSocket : ASocket
                     while ((bytesRec = Socket.Receive(bytes)) > 0)
                     {
                         data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
-                        Debug.WriteLine(data);
                         if (data.IndexOf("<EOF>") > -1)
                         {
                             break;

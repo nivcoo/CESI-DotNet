@@ -5,6 +5,7 @@ namespace MainApplication.Services.Saves;
 
 public abstract class ASave
 {
+    private readonly UIService _uiService = UIService.GetInstance();
     private readonly ConfigurationService _configurationService = ConfigurationService.GetInstance();
     private readonly EasySaveService _easySaveService = EasySaveService.GetInstance();
     private readonly LogService _logService = LogService.GetInstance();
@@ -142,7 +143,7 @@ public abstract class ASave
     private void ResetSaveValues()
     {
         SaveFiles = new List<SaveFile>();
-        ExecuteActionOnUIThread(() => { Save.ResetValues(); });
+         Save.ResetValues();
     }
 
     /// <summary>
@@ -150,12 +151,11 @@ public abstract class ASave
     /// </summary>
     private void UpdateSaveStatut()
     {
-        ExecuteActionOnUIThread(() =>
-        {
+        
             Save.NbFilesLeftToDo -= 1;
             Save.FilesAlreadyDone += 1;
             Save.UpdateProgression();
-        });
+        
         UpdateSaveStorage();
     }
 
@@ -164,12 +164,11 @@ public abstract class ASave
     /// </summary>
     private void UpdateStartSaveStatut()
     {
-        ExecuteActionOnUIThread(() =>
-        {
+       
             Save.TotalFilesToCopy = SaveFiles.Count;
             Save.NbFilesLeftToDo = SaveFiles.Count;
             Save.TotalFilesSize = SaveFiles.Sum(saveFile => saveFile.FileSize);
-        });
+        
         UpdateSaveStorage();
     }
 
@@ -179,7 +178,7 @@ public abstract class ASave
     /// <param name="state"></param>
     private void ChangeSaveState(State state)
     {
-        ExecuteActionOnUIThread(() => { Save.State = state; });
+        Save.State = state;
         UpdateSaveStorage();
     }
 
@@ -284,33 +283,21 @@ public abstract class ASave
     {
         if(_easySaveService.JobApplicationIsRunning(ResumePausedSave))
         {
-            ExecuteActionOnUIThread(() =>
-            {
+           
                 _saveService.SetStateOfSave(Save, true);
-            });
+           
         }
     }
 
     private void ResumePausedSave()
     {
-        ExecuteActionOnUIThread(() =>
-        {
+        
             _saveService.SetStateOfSave(Save, false);
-        });
+       
     }
 
     public bool IsCancelled()
     {
         return TaskTokenSource is {IsCancellationRequested: true};
-    }
-
-    public void ExecuteActionOnUIThread(Action action)
-    {
-        var uiThread = _easySaveService.DispatchUiAction;
-
-        if (uiThread == null)
-            action.Invoke();
-        else
-            uiThread.Invoke(action.Invoke);
     }
 }

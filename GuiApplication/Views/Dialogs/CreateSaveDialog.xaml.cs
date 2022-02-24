@@ -1,4 +1,5 @@
-﻿using MainApplication.Objects;
+﻿using GuiApplication.Views.UiWindows;
+using MainApplication.Objects;
 using MainApplication.Objects.Enums;
 using MainApplication.ViewModels;
 using Microsoft.UI.Xaml;

@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Globalization;
+using MainApplication.Handlers;
 using MainApplication.Localization;
 
 namespace MainApplication.Services;
@@ -7,7 +8,8 @@ namespace MainApplication.Services;
 internal class EasySaveService
 {
     private static readonly EasySaveService Instance = new();
-    private readonly ConfigurationService _configurationService = ConfigurationService.GetInstance();
+    private readonly ConfigurationService _configurationService;
+    private readonly UIService _uiService;
 
     public List<CultureInfo> AllCultureInfo;
 
@@ -16,8 +18,11 @@ internal class EasySaveService
 
     public CultureInfo SelectedCultureInfo;
 
+
     private EasySaveService()
     {
+        _uiService = UIService.GetInstance();
+        _configurationService = ConfigurationService.GetInstance();
         var config = _configurationService.Config;
         Language.Culture = CultureInfo.GetCultureInfo(config.Language);
         SelectedCultureInfo = Language.Culture;
@@ -26,7 +31,10 @@ internal class EasySaveService
             AllCultureInfo.Add(CultureInfo.GetCultureInfo(language));
     }
 
-    public Action<Action>? DispatchUiAction { get; set; }
+    internal void RegisterToEvent(object notifyEasySaveServicePropertyChanged)
+    {
+        throw new NotImplementedException();
+    }
 
     public static EasySaveService GetInstance()
     {
@@ -48,7 +56,7 @@ internal class EasySaveService
         if (process == null)
             return false;
         process.EnableRaisingEvents = true;
-        process.Exited += (object? sender, EventArgs e) => DispatchUiAction?.Invoke(action);
+        process.Exited += (object? sender, EventArgs e) => _uiService.DispatchUiAction?.Invoke(action);
 
 
         return true;
