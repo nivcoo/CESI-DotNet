@@ -31,13 +31,14 @@ public sealed partial class MainWindow : Window
     {
         _mainWindowViewModel = new MainWindowViewModel();
         InitializeComponent();
+        GetAppWindowAndPresenter();
         _apw.Resize(new Windows.Graphics.SizeInt32 { Width = 1600, Height = 900 });
         _apw.Title = "EasySave";
         InitTexts();
 
         SetUIThread();
 
-        GetAppWindowAndPresenter();
+        
 
         CurrentNavigationView = MainNavigationView;
     }
