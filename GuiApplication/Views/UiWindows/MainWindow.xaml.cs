@@ -30,7 +30,6 @@ public sealed partial class MainWindow : Window
     public MainWindow()
     {
         _mainWindowViewModel = new MainWindowViewModel();
-        GetAppWindowAndPresenter();
         InitializeComponent();
         _apw.Resize(new Windows.Graphics.SizeInt32 { Width = 1600, Height = 900 });
         _apw.Title = "EasySave";
@@ -38,6 +37,7 @@ public sealed partial class MainWindow : Window
 
         SetUIThread();
 
+        GetAppWindowAndPresenter();
 
         CurrentNavigationView = MainNavigationView;
     }
